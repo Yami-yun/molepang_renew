@@ -1,0 +1,96 @@
+.comment__header__layout{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* border: 1px solid black; */
+}
+
+.comment__header__layout div{
+    display: flex;
+    align-items: center;
+}
+
+.comment__header__layout h1{
+    margin-right: 22px;
+}
+
+.commment__share__btn{
+    width: 200px;
+    height: 62px;
+
+    border: 3px solid #C4C4C4;
+    color: #C4C4C4;
+
+}
+
+/* 코멘트 창 공유 박스 */
+.comment__share__layout{
+    width: 957px;
+    height: 462px;
+    position: fixed;
+    top: 30vh;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: #FFFFFF;
+    border-radius: 15px;
+    border: 1px solid;
+}
+
+.share__exit__btn{
+    position:absolute;
+    top: 35px;
+    right: 78px;
+    font-size: 3.5rem;
+    color:#C4C4C4;
+}
+
+.comment__share__layout h2{
+    margin: 0px 0px 40px;
+}
+
+.comment__share__layout p{
+    margin: 0px 0px 29px;
+}
+
+
+.share__btn__list{
+    width: 404px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.share__btn__list div{
+    width: 100px;
+    height: 100px;
+
+    background: #FFFFFF;
+    border: 4px solid rgba(0, 0, 0, 0.5);
+    border-radius: 100%;
+}
+
+.url__copy__btn{
+    width: 100px;
+    height: 40px;
+    margin-top: 29px;
+    margin-left: 310px;
+
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #FFFFFF;
+
+    background: #C4C4C4;
+    border-radius: 3px;
+}
+
+hr{
+    width: 450px;
+    height: 3px;
+    border: 0;
+    background: rgba(0, 0, 0, 0.5);
+}

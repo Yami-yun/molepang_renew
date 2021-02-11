@@ -1,0 +1,124 @@
+@charset 'utf-8';
+
+html {
+    font-family: "Roboto", sans-serif;
+
+    word-wrap: break-word;
+
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    
+}
+
+*:focus {
+    outline: none;
+}
+
+html,
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+pre,
+a,
+strong,
+i,
+ol,
+ul,
+li,
+form,
+label,
+article,
+aside,
+canvas,
+footer,
+header,
+output,
+section,
+summary,
+article,
+footer,
+header,
+menu,
+nav,
+section {
+    margin: 0px;
+    display: block;
+    color: #696969;
+}
+
+div,
+span,
+article,
+section,
+header,
+footer,
+aside,
+textarea,
+input,
+p,
+ul,
+li,
+label,
+a,
+form {
+    box-sizing: border-box;
+}
+
+ol,
+ul,
+li {
+    list-style: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+h1{
+    font-size: 2.815rem;
+    font-weight: bold;
+}
+
+h2{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+p, button, textarea::placeholder, textarea, input::placeholder, input{
+    font-size: 1.5625rem;
+    font-weight: 500;
+    color: #999999;
+}
+

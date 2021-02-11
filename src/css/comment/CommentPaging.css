@@ -1,0 +1,27 @@
+/* 페이징 라인 */
+.paging__section{
+    width: 100%;
+    margin : 79px 0 72px;
+    /* border: 1px solid; */
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    
+}
+
+.paging__section img{
+    width: 28.87px;
+    height: 25px;
+}
+
+.paging__number{
+    font-size: 1.8rem;
+    color: #999999;
+}
+
+.paging__number__selected{
+    font-weight: 700;
+    
+}

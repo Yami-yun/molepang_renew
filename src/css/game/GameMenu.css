@@ -1,0 +1,57 @@
+.game__menu__layout{
+    width: 480px;
+    height: 396px;
+    margin : 125px auto 0px;
+}
+
+.game__menu__title1{
+    width: 250px;
+    height: 63px;
+
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 50px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.game__menu__title2{
+    width: 100%;
+    height: 90px;
+    margin-bottom: 30px;
+
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 80px;
+    text-align:end;
+    line-height: 90px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+
+.game__menu__bottom{
+    height: 210px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu__bottom__left{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.menu__bottom__left button{
+    width: 230px;
+    height: 55px;
+
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.menu__bottom__right{
+    width: 230px;
+    height: 210px;
+
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}

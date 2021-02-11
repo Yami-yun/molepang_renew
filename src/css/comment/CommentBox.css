@@ -1,0 +1,33 @@
+.commentbox{
+    height: 179px;
+    padding : 29px 30px 49px;
+    border-bottom: 2px solid #c9c7c7;
+}
+
+.commentbox__first__line{
+    height: 46px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.commentbox__first__line h2{
+    width: 230px;
+    margin-right: 2.2em;
+
+}
+
+.commentbox__first__line div{
+    display: flex;
+    align-items: center;
+}
+
+.commentbox__btn__list button{
+    border: 0px solid;
+}
+
+.commentbox__btn__list :nth-child(3){
+    margin-left: 15px;
+}
+
+
+
