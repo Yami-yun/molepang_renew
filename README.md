@@ -14,8 +14,8 @@ React, TypeScript, Redux
 
 > 팀구성
 - 기획자 1
-- 개발자 1
-- 개발자 1
+- FE 개발자 1 (ME!)
+- BE 개발자 1
 
 
 ## 기간
