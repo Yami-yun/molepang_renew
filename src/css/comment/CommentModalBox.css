@@ -3,7 +3,7 @@
     top: 30%;
     left: 40%;
     width: 450px;
-    height: 445px;
+    height: 430px;
 
     display:flex;
     flex-direction: column;
@@ -14,42 +14,75 @@
 }
 
 .comment__modal__header{
-    padding-left: 42px;
+    padding-left: 30px;
     width: 100%;
-    height: 52px;
-    background: #E5E5E5;
+    height: 60px;
+    background: #2B771D;
     border: 1px solid #C4C4C4;
 
-    font-weight: normal;
-    font-size: 1.125rem;
-    line-height: 50px;
-    color: #696969;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 60px;
+    color: #ffffff;
 }
 
-.method__txt__list{
+.comment__exit__btn{
+   position: absolute;
+   right: 34px;
+   top: 10px;
+   width: 40px;
+   height: 40px;
+   cursor: pointer;
+}
+
+.method__btn__list{
     display:flex;
-    margin-top: 54px;
+    width: 150px;
+    justify-content: space-between;
+    margin: 54px 0 24px;
+    font-size: 25px;
+    font-weight: 500;
     
     /* border: 1px solid; */
 }
 
-.comment__modal__layout p{
-    font-size: 1rem;
+.method__btn__list .method__btn{
+    color: #B9B8B8;
+    cursor: pointer;
+}
+
+.method__btn__bar{
+    margin-top: 5.5px;
+    height: 26px;
+    border:2px solid #8B8989;
+}
+
+.method__btn__selected{
+    color: #2B771D;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.pw__input__desc{
+    margin-bottom: 9px;
+    font-size: 15px;
+    color: #8B8989;
 }
 
 .comment__modal__layout input{
     width: 280px;
     height: 45px;
     margin-bottom: 41px;
-    padding-left: 20px;
+    padding-left: 18px;
 
-    background: #F1EEEE;
-    border: 1px solid #686666;
+    background: #F5EDDA;
+    border: 1px solid #333333;
+    border-radius: 3px;
+    color: #333333;
 }
 
 .method__txt__list div{
     width: 90px;
-
     font-size: 25px;
     font-weight: normal;
     text-align: center;
@@ -62,33 +95,43 @@
 .comment__modal__layout button{
     width: 280px;
     height: 45px;
-    margin-bottom: 6px;
+    margin-bottom: 9px;
     
-    background: #E5E5E5;
+    font-weight: bold;
+    font-size: 20px;
+    background: #ffffff;
     border: 1px solid #C4C4C4;
     border-radius: 3px;
 }
 
+.comment__modal__layout .btn__ok{
+    background: #2B771D;
+    border: 1px solid #C4C4C4;
+    border-radius: 3px;
+    color: #F5EDDA;
+}
 
 
 /* 댓글 수정 창 */
+
+.comment__modal__id{
+    width: 280px;
+    margin: 40px 0 9px;
+    font-size: 20px;
+    font-weight: 900;
+    color: #6A6969;
+}
 
 .comment__modal__layout textarea{
     width: 280px;
     height: 193px;
     margin-bottom: 16px;
 
-    background: #F1EEEE;
+    background: #F5EDDA;
     border: 1px solid #686666;
-    border-radius: 5px
+    border-radius: 3px
 }
 
-.comment__modal__id{
-    width: 280px;
-    margin-top: 40px;
-    font-size: 1.25rem;
-    color: #B9B8B8;
-}
 
 .btn__list{
     width: 281px;
@@ -100,6 +143,7 @@
 .btn__list button{
     width: 130px;
     height: 45px;
+    font-size: 16px;
 }
 
 

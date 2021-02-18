@@ -1,7 +1,8 @@
 @charset 'utf-8';
 
 html {
-    font-family: "Roboto", sans-serif;
+    
+    font-family: 'Noto Sans KR', sans-serif;
 
     word-wrap: break-word;
 
@@ -10,12 +11,10 @@ html {
     -khtml-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-
 }
 
 body {
     -webkit-font-smoothing: antialiased;
-    
 }
 
 *:focus {
@@ -107,18 +106,18 @@ a {
 }
 
 h1{
-    font-size: 2.815rem;
+    font-size: 2.5rem;
     font-weight: bold;
 }
 
 h2{
-    font-size: 2rem;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1.75rem;
 }
 
 p, button, textarea::placeholder, textarea, input::placeholder, input{
     font-size: 1.5625rem;
-    font-weight: 500;
-    color: #999999;
+    font-weight: normal;
+    color: #333333;
 }
 

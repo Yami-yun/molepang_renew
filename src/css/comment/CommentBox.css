@@ -1,6 +1,6 @@
 .commentbox{
     height: 179px;
-    padding : 29px 30px 49px;
+    padding : 13px 30px 43px;
     border-bottom: 2px solid #c9c7c7;
 }
 
@@ -8,12 +8,21 @@
     height: 46px;
     display: flex;
     justify-content: space-between;
+
+
 }
 
 .commentbox__first__line h2{
-    width: 230px;
-    margin-right: 2.2em;
+    width: 204px;
+    margin-right: 15px;
+    /* border: 1px solid; */
+    color: #333333;
+}
 
+.commentbox__first__line p{
+    font-weight: normal;
+    font-size: 1.25rem;
+    color: rgba(51, 102, 51, 0.7);
 }
 
 .commentbox__first__line div{
@@ -22,11 +31,15 @@
 }
 
 .commentbox__btn__list button{
+    font-size: 1.25rem;
+    color: rgba(51, 102, 51, 0.7);
     border: 0px solid;
 }
 
 .commentbox__btn__list :nth-child(3){
     margin-left: 15px;
+    font-weight: bold;
+    color: #336633;
 }
 
 

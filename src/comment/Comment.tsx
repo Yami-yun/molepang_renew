@@ -13,10 +13,11 @@ function Comment(){
     <article className={'comment__layout'}>
         {/* 코멘트 Header */}
         <CommentHeader />
-
+        <div className={'comment__layout__hr'}></div>
         {/* 코멘트 본문 */}
         <CommentList />
 
+        <div className={'comment__layout__hr'}></div>
         {/* 코멘트 입력 박스 */}
         <CommentForm />
         {/* 코멘트 페이징 */}

@@ -1,4 +1,5 @@
 .comment__header__layout{
+    margin-bottom : 29px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -13,20 +14,31 @@
 
 .comment__header__layout h1{
     margin-right: 22px;
+    color: #000000;
+}
+
+.comment__count{
+    font-weight: bold;
+    font-size: 25px;
+    color: #336633;
 }
 
 .commment__share__btn{
-    width: 200px;
-    height: 62px;
+    width: 220px;
+    height: 60px;
+    border-radius: 5px;
 
-    border: 3px solid #C4C4C4;
-    color: #C4C4C4;
+    font-weight: bold;
+    font-size: 1.75rem;
+
+    color: #F4EBDA;
+    background: #2B771D;
 
 }
 
 /* 코멘트 창 공유 박스 */
 .comment__share__layout{
-    width: 957px;
+    width: 960px;
     height: 462px;
     position: fixed;
     top: 30vh;
@@ -37,20 +49,26 @@
     align-items: center;
 
     background: #FFFFFF;
-    border-radius: 15px;
+    border-radius: 5px;
     border: 1px solid;
 }
 
 .share__exit__btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    background: #2B771D;
+
     position:absolute;
-    top: 35px;
-    right: 78px;
-    font-size: 3.5rem;
-    color:#C4C4C4;
+    top: 66px;
+    right: 122px;
+    font-size: 2.6rem;
+    line-height: 40px;
+    color:#ffffff;
 }
 
-.comment__share__layout h2{
-    margin: 0px 0px 40px;
+.comment__share__layout h1{
+    margin: 0px 0px 17px;
 }
 
 .comment__share__layout p{
@@ -65,32 +83,30 @@
 }
 
 
-.share__btn__list div{
+.share__btn__list img{
     width: 100px;
     height: 100px;
-
-    background: #FFFFFF;
-    border: 4px solid rgba(0, 0, 0, 0.5);
     border-radius: 100%;
+
+    cursor: pointer;
 }
 
 .url__copy__btn{
     width: 100px;
     height: 40px;
-    margin-top: 29px;
-    margin-left: 310px;
+    margin: 29px 0px 21px 300px;
 
     font-weight: bold;
-    font-size: 1.2rem;
-    color: #FFFFFF;
+    font-size: 1.14rem;
+    color: #F4EBDA;
 
-    background: #C4C4C4;
+    background: #2B771D;
     border-radius: 3px;
 }
 
 hr{
-    width: 450px;
-    height: 3px;
+    width: 400px;
+    height: 5px;
     border: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: #84A369;
 }

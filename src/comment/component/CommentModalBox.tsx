@@ -1,40 +1,89 @@
 import React, { useState } from 'react';
+
+import { checkPassword, deleteComment, modifyComment } from 'redux/action/commentAction';
+import exitBtnImg from 'img/comment__modal__exit__btn.png';
+
 import 'css/default.css';
 import 'css/comment/CommentModalBox.css';
+import { useDispatch } from 'react-redux';
 
-function CommentModalBox(){
+
+function CommentModalBox({type, setIsShowModal, id, comment}:any){
+
+    // false : 삭제, true : 수정
+    const [modalType, setModalType] = useState<boolean>(type);
     const [screen, setScreen] = useState<number>(0);
-    const onScreenHandler = () => {
+    const [password, setPassword] = useState<string>("");
+    const [modifiedComment, setModifiedComment] = useState<string>(comment);
+    const dispatch = useDispatch();
 
+    const onPasswordCheckHandler = () => {
+        const checkPasswordAPI = checkPassword(password);
+        checkPasswordAPI(dispatch).then(
+            (reason)=>{
+                if(reason){
+                    if(modalType){
+                        // 수정 type && 비밀번호 일치할 경우
+                        setScreen(1);
+                    }else{
+                        // 삭제 type && 비밀번호 일치할 경우
+                        const deleteCommentApi = deleteComment(id);
+                        deleteCommentApi(dispatch);
+                        setIsShowModal(false);
+                    }
+                }else{
+                    //비밀번호가 일치하지 않다면
+                    setScreen(3);
+                }
+            })
+        
+    }
+    const onModifyCommentHandler = () => {
+
+        const modifyCommentAPI = modifyComment({id, text: modifiedComment});
+        modifyCommentAPI(dispatch).then(
+            response => {
+                if(response){
+                    setIsShowModal(false);
+                }
+            }
+        );
     }
 
     return (
     <article className={'comment__modal__layout'}>
+        <img onClick={()=>setIsShowModal(false)} className={'comment__exit__btn'} src={exitBtnImg}/>
         <div className={'comment__modal__header'}>댓글 수정 &nbsp;&nbsp;|&nbsp;&nbsp; 삭제</div>
+
+        {/* 비밀번호 확인 모달 창 */}
         {screen === 0 && 
         <>
-            <div className={'method__txt__list'}>
-                <div>수정</div>
-                <div>삭제</div>
+            <div className={'method__btn__list'}>
+                <div onClick={()=>setModalType(true)} className={(modalType ? 'method__btn__selected' : 'method__btn')}>수정</div>
+                <div className={'method__btn__bar'}></div>
+                <div onClick={()=>setModalType(false)} className={(!modalType ? 'method__btn__selected' : 'method__btn')}>삭제</div>
             </div>
-            <p>댓글 작성 시 입력한 비밀번호를 입력해주세요</p>
-            <input></input>
-            <button >취소</button>
-            <button onClick={()=>setScreen(1)}>확인</button>
-        </>
-        }
+            <p className={'pw__input__desc'}>댓글 작성 시 입력한 비밀번호를 입력해주세요</p>
+            <input type={'password'} maxLength={7} onChange={(e:any)=>setPassword(e.target.value)} />
+            <button onClick={()=>setIsShowModal(false)} className={'btn__cancel'}>취소</button>
+            <button onClick={onPasswordCheckHandler} className={'btn__ok'}>확인</button>
+        </>}
+
+        {/* 비밀 번호 확인 완료 => 댓글 수정 */}
         {screen === 1 && 
         <>
             <p className={'comment__modal__id'}>누누</p>
             
-            <textarea></textarea>
+            <textarea defaultValue={modifiedComment} onChange={(e)=>{setModifiedComment(e.target.value)}}></textarea>
             <div className={'btn__list'}>
-                <button >취소</button>
-                <button onClick={()=>setScreen(2)}>확인</button>
+                <button onClick={()=>setIsShowModal(false)} className={'btn__cancel'}>취소</button>
+                <button className={'btn__ok'} onClick={()=>onModifyCommentHandler()}>확인</button>
             </div>
         
         </>
         }
+
+        {/* 비밀 번호 확인 완료 => 답글 쓰기 */}
         {screen === 2 && 
         <>
             <div className={'input__list'}>
@@ -50,6 +99,8 @@ function CommentModalBox(){
             </div>
         </>
         }
+        {/* 비밀 번호 불일치 일때 모달 창
+         */}
         {screen === 3 && 
         <>
             <p className={'error__title'}>댓글을 수정할 수 없습니다</p>

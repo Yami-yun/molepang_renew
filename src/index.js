@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { Provider } from "react-redux";
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import Reducer from 'redux/reducer';
+import thunk from 'redux-thunk';
 
-const store = createStore(Reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(Reducer, applyMiddleware(thunk));
 ReactDOM.render(
   
   <React.StrictMode>

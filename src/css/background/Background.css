@@ -1,0 +1,30 @@
+.top__background__layout{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 818px;
+    background: #AFE8F3;
+    z-index: -5;
+}
+/* 
+.top__background__layout img{
+
+    transform: translateX(300px);
+    transition-
+} */
+
+.bottom__background__layout{
+    position: absolute;
+    top: 818px;
+    width: 100%;
+    height: 100vh;
+    background: #BED968;
+    z-index: -5;
+}
+
+.bottom__background__layout img{
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    z-index: -3;
+}

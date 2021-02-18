@@ -11,11 +11,22 @@
 }
 
 .first__form__line input{
-    padding-left: 30px;
+    padding-left: 18px;
     width: 200px;
     height: 60px;
+    font-weight: 500;
+    font-size: 28px;
 
-    border: 3px solid #C4C4C4;
+    background: #F5EDDA;
+    border: 1px solid #F5EDDA;
+    border-radius: 5px;
+    color: #90B17A;
+}
+
+.first__form__line input::placeholder{
+    font-size: 28px;
+    font-weight: 500;
+    color: #90B17A;
 }
 
 .first__form__line :nth-child(1){
@@ -23,11 +34,16 @@
 }
 
 .first__form__line button{
-    width: 200px;
+    width: 220px;
     height: 62px;
 
-    border: 3px solid #C4C4C4;
-    color: #C4C4C4;
+    background: #2B771D;
+    border: 1px solid #2B771D;
+    border-radius: 5px;
+
+    font-weight: bold;
+    font-size: 28px;
+    color: #F4EBDA;
 }
 
 /* 코멘트 입력  */
@@ -36,8 +52,18 @@ textarea{
     height: 180px;
     padding: 30px;
 
-    border : 5px solid #d8d8d8;
+    background: #F5EDDA;
     resize: none;
     overflow: hidden;
+
+    font-size: 25px;
+    border: 1px solid #F5EDDA;
+    border-radius: 5px;
+    color: #90B17A;
+}
+
+textarea::placeholder{
+    font-size: 25px;
+    color: #90B17A;
 }
 

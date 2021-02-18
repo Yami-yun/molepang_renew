@@ -3,6 +3,8 @@ import 'css/default.css';
 import 'css/comment/CommentForm.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {ADD_COMMENT} from 'redux/action/types';
+import moment from 'moment';
+import { ICommentData } from 'comment/component/CommentInterface';
 
 
 function CommentForm(){
@@ -12,28 +14,23 @@ function CommentForm(){
     const dispatch = useDispatch();
 
 
-
+    console.log();
 
     const onCommentAddHandler = (e:any) => {
         e.preventDefault();
-
-        let time = new Date();
-        let mon = time.getMonth()+1 < 10 ? `0${time.getMonth()+1}` : `${time.getMonth()+1}`;
-        let d = time.getDate() < 10 ? `0${time.getDate()}` : `${time.getDate()}`;
-        let h = time.getHours() < 10 ? `0${time.getHours()}` : `${time.getHours()}`;
-        let min = time.getMinutes() < 10 ? `0${time.getMinutes()}` : `${time.getMinutes()}`;
         
-        let date = `${time.getFullYear()}.${mon}.${d} ${h}:${min}`;
-
-        const data = {
+        let date = moment().format("YYYY.MM.DD hh:mm")
+        
+        const data:ICommentData = {
             nick,
             password,
             comment,
             date,
+            id: moment().hours() + moment().minutes() + moment().seconds(),
         }
 
         // 데이터 저장
-        dispatch({type: ADD_COMMENT, result: data});
+        dispatch({type: ADD_COMMENT, payload: data});
 
         setNick("");
         setComment("");
