@@ -1,0 +1,26 @@
+.modal__layout{
+    padding-top: 80px;
+    width: 960px;
+    height: 600px;
+
+    background: #b3b2b2;
+    
+}
+
+.modal__container{
+    position:relative;
+    margin : 0px auto;
+    width: 600px;
+    height: 400px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+    background: #ffffff;
+}
+
+.modal__exit__btn{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    
+}

@@ -6,12 +6,11 @@
     background: #AFE8F3;
     z-index: -5;
 }
-/* 
+
 .top__background__layout img{
 
-    transform: translateX(300px);
-    transition-
-} */
+    position: fixed;
+}
 
 .bottom__background__layout{
     position: absolute;
@@ -20,6 +19,8 @@
     height: 100vh;
     background: #BED968;
     z-index: -5;
+
+    border: 5px solid black;
 }
 
 .bottom__background__layout img{
@@ -27,4 +28,13 @@
     width: 65px;
     height: 65px;
     z-index: -3;
+}
+
+@keyframes acloud{
+    0%{
+        left: -500px;
+    }
+    100%{
+        left: 1900px;
+    }
 }

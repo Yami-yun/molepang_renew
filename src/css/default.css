@@ -15,6 +15,7 @@ html {
 
 body {
     -webkit-font-smoothing: antialiased;
+    background: #BED968;
 }
 
 *:focus {
