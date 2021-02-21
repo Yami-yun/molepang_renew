@@ -96,17 +96,20 @@ class Board implements IBoard{
         }
 
         if (gameState === 4) {
+            
+        }
+
+
+        if(gameState === 5){
             this.setConsonant("끝");
         }
 
     }
 
     render(gameState:number) {
-
-
         if (gameState !== 2) {
             let addX = 0;
-            if (gameState === 4) {
+            if (gameState === 5) {
                 addX = 70;
             }
             

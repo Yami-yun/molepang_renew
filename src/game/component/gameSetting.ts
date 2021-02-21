@@ -26,6 +26,6 @@ export const initGameSetValue={
     "GAME_SCREEN_HEADER_Y": 0,              // 게임 스크린 헤더 Y 좌표
     "GAME_SCREEN_HEADER_WIDTH": 960,        // 게임 스크린 헤더 가로
     "GAME_SCREEN_HEADER_HEIGHT": 50,        // 게임 스크린 헤더 세로
-    "GAME_TIME": 15,                        // 게임 시간
+    "GAME_TIME": 90,                        // 게임 시간
     "GAME_SCORE": 0,                        // 게임 점수
 };

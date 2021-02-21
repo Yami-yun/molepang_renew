@@ -3,6 +3,7 @@ import Mole from './gameobject/mole';
 import {initGameSetValue as gameSetValue} from "./gameSetting";
 import background from "img/background.png"
 import Board from "game/component/gameobject/board";
+import GameHeader from "game/component/gameobject/gameHeader";
 
 const gameStageData = [
     {
@@ -73,24 +74,39 @@ function GamePlay(){
     const gameCanvasRef = useRef<HTMLCanvasElement | null>(null);
     let gameCanvas:any = null;
     let gameContext:any = null;
-    let moles: Mole[] = [];
-    let count = 0;
-    let frame = 32;
-    let curStage = 0;
-    let gameState = 0;
-    let isCorrectAnswer = false;
-    let correctWord:string[] = [];
-    let incorrectWord:string[] = [];
-    let answerNum = 0;
-    let problemList:string[] = [];
-    // const count = useRef<number>(0);
 
+    
+    let count = 0;                      // 게임 프레임 count
+    let frame = 64;                     // 게임 프레임
+    let curStage = 0;                   // 현재 스테이지
+    let gameState = 0;                  // 한 스테이지 내의 게임 진행 단계
+    let isCorrectAnswer = false;        // 정답 여부
+    let correctWord:string[] = [];      // 맞은 단어 리스트
+    let incorrectWord:string[] = [];    // 틀린 단어 리스트
+    let answerNum = 0;                  // 현재 스테이지 정답 번호
+    let problemList:string[] = [];      // 현재 스테이지 문제 리스트
+    let delayStart = 0;                 // 딜레이 시작 카운트
+
+    let moles: Mole[] = [];             // 두더지 객체 리스트
     let board:(Board | null) = null;
+    let gameHeader:(GameHeader | null) = null;
+    
+    let gameScore = 0;
+    let isGameOver = false;
 
     const gameController = () => {
-        // Create Update(calculate & function) Area
+        // Create Update(calculate & function) Area\
+        
+
         if (count % frame === 0) {
             const moleNum = gameStageData[curStage].problem.length;
+
+            if(gameHeader?.update(gameState,count, gameScore)){
+                // 시간이 다되어서 게임 오버
+                console.log("GAME OVVER !!!!!!!!!!!!!!!!!!!");
+                gameState = 5;
+            }
+            
             
             // Stage Start
             if(gameState === 0){
@@ -101,7 +117,10 @@ function GamePlay(){
                 const curMoleList = setMoleIsGame(moleNum);     // 현재 스테이지 출현할 두더지 리스트
                 console.log(curMoleList);
 
+                // 보드 업데이트
                 board?.update({gameState, boardStageData:gameStageData[curStage]});
+
+                // 현재 스테이지에 출현하는 두더지 객체에게만 해당 스테이지 문제 데이터 전달
                 curMoleList.forEach((value:number, index:number) => {
                     moles[value].update({gameState, isGame:true, problem:problemList[index], isAnswer:(answerNum === index)});
                 });
@@ -111,51 +130,77 @@ function GamePlay(){
             }
             
             else if(gameState === 1){
-                // 문제 제출
+                // 유저가 클릭한 두더지 여부에 따른 정답 파악
                 gameCanvas.addEventListener("click", function (e:any) {
                     let numStageClear:(boolean | undefined)[] = [];
+
+                    // 클릭한 두더지의 문제에 대한 정답 여부 받아오기
+                    // 클릭하면 마우스 좌표와 해당 두더지 객체의 border 영역을 비교함
+                    // border 내부에 클릭 시, 해당 두더지가 갖고 있는 정답 여부 반환
+                    // ex) 클릭 => 9개 중 해당 스테이지 참가한 두더지의 클릭여부 확인 => 클릭한 두더지의 정답 데이터 반환 
+                    // => [undefined, undefined, undefined, undefined, undefined, undefined, undefined, true, undefined]
                     moles.forEach((element:Mole) => {
-                        // numStageClear = element.update({ gameState: gameState, mousePos: { x: e.layerX, y: e.layerY } });
                         numStageClear.push(element.update({ gameState: gameState, mousePos: { x: e.layerX, y: e.layerY } }));
                     })
-                    // correct answer
+
+                    // 리스트에 true가 있을 경우 => correct answer
                     if (numStageClear.includes(true)) {
-                        
-                        
                         gameState = 2;
                         isCorrectAnswer = true;
                         correctWord.push(problemList[answerNum]);
+                        delayStart = count;
+                        gameScore += 10;
                         console.log("Yes!!!");
                     }
-                    // no correct answer
+                    // 리스트에 false가 있을 경우 => no correct answer
                     else if (numStageClear.includes(false)) {
                         gameState = 2;
                         isCorrectAnswer = false;
                         incorrectWord.push(problemList[answerNum]);
+                        delayStart = count;
                         console.log("No!!!");
                     }
+
+                    // 두더지가 없는 공간 클릭 시, gameState =1 유지
     
                 });
                 
             }
             
             else if(gameState === 2){
-                // 문제 정답여부
-                console.log(isCorrectAnswer);
+                // 문제 정답여부를 칠판해 표시
                 board?.update({gameState ,isCorrectAnswer});
 
-                
-
-                setTimeout(()=>{
-                    gameState = 0;
-                    curStage += 1;
-                },2000);
+                // 2초 후에 state 변경 ( = 정답 여부를 2초동안 화면에 표시)
+                if(delayStart + 100 < count){
+                    delayStart = count;
+                    gameState = 3;
+                }
                 
 
             }
+
+            else if(gameState === 3){
+                board?.update({gameState});
+
+                // 2초 후에 state 변경 ( = 정답 여부를 2초동안 화면에 표시)
+                if(delayStart + 100 < count){
+                    gameState = 4;
+                }
+            }
             
-            if(gameState === 3){
-                // 게임 엔드
+            else if(gameState === 4){
+                // 다음 스테이지,
+                // moles data 초기화
+                moles.forEach((element:Mole) => {
+                    element.update({gameState});
+                });
+                count = 0;
+                curStage+=1;
+                gameState=0;
+            }
+            else if(gameState === 5){
+                board?.update({gameState});
             }
     
         }
@@ -169,17 +214,21 @@ function GamePlay(){
                 element.render();
             });
 
-            if(board) board.render(gameState);
+            board?.render(gameState);
 
+            // gameHeader?.render(gameState);
+            
         }
+        gameContext.clearRect(0, 0, gameSetValue.GAME_W, 100);
+        gameHeader?.render(gameState);
+
+        
     
         count += 1;
         return window.requestAnimationFrame(gameController);
-    
     }
 
-    
-
+    // 두더지 객체 리스트에 생성
     const setInitMole = () => {
 
         // 207 , 74
@@ -199,10 +248,6 @@ function GamePlay(){
                     gameContext)
                 );
         }
-
-        // gBoardText = new BoardText(gameSetValue.BOARD_X, gameSetValue.BOARD_Y,
-        //     gameSetValue.BOARD_WIDTH, gameSetValue.BOARD_HEIGHT, gameContext);
-        // gameScreenHeader = new GameScreenHeader(gameContext);
     };
 
     useEffect(() => {
@@ -212,12 +257,12 @@ function GamePlay(){
         setInitMole();
         board = new Board(gameSetValue.BOARD_X, gameSetValue.BOARD_Y,
             gameSetValue.BOARD_WIDTH, gameSetValue.BOARD_HEIGHT, gameContext);
+
+        gameHeader = new GameHeader(0, 0, 960, 100, gameContext);
         let t = window.requestAnimationFrame(gameController);
     })
 
     return (
-    <canvas style={{backgroundImage:`url(${background})`}} ref={gameCanvasRef} width={960} height={600}>
-
-    </canvas>);
+    <canvas style={{backgroundImage:`url(${background})`}} ref={gameCanvasRef} width={960} height={600}></canvas>);
 }
 export default GamePlay;

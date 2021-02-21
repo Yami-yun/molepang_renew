@@ -44,6 +44,7 @@ class Mole {
         };
     }
 
+    // 두더지 데이터 초기화 함수
     init() {
         this.moleData.problem = "";
         this.moleData.isAnswer = false;
@@ -52,6 +53,7 @@ class Mole {
 
     }
 
+    // 두더지 머리 위 말풍선 단어 따른 배치 설정 함수
     setSpeechBubbleTxtPositionX() {
         if (this.moleData.problem.length === 1) {
             this.speechBubbleData.txtDistance.x = 32;
@@ -76,50 +78,41 @@ class Mole {
         this.moleData.isAnswer = isAnswer;
     }
 
+    // 두저지 정보 업데이트 함수
     update({gameState, isGame, problem, mousePos, isAnswer}
         :{gameState:number, isGame?:boolean, problem?:string, mousePos?:{x:number, y:number}, isAnswer?:boolean}) {
 
         if(gameState === 0){
-            this.init();
-            console.log("test222222");
-            console.log(this.moleData.id, this.moleData.isGame);
             if(isGame) this.setIsGame(isGame);
             if(problem) {
                 this.setProblem(problem);
                 this.setSpeechBubbleTxtPositionX();
             }
             if(isAnswer) this.setIsAnswer(isAnswer);
-            
-
         }
         
         if(gameState === 1){
             if(mousePos){
                 let data = this.moleData;
-                if(data.position.x < mousePos.x && data.position.y < mousePos.y &&
+
+                // 마우스가 두더지 객체를 클릭했을 때, 해당 두더지 정답 정보 반환
+                if(this.moleData.isGame && data.position.x < mousePos.x && data.position.y < mousePos.y &&
                 data.position.x + data.width > mousePos.x && data.position.y + data.height > mousePos.y){
                     data.isClicked = true;
-                    // console.log("-------------------------------------------")
-                    // console.log(data.problem + " hit!");
-                    // console.log("1. MOUSE : " + JSON.stringify(mousePos));
-                    // console.log("2. IMG_F : " + data.isClicked);
-                    // console.log("-------------------------------------------");
 
                     return data.isAnswer;
                 }else{
-                    console.log("-------------------------------------------")
-                    // console.log("No hit!");
-                    // console.log("1. MOUSE : " + JSON.stringify(mousePos));
 
                 }
             }
-        }else if(gameState === 2){
-
-        }else{
+        }else if(gameState === 4){
+            this.init();
+        }else if(gameState === 5){
 
         }
     }
 
+    // 두더지 랜더 함수
     render() {
         if(this.moleData.isGame){
             const data = this.moleData;
