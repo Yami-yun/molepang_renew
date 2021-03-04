@@ -1,0 +1,76 @@
+.game__des__layout{
+    position: relative;
+    width: 920px;
+    height: 600px;
+    margin : 18px auto 0px;
+    border: 1px solid;
+}
+
+
+.des__close__btn{
+    width: 40px;
+    height: 40px;
+
+    position: absolute;
+    top: 27px;
+    right: 30px;
+}
+
+.des__start__btn{
+    width: 280px;
+    height: 60px;
+
+    position: absolute;
+    bottom: 117px;
+    left: 40px;
+
+    background: #F4EBDA;
+    border: 3px solid #2C761D;
+    border-radius: 3px;
+
+    font-family: Jua;
+    font-size: 32px;
+    color: #3E2D23;
+}
+
+
+.des__page__box{
+    position: absolute;
+    bottom: 39px;
+    left: 40px;
+    width: 201px;
+    height: 40px;
+
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid; */
+}
+
+.des__page__box button{
+    width : 40px;
+    height: 40px;
+}
+
+.des__page__box .page__num__box{
+    width: 82px;
+    margin-top: 1px;
+    display: flex;
+    /* border: 1px solid; */
+}
+
+.page__num__box > p{
+    font-family: Jua;
+    margin : 0 13px;
+    font-weight: normal;
+    font-size: 26px;
+    color: #777777;
+
+}
+
+.des__page__box .page__num__box > div{
+    height: 18px;
+    margin-top: 5px;
+    background-color: #777777;
+    border: 1.8px solid #777777;
+    border-radius: 8px;
+}

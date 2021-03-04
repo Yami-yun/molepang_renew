@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import Mole from './gameobject/mole';
 import {initGameSetValue as gameSetValue} from "./gameSetting";
-import background from "img/background.png"
 import Board from "game/component/gameobject/board";
 import GameHeader from "game/component/gameobject/gameHeader";
+import Background from "game/component/gameobject/background";
+import { useDispatch } from "react-redux";
+import { CHANGE_GAME_SCREEN, GET_GAME_DATA } from "redux/action/types";
 
 const gameStageData = [
     {
@@ -75,11 +77,13 @@ function GamePlay(){
     let gameCanvas:any = null;
     let gameContext:any = null;
 
+    const dispatch = useDispatch();
+
     
     let count = 0;                      // 게임 프레임 count
-    let frame = 64;                     // 게임 프레임
+    let frame = 8;                     // 게임 프레임
     let curStage = 0;                   // 현재 스테이지
-    let gameState = 0;                  // 한 스테이지 내의 게임 진행 단계
+    let gameState = -1;                  // 한 스테이지 내의 게임 진행 단계
     let isCorrectAnswer = false;        // 정답 여부
     let correctWord:string[] = [];      // 맞은 단어 리스트
     let incorrectWord:string[] = [];    // 틀린 단어 리스트
@@ -90,6 +94,7 @@ function GamePlay(){
     let moles: Mole[] = [];             // 두더지 객체 리스트
     let board:(Board | null) = null;
     let gameHeader:(GameHeader | null) = null;
+    let background:(Background | null) = null;
     
     let gameScore = 0;
     let isGameOver = false;
@@ -106,7 +111,14 @@ function GamePlay(){
                 console.log("GAME OVVER !!!!!!!!!!!!!!!!!!!");
                 gameState = 5;
             }
-            
+            if(gameState === -1){
+                board?.update({gameState, count});
+
+                if(delayStart + 120 < count){
+                    delayStart = count;
+                    gameState = 0;
+                }
+            }
             
             // Stage Start
             if(gameState === 0){
@@ -150,6 +162,7 @@ function GamePlay(){
                         correctWord.push(problemList[answerNum]);
                         delayStart = count;
                         gameScore += 10;
+                        numStageClear = [];
                         console.log("Yes!!!");
                     }
                     // 리스트에 false가 있을 경우 => no correct answer
@@ -158,6 +171,7 @@ function GamePlay(){
                         isCorrectAnswer = false;
                         incorrectWord.push(problemList[answerNum]);
                         delayStart = count;
+                        numStageClear = [];
                         console.log("No!!!");
                     }
 
@@ -185,6 +199,7 @@ function GamePlay(){
 
                 // 2초 후에 state 변경 ( = 정답 여부를 2초동안 화면에 표시)
                 if(delayStart + 100 < count){
+                    delayStart = count;
                     gameState = 4;
                 }
             }
@@ -195,12 +210,22 @@ function GamePlay(){
                 moles.forEach((element:Mole) => {
                     element.update({gameState});
                 });
+                board?.update({gameState});
                 count = 0;
                 curStage+=1;
                 gameState=0;
             }
+            
             else if(gameState === 5){
                 board?.update({gameState});
+                if(delayStart + 400 < count){
+                    delayStart = count;
+                    dispatch({type:CHANGE_GAME_SCREEN, payload: 4});
+                    dispatch({type:GET_GAME_DATA, payload: gameScore});
+                    console.log("GAME END###########");
+                    return;
+                }
+                
             }
     
         }
@@ -208,7 +233,11 @@ function GamePlay(){
         // Create Render Area
         if (count % frame === 0) {
             gameContext.clearRect(0, 0, gameSetValue.GAME_W, gameSetValue.GAME_H);
-    
+
+            gameHeader?.render(gameState);
+
+            background?.render();
+
             moles.forEach((element:Mole) => {
                 // element.setIsGame(true);
                 element.render();
@@ -216,14 +245,10 @@ function GamePlay(){
 
             board?.render(gameState);
 
-            // gameHeader?.render(gameState);
+            
             
         }
-        gameContext.clearRect(0, 0, gameSetValue.GAME_W, 100);
-        gameHeader?.render(gameState);
 
-        
-    
         count += 1;
         return window.requestAnimationFrame(gameController);
     }
@@ -258,11 +283,14 @@ function GamePlay(){
         board = new Board(gameSetValue.BOARD_X, gameSetValue.BOARD_Y,
             gameSetValue.BOARD_WIDTH, gameSetValue.BOARD_HEIGHT, gameContext);
 
-        gameHeader = new GameHeader(0, 0, 960, 100, gameContext);
+        gameHeader = new GameHeader(0, 4, 960, 100, gameContext);
+
+        background = new Background(32, 68, 864, 480, gameContext);
         let t = window.requestAnimationFrame(gameController);
+            // 960 533
     })
 
     return (
-    <canvas style={{backgroundImage:`url(${background})`}} ref={gameCanvasRef} width={960} height={600}></canvas>);
+    <canvas ref={gameCanvasRef} width={960} height={640}></canvas>);
 }
 export default GamePlay;

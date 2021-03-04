@@ -1,7 +1,7 @@
 
 import {initGameSetValue as gameSetValue} from "../gameSetting";
-import bar1 from "img/bar1.png";
-import bar2 from "img/bar2.png";
+import progressBar from "img/progress_bar.png";
+import scoreBoard from "img/score_board.png";
 
 class GameHeader {
 
@@ -10,17 +10,17 @@ class GameHeader {
         position: {x:number, y: number}; width: number; height: number;
         score: number; time: {m:string, s:string, total:number};
     };
-    bar1: HTMLImageElement;
-    bar2: HTMLImageElement;
+    progressBar: HTMLImageElement;
+    scoreBoard: HTMLImageElement;
     countChange:boolean;
     curCount:number;
 
     constructor(x: number, y: number, w: number, h: number, gameContext: any) {
-        this.bar1 = new Image();
-        this.bar1.src = bar1;
+        this.progressBar = new Image();
+        this.progressBar.src = progressBar;
 
-        this.bar2 = new Image();
-        this.bar2.src = bar2;
+        this.scoreBoard = new Image();
+        this.scoreBoard.src = scoreBoard;
 
         this.countChange = false;
         this.curCount = 0;
@@ -31,8 +31,8 @@ class GameHeader {
             height: h,
             score: 0,
             time: {
-                m:'01',
-                s:'30',
+                m:'00',
+                s:'10',
                 total: gameSetValue.GAME_TIME,
             },
         };
@@ -43,16 +43,11 @@ class GameHeader {
     init() {
         this.headerData.score = 0;
         this.headerData.time = { m:'01', s:'30', total: gameSetValue.GAME_TIME };
-
     }
 
     setScore(score:number){
         this.headerData.score = score;
     }
-
-    // setTime(time:number){
-    //     this.headerData.time = time;
-    // }
 
     countTime(){
         let s = Number(this.headerData.time.s);
@@ -75,11 +70,10 @@ class GameHeader {
     // 게임 헤더 정보 업데이트 함수
     update(gameState:number,count:number, gameScore:number){
         this.headerData.score = gameScore;
-        if(gameState === 0){
 
-        }
         
-        if(gameState === 1 || gameState === 3){
+        if(gameState === 1 || gameState === 0 || gameState === 4){
+            console.log(gameState);
             if(this.headerData.time.total <= 0){
                 return true;
             }
@@ -89,13 +83,10 @@ class GameHeader {
                 this.countChange =true;
             }
             
-            if(this.countChange && this.curCount + 160 < count){
+            if(this.countChange && this.curCount + 60 < count){
                 this.countTime();
+                this.countChange =false;
             }
-
-        }else if(gameState === 4){
-
-        }else if(gameState === 5){
 
         }
     }
@@ -108,15 +99,24 @@ class GameHeader {
         this.gameContext.fillStyle = "#3E2D23"; //색상지정
         this.gameContext.fillText(
             '점수 :',
-            30,
-            40,
+            32,
+            40 + this.headerData.position.y,
         );
 
+        this.gameContext.drawImage(
+            this.scoreBoard,
+            114,
+            8 +  this.headerData.position.y,
+            156,
+            42);
+        
+
         // 점수 number
+        this.gameContext.font = "bold 36px Jua"; //폰트의 크기, 글꼴체 지정 
         this.gameContext.fillText(
             this.headerData.score,
-            140,
-            40,
+            177,
+            42 + this.headerData.position.y,
         );
 
         // 시간
@@ -125,41 +125,20 @@ class GameHeader {
         this.gameContext.fillText(
             `${this.headerData.time.m} : ${this.headerData.time.s}`,
             300,
-            44,
+            44 + this.headerData.position.y,
         );
 
         
 
         this.gameContext.drawImage(
-            this.bar2,
-            458,
-            7,
-            450,
-            50);
+            this.progressBar,
+            467,
+            10 +  this.headerData.position.y,
+            460,
+            42);
 
-        this.gameContext.drawImage(
-            this.bar1,
-            458,
-            8,
-            447 * this.headerData.time.total / gameSetValue.GAME_TIME,
-            48);
-
-        // var rectX = 440;
-        // var rectY = 20;
-        // var rectWidth = 300;
-        // var rectHeight = 50;
-        // var cornerRadius = 60;
-
-
-        // this.gameContext.lineJoin = "round";
-        // this.gameContext.lineWidth = cornerRadius;
-        // this.gameContext.beginPath();
-
-        // this.gameContext.strokeStyle = '#333333'; // 선 색
-        // this.gameContext.fillStyle = '#333333'; // 채운 사각형 색
-        
-        // this.gameContext.strokeRect(rectX+(cornerRadius/2), rectY+(cornerRadius/2), rectWidth-cornerRadius, rectHeight-cornerRadius);
-        // // this.gameContext.fillRect(rectX+(cornerRadius/2), rectY+(cornerRadius/2), rectWidth-cornerRadius, rectHeight-cornerRadius);
+        this.gameContext.fillStyle = "#00C0FF";
+        this.gameContext.fillRect(472, 15 + this.headerData.position.y, 450 * this.headerData.time.total / gameSetValue.GAME_TIME, 31.7);
 
     }
 };

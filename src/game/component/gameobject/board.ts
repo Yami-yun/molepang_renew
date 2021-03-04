@@ -8,7 +8,7 @@ interface IBoardText{
     isNext: boolean,
     consonant: string,
     answer: string,
-    isCorrectAnswer: boolean,
+    isCorrectAnswer?: boolean,
 }
 
 
@@ -48,11 +48,12 @@ class Board implements IBoard{
     }
 
     init() {
+
     }
 
     setBoardTextPositionX() {
         if (this.boardTextData["consonant"].length == 1) {
-            this.boardTextData["position"][0] = 455;
+            this.boardTextData["position"][0] = 450;
         }
         else if (this.boardTextData["consonant"].length == 2) {
             this.boardTextData["position"][0] = 420;
@@ -72,25 +73,32 @@ class Board implements IBoard{
         this.boardTextData["consonant"] = consonant;
     }
 
-    update({gameState, boardStageData, isCorrectAnswer}:
-        {gameState:number, boardStageData?:any, isCorrectAnswer?:boolean}) {
+    update({gameState, boardStageData, isCorrectAnswer, count}:
+        {gameState:number, boardStageData?:any, isCorrectAnswer?:boolean, count?:number}) {
 
-        // set board data on init state
+        if(gameState === -1){
+            this.boardTextData["position"][0] = 420;
+            this.setConsonant("준비");
+            if(count && 80 < count){
+                this.setConsonant("시작");
+            }
+        }
+        // 라운드 시작
         if (gameState === 0) {
             // 문제 저장
             this.setBoardData(boardStageData);
-            // console.log(boardStageData);
             this.setBoardTextPositionX();
         }
 
-
+        // 정답 여부 표시
         if (gameState === 2) {
             this.setConsonant("");
-            if(isCorrectAnswer) this.boardTextData.isCorrectAnswer = isCorrectAnswer;
+            this.boardTextData.isCorrectAnswer = isCorrectAnswer;
             console.log(this.boardTextData.isCorrectAnswer);
 
         }
 
+        // 문제에 대한 해설
         if (gameState === 3) {
             this.setConsonant(this.boardTextData.answer);
         }
@@ -101,6 +109,7 @@ class Board implements IBoard{
 
 
         if(gameState === 5){
+            // this.boardTextData["position"][0] = 370;
             this.setConsonant("끝");
         }
 
@@ -110,11 +119,14 @@ class Board implements IBoard{
         if (gameState !== 2) {
             let addX = 0;
             if (gameState === 5) {
-                addX = 70;
+                addX = 54;
             }
             
             this.gameContext.font = "80px Jua"; //폰트의 크기, 글꼴체 지정      
-            this.gameContext.fillStyle = "rgba(0, 0, 0, 0.7)"; //색상지정
+            this.gameContext.strokeStyle = "#5F554D"; //색상지정
+            this.gameContext.fillStyle = "#3E2D23"; //색상지정
+            this.gameContext.lineWidth = 5; //색상지정
+            this.gameContext.strokeText(this.boardTextData["consonant"], this.boardTextData["position"][0] + addX, this.boardTextData["position"][1]);
             this.gameContext.fillText(
                 this.boardTextData["consonant"],
                 this.boardTextData["position"][0] + addX,
@@ -126,7 +138,7 @@ class Board implements IBoard{
             this.gameContext.drawImage(
                 correctImg,
                 420,
-                135,
+                145,
                 130,
                 130);
         }

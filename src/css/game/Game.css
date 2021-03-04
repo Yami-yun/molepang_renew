@@ -1,8 +1,16 @@
 .game__layout{
     width: 960px;
-    height: 600px;
+    height: 640px;
     margin: 0 auto 54px;
     border: 1px solid black;
+    cursor: url('img/mouse.png'), auto;
 
     background: #ffffff;
+}
+
+
+.game__layout:active{
+
+    cursor: url('img/mouse2.png'), auto;
+
 }
