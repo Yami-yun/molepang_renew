@@ -12,31 +12,74 @@ import {
 } from 'redux/action/types';
 import { useState } from 'react';
 
+
+function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MAX_PAGE:number, wordList:string[]}){
+    const [page, setPage] = useState(0);
+
+
+    console.log(wordList);
+
+    const onPagingHandler = (dir:string) => {
+        if(page !== WORD_MAX_PAGE && dir === "RIGHT"){
+            setPage(page + 1);
+        }else if(page !== 0 && dir === "LEFT"){
+            setPage(page - 1);
+        }
+    }
+
+    return(
+        <div className={'word__box'}>
+            <div className={'word__box__header'}>
+                <div className={'box__header__txt'}>
+                    <p style={{color:"#3B70C0"}}>{headerTxt}</p><p> 단어</p>
+                </div>
+
+                <div className={'word__box__paging'}>
+                    <button onClick={()=>onPagingHandler('LEFT')}><img src={leftBtn}/></button>
+                    <div className={'page__num__box'}>
+                        <p> {page + 1} </p>
+                        <div></div>
+                        <p> {WORD_MAX_PAGE + 1} </p>
+                    </div>
+                    <button onClick={()=>onPagingHandler('RIGHT')}><img src={rightBtn}/></button>
+                </div>
+            </div>
+
+            <div className={'word__box__list'}>
+                {wordList.map((value:string, index:number)=>{
+                    if(index < 15 * (page + 1) && index >= 15 * (page - 1)){
+                        return <p key={index}>{value}</p>;
+                    }
+                })}
+            </div>
+        </div>
+    );
+}
+
+
 function GameRsult(){
     const dispatch = useDispatch();
-    const score = useSelector((state:any) => state.game.score);
+    const result = useSelector((state:any) => state.game.gameResult);
+
+    let t = [];
+    for(let i=0; i<32;i++){
+        t.push("허수아비");
+    }
+
+    // const WORD_MAX_PAGE = Math.floor((t.length - 1) / 15);
+    // const WORD_MAX_PAGE = Math.floor(result.correctWord.length / 15);
+    
+    console.log(result);
 
     const onScreenMoveHandler = (nScreen:number) => {
         dispatch({type:CHANGE_GAME_SCREEN, payload: nScreen});
     }
 
-    // const onPagingHandler = (dir:string) => {
-    //     if(page !== 2 && dir === "RIGHT"){
-    //         setPage(page + 1);
-    //         setDesImg(gameDes2);
-    //     }else if(page !== 0 && dir === "LEFT"){
-    //         setPage(page - 1);
-    //         setDesImg(gameDes1);
-    //     }
-    // }
+    const correctWordData = {headerTxt:"맞힌", WORD_MAX_PAGE:Math.floor(result.correctWord.length / 15), wordList: result.correctWord};
+    const incorrectWordData = {headerTxt:"틀린", WORD_MAX_PAGE:Math.floor(result.incorrectWord.length / 15), wordList: result.incorrectWord};
 
-    const test = () => {
-        let t = [];
-        for(let i=0; i<15;i++){
-            t.push(<p key={i}>허수아비</p>);
-        }
-        return t;
-    }
+    
+
     return (
     <section className={'game__result__layout'}>
         <div className={'game__score__board'}>
@@ -53,57 +96,15 @@ function GameRsult(){
                 <div className={'score__body__box'}>
                     <div className={'body__line'}></div>
                     <p>점수</p>
-                    <p className={'score__txt'}>{score}</p>
+                    <p className={'score__txt'}>{result.score}</p>
                     <button onClick={()=>onScreenMoveHandler(2)}>다시하기</button>
                     <button>순위보기</button>
                 </div>
 
                 <div className={'score__body__box'}>
-                    <div className={'word__box'}>
-                        <div className={'word__box__header'}>
-                            <div className={'box__header__txt'}>
-                                <p style={{color:"#3B70C0"}}>맞힌</p><p> 단어</p>
-                            </div>
-
-                            <div className={'word__box__paging'}>
-                                <button ><img src={leftBtn}/></button>
-                                <div className={'page__num__box'}>
-                                    <p> 1 </p>
-                                    <div></div>
-                                    <p> 2 </p>
-                                </div>
-                                <button ><img src={rightBtn}/></button>
-                            </div>
-                        </div>
-
-                        <div className={'word__box__list'}>
-                            {test()}
-                        </div>
-                    </div>
-
+                    <WordBox {...correctWordData} />
                     <div className={'blank'}></div>
-
-                    <div className={'word__box'}>
-                        <div className={'word__box__header'}>
-                            <div className={'box__header__txt'}>
-                                <p style={{color:"#D65A48"}}>틀린</p><p> 단어</p>
-                            </div>
-
-                            <div className={'word__box__paging'}>
-                                <button ><img src={leftBtn}/></button>
-                                <div className={'page__num__box'}>
-                                    <p> 1 </p>
-                                    <div></div>
-                                    <p> 2 </p>
-                                </div>
-                                <button ><img src={rightBtn}/></button>
-                            </div>
-                        </div>
-
-                        <div className={'word__box__list'}>
-                            {test()}
-                        </div>
-                    </div>
+                    <WordBox {...incorrectWordData}/>
                 </div>
             </div>
         </div>

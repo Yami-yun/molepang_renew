@@ -7,11 +7,13 @@ import GamePlay from 'game/component/GamePlay';
 import { useSelector } from 'react-redux';
 import GameDescription from 'game/component/GameDescription';
 import GameResult from 'game/component/GameResult';
+import GameRankingRegister from 'game/component/GameRankingRegister';
+import GameRankging from 'game/component/GameRankging';
 
 
 function GameLayout(){
     const screen = useSelector((state:any) => state.game.gamescreen);
-    // const screen = 0;
+    // let screen = 6;
 
     const screenRender = () => {
         switch(screen){
@@ -24,8 +26,13 @@ function GameLayout(){
                 return <GamePlay />;
             case 3:
                 return <GameMenu />;
-            default:
+            case 4:
                 return <GameResult />;
+            case 5:
+                return <GameRankingRegister />;
+            default:
+                return <GameRankging />;
+
         }
         
 

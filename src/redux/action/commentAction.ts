@@ -3,7 +3,8 @@ import {
     DELETE_COMMENT, 
     GET_COMMENT, 
     COMMENT_CHECK_PASSWORD, 
-    MODIFY_COMMENT} from './types';
+    MODIFY_COMMENT,
+} from './types';
 import axios from 'axios';
 import { IS_DEV } from 'setting/setting';
 

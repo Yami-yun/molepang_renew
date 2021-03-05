@@ -5,7 +5,7 @@ import Board from "game/component/gameobject/board";
 import GameHeader from "game/component/gameobject/gameHeader";
 import Background from "game/component/gameobject/background";
 import { useDispatch } from "react-redux";
-import { CHANGE_GAME_SCREEN, GET_GAME_DATA } from "redux/action/types";
+import { CHANGE_GAME_SCREEN, SET_GAME_RESULT } from "redux/action/types";
 
 const gameStageData = [
     {
@@ -220,8 +220,13 @@ function GamePlay(){
                 board?.update({gameState});
                 if(delayStart + 400 < count){
                     delayStart = count;
+                    const data = {
+                        score: gameScore,
+                        correctWord,
+                        incorrectWord,
+                    }
                     dispatch({type:CHANGE_GAME_SCREEN, payload: 4});
-                    dispatch({type:GET_GAME_DATA, payload: gameScore});
+                    dispatch({type:SET_GAME_RESULT, payload: data});
                     console.log("GAME END###########");
                     return;
                 }
@@ -255,11 +260,6 @@ function GamePlay(){
 
     // 두더지 객체 리스트에 생성
     const setInitMole = () => {
-
-        // 207 , 74
-        // (234,279) (442,279) (649,279)   - 207
-        // (234,353) (442,353) (649,353)   - 207
-        // (234,427) (442,427) (649,427)   - 207
 
         for (let y = 0; y < 3; y++) {
             for (let x = 0; x < 3; x++)

@@ -159,7 +159,7 @@
 }
 
 .page__num__box{
-    width: 46px;
+    width: 50px;
     
     display: flex;
     align-items: center;
@@ -167,9 +167,9 @@
 }
 
 .page__num__box > div{
-    width: 1px;
-    height: 12px;
-    margin-bottom:8px;
+    width: 2px;
+    height: 10px;
+    margin-bottom:2px;
 
     background: #777777;
 }
@@ -183,12 +183,16 @@
 
 .word__box__list{
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     flex-wrap: wrap;
 }
 
 .word__box__list > p{
+    width: 57.2px;
     margin-bottom: 7px;
     font-size: 16px;
+    text-align: center;
+
+    /* border : 1px solid; */
     
 }

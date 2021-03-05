@@ -18,6 +18,7 @@ class Ani{
     gameContext: any;
     nextAni: string;
     curAni:string;
+    test2 : HTMLImageElement;
 
     constructor(path: string, nImg: number, iteration:number, curAni:string ,nextAni:string, gameContext:any){
         this._ani = [];
@@ -30,7 +31,9 @@ class Ani{
         this.nextAni = nextAni;
         this.curAni = curAni;
         this.gameContext = gameContext;
-        
+        this.test2 = new Image();
+        this.test2.src = '/img/ani/mole/03.png';
+        // console.log(this.test2);
 
         for(let i=1; i<=7; i++){
             let imgName = "";
@@ -41,6 +44,7 @@ class Ani{
             test.src = `${path}${imgName}.png`;
             this._ani.push(test);
         }
+
     }
 
     init(){
@@ -50,7 +54,7 @@ class Ani{
     play(x:number, y:number, width:number, height:number){
         if(this.iteration >= 1 || this.iteration === -1){
             this.gameContext.drawImage(
-                // this.aniList[this.aniIndex++],
+                // this.test2,
                 this._ani[this.curIndex++],
                 x,
                 y,
@@ -132,10 +136,10 @@ class Mole {
         };
 
         this.aniState = "INIT";
-        this.moleInitAni = new Ani('ani/mole/init/', 7, 1, "INIT", "IDLE", this.gameContext);
-        this.moleIdleAni = new Ani('ani/mole/idle/', 6, -1, "IDLE", "IDLE",this.gameContext);
-        this.moleHitAni = new Ani('ani/mole/hit/', 3, 1, "HIT", "DEAD",this.gameContext);
-        this.moleDeadAni = new Ani('ani/mole/dead/', 1, -1, "DEAD", "DEAD",this.gameContext);
+        this.moleInitAni = new Ani('/ani/mole/init/', 7, 1, "INIT", "IDLE", this.gameContext);
+        this.moleIdleAni = new Ani('/ani/mole/idle/', 6, -1, "IDLE", "IDLE",this.gameContext);
+        this.moleHitAni = new Ani('/ani/mole/hit/', 3, 1, "HIT", "DEAD",this.gameContext);
+        this.moleDeadAni = new Ani('/ani/mole/dead/', 1, -1, "DEAD", "DEAD",this.gameContext);
     }
 
     // 두더지 데이터 초기화 함수
