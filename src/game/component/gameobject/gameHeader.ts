@@ -103,6 +103,7 @@ class GameHeader {
             40 + this.headerData.position.y,
         );
 
+        // 점수 배경 이미지
         this.gameContext.drawImage(
             this.scoreBoard,
             114,
@@ -128,8 +129,7 @@ class GameHeader {
             44 + this.headerData.position.y,
         );
 
-        
-
+        // 게임 진행 프로그래스바
         this.gameContext.drawImage(
             this.progressBar,
             467,

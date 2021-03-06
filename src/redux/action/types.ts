@@ -18,6 +18,7 @@ export const SET_USER_NICK = "game/SET_USER_NICK";
 
 export const GET_TOTAL_RANK = "game/GET_TOTAL_RANK";
 export const GET_TOP_TEN_RANK = "game/GET_TOP_TEN_RANK";
+export const REGISTER_RANK = "game/REGISTER_RANK";
 
 
 

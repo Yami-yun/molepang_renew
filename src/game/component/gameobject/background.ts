@@ -17,6 +17,7 @@ class Background {
 
         this.gameContext = gameContext;
 
+        // 게임 배경 이미지
         this.backgroundImg = new Image();
         this.backgroundImg.src = background;
 

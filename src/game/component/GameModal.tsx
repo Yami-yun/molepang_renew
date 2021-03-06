@@ -2,6 +2,7 @@ import React from 'react';
 // import 'css/default.css';
 import 'css/game/GameModal.css';
 
+// 게임 모달창
 function GameModal({children}:any){
     return (
     <section className={'modal__layout'}>

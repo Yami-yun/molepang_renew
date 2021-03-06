@@ -29,6 +29,8 @@ function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MA
 
     return(
         <div className={'word__box'}>
+
+            {/* 단어 박스 헤더 */}
             <div className={'word__box__header'}>
                 <div className={'box__header__txt'}>
                     <p style={{color:"#3B70C0"}}>{headerTxt}</p><p> 단어</p>
@@ -45,6 +47,7 @@ function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MA
                 </div>
             </div>
 
+            {/* 유저가 플레이할 때 틀린 단어 혹은 맞은 단어 리스트 */}
             <div className={'word__box__list'}>
                 {wordList.map((value:string, index:number)=>{
                     if(index < 15 * (page + 1) && index >= 15 * (page - 1)){
@@ -61,24 +64,15 @@ function GameRsult(){
     const dispatch = useDispatch();
     const result = useSelector((state:any) => state.game.gameResult);
 
-    let t = [];
-    for(let i=0; i<32;i++){
-        t.push("허수아비");
-    }
-
-    // const WORD_MAX_PAGE = Math.floor((t.length - 1) / 15);
-    // const WORD_MAX_PAGE = Math.floor(result.correctWord.length / 15);
-    
-    console.log(result);
-
     const onScreenMoveHandler = (nScreen:number) => {
         dispatch({type:CHANGE_GAME_SCREEN, payload: nScreen});
     }
 
+    // 맞힌 단어 리스트
     const correctWordData = {headerTxt:"맞힌", WORD_MAX_PAGE:Math.floor(result.correctWord.length / 15), wordList: result.correctWord};
-    const incorrectWordData = {headerTxt:"틀린", WORD_MAX_PAGE:Math.floor(result.incorrectWord.length / 15), wordList: result.incorrectWord};
 
-    
+    // 틀린 단어 리스트
+    const incorrectWordData = {headerTxt:"틀린", WORD_MAX_PAGE:Math.floor(result.incorrectWord.length / 15), wordList: result.incorrectWord};
 
     return (
     <section className={'game__result__layout'}>
@@ -98,7 +92,7 @@ function GameRsult(){
                     <p>점수</p>
                     <p className={'score__txt'}>{result.score}</p>
                     <button onClick={()=>onScreenMoveHandler(2)}>다시하기</button>
-                    <button>순위보기</button>
+                    <button onClick={()=>onScreenMoveHandler(5)}>순위보기</button>
                 </div>
 
                 <div className={'score__body__box'}>

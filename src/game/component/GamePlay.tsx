@@ -71,6 +71,7 @@ const setMoleIsGame = (moleNum:number) => {
     return isGameMoleList;
 }
 
+// 게임 플레이 화면 컴포넌트
 function GamePlay(){
 
     const gameCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -99,10 +100,9 @@ function GamePlay(){
     let gameScore = 0;
     let isGameOver = false;
 
+    // 게임 컨트롤러
     const gameController = () => {
-        // Create Update(calculate & function) Area\
         
-
         if (count % frame === 0) {
             const moleNum = gameStageData[curStage].problem.length;
 
@@ -111,16 +111,19 @@ function GamePlay(){
                 console.log("GAME OVVER !!!!!!!!!!!!!!!!!!!");
                 gameState = 5;
             }
+
+            // 게임 초기 시작, 준비/ 시작 문구 출력 state
             if(gameState === -1){
                 board?.update({gameState, count});
 
+                // 1~2초 후에 게임 시작
                 if(delayStart + 120 < count){
                     delayStart = count;
                     gameState = 0;
                 }
             }
             
-            // Stage Start
+            // Stage Start state, 각 스테이지 관련된 문제 데이터를 두더지와 보드에 업데이트함
             if(gameState === 0){
                 // 스타트 문구
                 
@@ -141,6 +144,7 @@ function GamePlay(){
 
             }
             
+            // 두더지 클릭 여부 확인 state
             else if(gameState === 1){
                 // 유저가 클릭한 두더지 여부에 따른 정답 파악
                 gameCanvas.addEventListener("click", function (e:any) {
@@ -181,6 +185,7 @@ function GamePlay(){
                 
             }
             
+            // 정답 여부 출력 state
             else if(gameState === 2){
                 // 문제 정답여부를 칠판해 표시
                 board?.update({gameState ,isCorrectAnswer});
@@ -193,7 +198,8 @@ function GamePlay(){
                 
 
             }
-
+            
+            // 문제 해설 출력 state
             else if(gameState === 3){
                 board?.update({gameState});
 
@@ -204,6 +210,7 @@ function GamePlay(){
                 }
             }
             
+            // 다음 스테이지를 위한 초기화 state
             else if(gameState === 4){
                 // 다음 스테이지,
                 // moles data 초기화
@@ -216,6 +223,7 @@ function GamePlay(){
                 gameState=0;
             }
             
+            // 시간 오버 문구 출력 및 결과 데이터 저장 state
             else if(gameState === 5){
                 board?.update({gameState});
                 if(delayStart + 400 < count){
@@ -240,18 +248,13 @@ function GamePlay(){
             gameContext.clearRect(0, 0, gameSetValue.GAME_W, gameSetValue.GAME_H);
 
             gameHeader?.render(gameState);
-
             background?.render();
 
             moles.forEach((element:Mole) => {
-                // element.setIsGame(true);
                 element.render();
             });
 
             board?.render(gameState);
-
-            
-            
         }
 
         count += 1;
@@ -260,7 +263,6 @@ function GamePlay(){
 
     // 두더지 객체 리스트에 생성
     const setInitMole = () => {
-
         for (let y = 0; y < 3; y++) {
             for (let x = 0; x < 3; x++)
 
@@ -287,7 +289,6 @@ function GamePlay(){
 
         background = new Background(32, 68, 864, 480, gameContext);
         let t = window.requestAnimationFrame(gameController);
-            // 960 533
     })
 
     return (

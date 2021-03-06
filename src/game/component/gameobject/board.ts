@@ -27,13 +27,12 @@ class Board implements IBoard{
     circleImg: HTMLImageElement;
     crossImg: HTMLImageElement;
     
-    
     constructor(x:number, y:number, w:number, h:number, gameContext:any) {
         this.gameContext = gameContext;
-        this.circleImg = new Image();
+        this.circleImg = new Image();           // 동그라미 이미지
         this.circleImg.src = circle;
 
-        this.crossImg = new Image();
+        this.crossImg = new Image();            // 엑스 이미지
         this.crossImg.src = cross;
 
         this.boardTextData = {
@@ -47,10 +46,12 @@ class Board implements IBoard{
         };
     }
 
+    // 초기화 함수 => 추후 변경
     init() {
 
     }
 
+    // 보드에 출력되는 글자수에 따른 위치 조정
     setBoardTextPositionX() {
         if (this.boardTextData["consonant"].length == 1) {
             this.boardTextData["position"][0] = 450;
@@ -63,6 +64,7 @@ class Board implements IBoard{
         }
     }
 
+    // 보드에 출력되는 스테이지 데이터 설정
     setBoardData({consonant, problem, answer}:{consonant:string, problem:string, answer:number}) {
         this.boardTextData["consonant"] = consonant;
         this.boardTextData["answer"] = problem[answer];
@@ -116,6 +118,8 @@ class Board implements IBoard{
     }
 
     render(gameState:number) {
+
+        // gamestate 2일 경우만 o , x 이미지 출력, 아니면 state에 따른 글자 출력
         if (gameState !== 2) {
             let addX = 0;
             if (gameState === 5) {

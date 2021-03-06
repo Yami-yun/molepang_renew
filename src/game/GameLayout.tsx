@@ -10,7 +10,7 @@ import GameResult from 'game/component/GameResult';
 import GameRankingRegister from 'game/component/GameRankingRegister';
 import GameRankging from 'game/component/GameRankging';
 
-
+// 게임 레이아웃 화면제어 컴포넌트
 function GameLayout(){
     const screen = useSelector((state:any) => state.game.gamescreen);
     // let screen = 6;

@@ -10,57 +10,62 @@ import {
     CHANGE_GAME_SCREEN,
 } from 'redux/action/types';
 import { useState } from 'react';
-import { getTopTenRank, getTotalRank } from 'redux/action/gameAction';
 
-
+// 게임 랭킹 화면 컴포넌트
 function GameRankging(){
     const dispatch = useDispatch();
 
+    // 게임 화면 이동 핸들러
     const onScreenMoveHandler = (nScreen:number) => {
         dispatch({type:CHANGE_GAME_SCREEN, payload: nScreen});
     }
 
-    
+    const topTenRankList = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
+    const totalRankList = useSelector((state:any) => state.game.totalRank);         // 전체 랭킹 정보
 
-    const topTenRankList = useSelector((state:any) => state.game.topTenRank);
-    const totalRankList = useSelector((state:any) => state.game.totalRank);
+    const [rankDataList, setRankDataList] = useState<any>(totalRankList);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
+    const [isTopTenRank, setIsTopTenRank] = useState(false);                        // 사용자가 현재 랭킹 화면으로 탑 10 화면을 선택했는지 여부
 
-    const [rankDataList, setRankDataList] = useState<any>(totalRankList);
-    const [isTopTenRank, setIsTopTenRank] = useState(false);
-    // console.log(rankList);
-
-    useEffect(() => {
-        let getTopTenRankApi = getTopTenRank();
-        getTopTenRankApi(dispatch);
-
-        let getTotalRankApi = getTotalRank();
-        getTotalRankApi(dispatch);
-        setRankDataList(topTenRankList);
-    }, [])
-
+    // 랭킹 탭 선택 함수
     const rankTabSelect = (select:string) => {
         if(select === "TOTAL"){
             setIsTopTenRank(false);
-            setRankDataList(totalRankList);
+            setRankDataList([...totalRankList]);
         }else{
             setIsTopTenRank(true);
-            setRankDataList(topTenRankList);
+            setRankDataList([...topTenRankList]);
         }
+    }
+
+    
+    // 선택된 버튼 스타일
+    function selectedBtnStyle(isTop:boolean){
+        const selectedBtnStyle = {
+            backgroundColor: "#F4F4F4",
+            color:"#402D21",
+        }
+        if(isTopTenRank === isTop) return selectedBtnStyle;
+
+        return {};
     }
 
 
     return (
     <section className={'game__ranking__layout'}>
         <button onClick={()=>onScreenMoveHandler(0)} className={'close__btn'}><img src={closeBtn} /></button>
+
+        {/* 랭킹 화면 헤더 ( 전체순위 버튼, 순위 10 버튼) */}
         <div className={'game__ranking__header'}>
-            <button onClick={()=>rankTabSelect("TOTAL")}>전체순위</button>
-            <button onClick={()=>rankTabSelect("TEN")} >순위 10</button>
+            <button style={selectedBtnStyle(false)} onClick={()=>rankTabSelect("TOTAL")}>전체순위</button>
+            <button style={selectedBtnStyle(true)} onClick={()=>rankTabSelect("TEN")} >순위 10</button>
             
         </div>
+
+        {/* 랭킹 화면에서 현재 보여지는 랭킹 리스트 */}
         <div className={'game__ranking__list'}>
             {rankDataList.map((value:any, index:number)=>
                 <div key={index} className={'game__ranking__box'}>
-                    <p>{value.nRank}</p>
+                    <p>{index + 1}</p>
                     <p>{value.nick}</p>
                     <p>{value.score}</p>
                     <p>{value.date}</p>

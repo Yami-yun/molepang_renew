@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'css/default.css';
 import 'css/game/GameRankingRegister.css';
 
@@ -10,29 +10,43 @@ import {
     CHANGE_GAME_SCREEN,
 } from 'redux/action/types';
 import { useState } from 'react';
+import { getTopTenRank, getTotalRank, registerRank } from 'redux/action/gameAction';
 
-
+// 게임 랭킹 등록 화면 컴포넌트
 function GameRankingRegister(){
     const dispatch = useDispatch();
-    // const result = useSelector((state:any) => state.game.gameResult);
+    const result = useSelector((state:any) => state.game.gameResult);
 
-    const [nick, setNick] = useState("");
-    const [err, setErr] = useState(false);
-    
-    // console.log(result);
+    const [nick, setNick] = useState("");       // 유저 닉네임
+    const [err, setErr] = useState(false);      // 7글자 이상 입력시 에러 문구 출력 여부
 
     const onScreenMoveHandler = (nScreen:number) => {
         dispatch({type:CHANGE_GAME_SCREEN, payload: nScreen});
     }
 
     const onRegisterNickHandler = () => {
-        if(nick.length <= 7) {
+        if(nick.length > 7 || nick.length === 0) {
             setErr(true);
             return;
         }
+        // 유저 닉 reducer에 저장
         dispatch({type:SET_USER_NICK, payload: nick});
+
+        // 랭킹 데이터 등록 api 호출 함수
+        let rigisterRankApi = registerRank();
+        rigisterRankApi(dispatch);
+
         onScreenMoveHandler(6);
     }
+
+    useEffect(() => {
+        let getTopTenRankApi = getTopTenRank();
+        getTopTenRankApi(dispatch);
+
+        let getTotalRankApi = getTotalRank();
+        getTotalRankApi(dispatch);
+        
+    });
 
 
     return (
@@ -42,9 +56,7 @@ function GameRankingRegister(){
             <input defaultValue={""} onChange={(e:any)=>{setNick(e.target.value)}}/>
             {err && <p>* 별명은 7글자 이내로 입력해주세요.</p>}
             <button onClick={()=>{onRegisterNickHandler()} }>등록하기</button>
-            
         </div>
-
     </section>);
 }
 export default GameRankingRegister;

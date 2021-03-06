@@ -6,18 +6,20 @@ import {ADD_COMMENT} from 'redux/action/types';
 import moment from 'moment';
 import { ICommentData } from 'comment/component/CommentInterface';
 
-
+// 코멘트 입력 폼
 function CommentForm(){
     const [nick, setNick] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [comment, setComment] = useState<string>("");
     const dispatch = useDispatch();
 
-
-    console.log();
-
+    // 코멘트 추가 핸들러
     const onCommentAddHandler = (e:any) => {
         e.preventDefault();
+
+        if(nick === "") return alert("닉네임을 입력해주세요");
+        if(comment === "") return alert("내용을 입력해주세요");
+        if(password === "") return alert("비밀 번호를 입력해주세요");
         
         let date = moment().format("YYYY.MM.DD hh:mm")
         
@@ -35,7 +37,6 @@ function CommentForm(){
         setNick("");
         setComment("");
         setPassword("");
-
     }
     return (
     <section>
