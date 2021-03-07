@@ -1,6 +1,4 @@
-import mole from "img/mole.png";
-// import speechBubble from "../../Img/exampleMark.png";
-// import deadMole from "../../Img/deadMole.png";
+
 import {initGameSetValue as gameSetValue} from "../gameSetting";
 
 
@@ -13,45 +11,43 @@ class Ani{
     iteration: number;
     path:string;
     nImg:number;
-    isPlay: boolean;
     curIndex: number;
     gameContext: any;
     nextAni: string;
     curAni:string;
-    test2 : HTMLImageElement;
 
     constructor(path: string, nImg: number, iteration:number, curAni:string ,nextAni:string, gameContext:any){
-        this._ani = [];
-        this.initIteration = iteration;
-        this.iteration = iteration;
-        this.path = path;
-        this.nImg = nImg; 
-        this.isPlay = false;
-        this.curIndex = 0;
-        this.nextAni = nextAni;
-        this.curAni = curAni;
-        this.gameContext = gameContext;
-        this.test2 = new Image();
-        this.test2.src = '/img/ani/mole/03.png';
-        // console.log(this.test2);
+        this._ani = [];                             // animation 프레임 이미지 리스트
+        this.initIteration = iteration;             // 반복 횟수 초기값
+        this.iteration = iteration;                 // 반복 횟수
+        this.path = path;                           // 애니메이션 이미지 루트 경로
+        this.nImg = nImg;                           // 프레임 이미지 수
+        this.curIndex = 0;                          // 애니메이션 play 시, 현재 프레임
+        this.nextAni = nextAni;                     // 현재 애니메이션에 설정된 만큼 횟수 실행 완료시, 다음으로 실행할 애니메이션 상태
+        this.curAni = curAni;                       // 현재 애니메이션 상태
+        this.gameContext = gameContext;             
 
+        // animation 프레임 이미지 리스트에 이미지 넣기
         for(let i=1; i<=7; i++){
             let imgName = "";
             if(i < 10) imgName = `0${i}`;
             else imgName = i.toString();
 
-            let test = new Image();
-            test.src = `${path}${imgName}.png`;
-            this._ani.push(test);
+            let tmp = new Image();
+            tmp.src = `${path}${imgName}.png`;
+            this._ani.push(tmp);
         }
-
     }
 
+    // 애니메이션 초기화 (=반복 횟수 초기화)
     init(){
         this.iteration = this.initIteration;
     }
 
+    // 애니메이션 재생 ( = 화면에 랜더링)
     play(x:number, y:number, width:number, height:number){
+
+        // 재생 중
         if(this.iteration >= 1 || this.iteration === -1){
             this.gameContext.drawImage(
                 // this.test2,
@@ -70,10 +66,11 @@ class Ani{
                 this.curIndex = 0;
             }
             return this.curAni;
+
         }else{
+            // 재생 완료 시 => 다음 애니메이션 상태 반환
             return this.nextAni;
         }
-        
     }
 
     set index(_index:number){
@@ -89,10 +86,7 @@ class Ani{
     }
     
 }
-
-
 class Mole {
-
     moleInitAni: Ani;
     moleIdleAni: Ani;
     moleHitAni: Ani;
@@ -102,7 +96,6 @@ class Mole {
     speechBubbleImg: HTMLImageElement;
     gameContext: any;
     
-
     moleData: {
         id: number; position: {x:number, y: number}; width: number; height: number;
         // 0 : no is Game  1 : answer, 2 : no answer
@@ -116,6 +109,7 @@ class Mole {
     constructor(x: number, y: number, w: number, h: number, id: number, gameContext: any) {
         this.gameContext = gameContext;
 
+        // 말풍선 이미지
         this.speechBubbleImg = new Image();
         this.speechBubbleImg.src = speechBubleImg;
         this.speechBubbleData = {
@@ -135,11 +129,12 @@ class Mole {
             isClicked: false,
         };
 
+        // 애니메이션 상태
         this.aniState = "INIT";
-        this.moleInitAni = new Ani('/ani/mole/init/', 7, 1, "INIT", "IDLE", this.gameContext);
-        this.moleIdleAni = new Ani('/ani/mole/idle/', 6, -1, "IDLE", "IDLE",this.gameContext);
-        this.moleHitAni = new Ani('/ani/mole/hit/', 3, 1, "HIT", "DEAD",this.gameContext);
-        this.moleDeadAni = new Ani('/ani/mole/dead/', 1, -1, "DEAD", "DEAD",this.gameContext);
+        this.moleInitAni = new Ani('./ani/mole/init/', 7, 1, "INIT", "IDLE", this.gameContext);
+        this.moleIdleAni = new Ani('./ani/mole/idle/', 6, -1, "IDLE", "IDLE",this.gameContext);
+        this.moleHitAni = new Ani('./ani/mole/hit/', 3, 1, "HIT", "DEAD",this.gameContext);
+        this.moleDeadAni = new Ani('./ani/mole/dead/', 1, -1, "DEAD", "DEAD",this.gameContext);
     }
 
     // 두더지 데이터 초기화 함수

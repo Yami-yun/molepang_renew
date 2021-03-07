@@ -7,6 +7,9 @@ import Background from "game/component/gameobject/background";
 import { useDispatch } from "react-redux";
 import { CHANGE_GAME_SCREEN, SET_GAME_RESULT } from "redux/action/types";
 
+import 'css/default.css';
+import 'css/game/GamePlay.css';
+
 const gameStageData = [
     {
         stage: 1,
@@ -82,7 +85,7 @@ function GamePlay(){
 
     
     let count = 0;                      // 게임 프레임 count
-    let frame = 8;                     // 게임 프레임
+    let frame = gameSetValue.GAME_FRAME;                     // 게임 프레임
     let curStage = 0;                   // 현재 스테이지
     let gameState = -1;                  // 한 스테이지 내의 게임 진행 단계
     let isCorrectAnswer = false;        // 정답 여부
@@ -97,7 +100,7 @@ function GamePlay(){
     let gameHeader:(GameHeader | null) = null;
     let background:(Background | null) = null;
     
-    let gameScore = 0;
+    let gameScore = gameSetValue.GAME_SCORE;
     let isGameOver = false;
 
     // 게임 컨트롤러
@@ -285,13 +288,14 @@ function GamePlay(){
         board = new Board(gameSetValue.BOARD_X, gameSetValue.BOARD_Y,
             gameSetValue.BOARD_WIDTH, gameSetValue.BOARD_HEIGHT, gameContext);
 
-        gameHeader = new GameHeader(0, 4, 960, 100, gameContext);
+        gameHeader = new GameHeader(gameSetValue.GAME_SCREEN_HEADER_X, gameSetValue.GAME_SCREEN_HEADER_Y,
+            gameSetValue.GAME_SCREEN_HEADER_WIDTH, gameSetValue.GAME_SCREEN_HEADER_HEIGHT, gameContext);
 
-        background = new Background(32, 68, 864, 480, gameContext);
+        background = new Background(32, 56, 864, 480, gameContext);
         let t = window.requestAnimationFrame(gameController);
     })
 
     return (
-    <canvas ref={gameCanvasRef} width={960} height={640}></canvas>);
+    <canvas ref={gameCanvasRef} width={gameSetValue.GAME_W} height={gameSetValue.GAME_H}></canvas>);
 }
 export default GamePlay;

@@ -36,9 +36,10 @@ function CommentBox({nick, date, comment, id}: ICommentData){
                 </div>
                 
                 <div className={'commentbox__btn__list'}>
-                    <button onClick={onModifyHandler}>수정</button> / 
+                    <button onClick={onModifyHandler}>수정</button>
+                    <div>/</div>
                     <button onClick={()=>onDeleteHandler(id)}>삭제</button>
-                    <button>댓글 쓰기</button>
+                    <button>답글 쓰기</button>
                 </div>
             </div>
 

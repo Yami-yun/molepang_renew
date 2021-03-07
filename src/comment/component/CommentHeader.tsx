@@ -21,18 +21,20 @@ function CommentHeader(){
         <button onClick={()=>setIsShare(true)} className={'commment__share__btn'}>공유하기</button>
 
         {/* 공유하기 기능 레이아웃 */}
-        {isShare && <article className={'comment__share__layout'}>
-            <button onClick={()=>setIsShare(false)} className={'share__exit__btn'}>×</button>
-            <h1>SNS 공유하기</h1>
-            <p>모두 한글 두더지 팡!을 공유해 보세요</p>
-            <div className={'share__btn__list'}>
-                <img src={faceShareBtnImg}/>
-                <img src={kakaoShareBtnImg}/>
-                <img src={twiShareBtnImg}/>
-            </div>
-            <button className={'url__copy__btn'}>URL 복사</button>
-            <hr/>
-        </article>}
+        {isShare && <div className={'comment__share__background'}>
+            <article className={'comment__share__layout'}>
+                <button onClick={()=>setIsShare(false)} className={'share__exit__btn'}>×</button>
+                <h1>SNS 공유하기</h1>
+                <p>모두 한글 두더지 팡!을 공유해 보세요</p>
+                <div className={'share__btn__list'}>
+                    <img src={faceShareBtnImg}/>
+                    <img src={kakaoShareBtnImg}/>
+                    <img src={twiShareBtnImg}/>
+                </div>
+                <button className={'url__copy__btn'}>URL 복사</button>
+                <hr/>
+            </article>
+        </div>}
         
     </section>);
 }

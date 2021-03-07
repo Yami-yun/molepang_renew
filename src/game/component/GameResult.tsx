@@ -36,7 +36,7 @@ function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MA
                     <p style={{color:"#3B70C0"}}>{headerTxt}</p><p> 단어</p>
                 </div>
 
-                <div className={'word__box__paging'}>
+                {(wordList.length > 15) && <div className={'word__box__paging'}>
                     <button onClick={()=>onPagingHandler('LEFT')}><img src={leftBtn}/></button>
                     <div className={'page__num__box'}>
                         <p> {page + 1} </p>
@@ -44,7 +44,7 @@ function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MA
                         <p> {WORD_MAX_PAGE + 1} </p>
                     </div>
                     <button onClick={()=>onPagingHandler('RIGHT')}><img src={rightBtn}/></button>
-                </div>
+                </div>}
             </div>
 
             {/* 유저가 플레이할 때 틀린 단어 혹은 맞은 단어 리스트 */}

@@ -1,3 +1,7 @@
 .comment__list__layout{
     min-height: 893px;
 }
+
+.comment__list__layout section:nth-child(5){
+    border: none;
+}

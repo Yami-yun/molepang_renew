@@ -26,7 +26,6 @@ function GameRankingRegister(){
 
     const onRegisterNickHandler = () => {
         if(nick.length > 7 || nick.length === 0) {
-            setErr(true);
             return;
         }
         // 유저 닉 reducer에 저장
@@ -37,6 +36,15 @@ function GameRankingRegister(){
         rigisterRankApi(dispatch);
 
         onScreenMoveHandler(6);
+    }
+
+    const onChangeNickHandler = (e:any) => {
+        setNick(e.target.value);
+        if(nick.length >= 7 || nick.length === 0) {
+            setErr(true);
+        }else{
+            setErr(false);
+        }
     }
 
     useEffect(() => {
@@ -52,10 +60,12 @@ function GameRankingRegister(){
     return (
     <section className={'game__register__layout'}>
         <div className={'game__register__board'}>
+            <button onClick={()=>onScreenMoveHandler(0)} className={'close__btn'}><img src={closeBtn} /></button>
+
             <p>"별명을 등록해야 내 순위를 볼 수 있어요!"</p>
-            <input defaultValue={""} onChange={(e:any)=>{setNick(e.target.value)}}/>
+            <input value={nick} onChange={(e:any)=>{onChangeNickHandler(e)}}/>
             {err && <p>* 별명은 7글자 이내로 입력해주세요.</p>}
-            <button onClick={()=>{onRegisterNickHandler()} }>등록하기</button>
+            <button className={'register__btn'} onClick={()=>{onRegisterNickHandler()} }>등록하기</button>
         </div>
     </section>);
 }

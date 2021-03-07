@@ -2,8 +2,7 @@
     position: relative;
     width: 920px;
     height: 600px;
-    margin : 18px auto 0px;
-    border: 1px solid;
+    margin : 0px auto;
 
     background-image: url('img/menu/menu_background.png');
     background-size: contain;
@@ -14,7 +13,6 @@
     width: 344px;
     height: 101px;
     /* border:1px solid; */
-    cursor: url('img/mouse.png'), auto;
 }
 
 .game__menu__button img{

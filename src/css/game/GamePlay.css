@@ -1,0 +1,10 @@
+canvas{
+        /* border: 1px solid black; */
+        cursor: url('img/mouse.png'), auto;
+}
+
+canvas:active{
+
+    cursor: url('img/mouse2.png'), auto;
+
+}

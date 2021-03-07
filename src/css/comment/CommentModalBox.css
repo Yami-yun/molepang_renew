@@ -1,4 +1,18 @@
+.comment__modal__background{
+    position:fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(46, 43, 43, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .comment__modal__layout{
+    
     position:fixed;
     top: 30%;
     left: 40%;
@@ -10,7 +24,7 @@
     align-items: center;
     background: #ffffff;
 
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 .comment__modal__header{

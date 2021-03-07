@@ -1,7 +1,7 @@
 .commentbox{
     height: 179px;
     padding : 13px 30px 43px;
-    border-bottom: 2px solid #c9c7c7;
+    border-bottom: 2px dashed #809F65;
 }
 
 .commentbox__first__line{
@@ -25,19 +25,35 @@
     color: rgba(51, 102, 51, 0.7);
 }
 
-.commentbox__first__line div{
+.commentbox__first__line > div{
     display: flex;
     align-items: center;
 }
 
-.commentbox__btn__list button{
+/* .commentbox__btn__list{
+    width: 280px;
+    display: flex;
+    border: 1px solid;
+} */
+
+.commentbox__btn__list > button{
+    width: 54px;
     font-size: 1.25rem;
     color: rgba(51, 102, 51, 0.7);
-    border: 0px solid;
 }
 
-.commentbox__btn__list :nth-child(3){
-    margin-left: 15px;
+.commentbox__btn__list > div{
+    width: 11px;
+    margin-left: 5px;
+    font-size: 1.25rem;
+    color: rgba(51, 102, 51, 0.7);
+}
+
+.commentbox__btn__list > button:nth-child(4){
+    width: 105px;
+}
+
+.commentbox__btn__list > button:hover{
     font-weight: bold;
     color: #336633;
 }

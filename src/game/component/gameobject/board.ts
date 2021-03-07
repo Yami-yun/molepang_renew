@@ -1,5 +1,6 @@
 import circle from "img/circle.png";
 import cross from "img/cross.png";
+import {initGameSetValue as setValue} from "../gameSetting";
 
 interface IBoardText{
     position: number[],
@@ -80,9 +81,9 @@ class Board implements IBoard{
 
         if(gameState === -1){
             this.boardTextData["position"][0] = 420;
-            this.setConsonant("준비");
+            this.setConsonant("준 비");
             if(count && 80 < count){
-                this.setConsonant("시작");
+                this.setConsonant("시 작");
             }
         }
         // 라운드 시작
@@ -141,10 +142,10 @@ class Board implements IBoard{
             let correctImg = this.boardTextData["isCorrectAnswer"] ? this.circleImg : this.crossImg;
             this.gameContext.drawImage(
                 correctImg,
-                420,
-                145,
-                130,
-                130);
+                setValue.BOARD_CIRCLE_CROSS_X,
+                setValue.BOARD_CIRCLE_CROSS_Y,
+                setValue.BOARD_CIRCLE_CROSS_WIDTH,
+                setValue.BOARD_CIRCLE_CROSS_HEIGHT,);
         }
 
     }
