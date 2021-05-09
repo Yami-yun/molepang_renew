@@ -9,6 +9,17 @@
     background-color: #2C761D;
 }
 
+.game__ranking__layout > p{
+    padding: 0 0 10px;
+    width: 100%;
+    /* border: 1px solid; */
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 40px;
+    text-align: center;
+    color: #FFFFFF; 
+}
+
 .game__ranking__header{
     
     height: 70px;
@@ -45,6 +56,12 @@
 
     background: white;
     overflow-y : auto;
+}
+
+.game__ranking__list > img{
+    margin-left: 146px;
+    margin-top: 84px;
+    /* border: 1px solid; */
 }
 
 .game__ranking__list::-webkit-scrollbar {

@@ -2,10 +2,10 @@ export const initGameSetValue={
 
     "GAME_W": 960,
     "GAME_H": 620,
-    "FIRST_MOLE_X": 237,                // 첫번째 두더지 X 좌표     
-    "FIRST_MOLE_Y": 234,                // 첫번째 두더지 Y 좌표
+    "FIRST_MOLE_X": 239,                // 첫번째 두더지 X 좌표     
+    "FIRST_MOLE_Y": 235,                // 첫번째 두더지 Y 좌표
     "MOLE_INTERVAL_X": 176,             // 두더지 간의 가로 간격
-    "MOLE_INTERVAL_Y": 94,              // 두더지 간의 세로 간격
+    "MOLE_INTERVAL_Y": 92,              // 두더지 간의 세로 간격
     "MOLE_IMG_WIDTH": 130,              // 두더지 Img width
     "MOLE_IMG_HEIGHT": 148,             // 두더지 Img HEIGHT
 
@@ -31,6 +31,6 @@ export const initGameSetValue={
     "GAME_SCREEN_HEADER_WIDTH": 960,        // 게임 스크린 헤더 가로
     "GAME_SCREEN_HEADER_HEIGHT": 100,        // 게임 스크린 헤더 세로
 
-    "GAME_TIME": 10,                        // 게임 시간
+    "GAME_TIME": 60,                        // 게임 시간
     "GAME_SCORE": 0,                        // 게임 점수
 };

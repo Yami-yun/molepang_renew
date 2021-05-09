@@ -25,14 +25,21 @@ class GameHeader {
         this.countChange = false;
         this.curCount = 0;
         this.gameContext = gameContext;
+
+        let _min = Math.floor(gameSetValue.GAME_TIME/60);
+        let min = _min < 10 ? `0${_min}` : `${_min}`;
+
+        let _sec = gameSetValue.GAME_TIME%60;
+        let sec = _sec < 10 ? `0${_sec}` : `${_sec}`;
+
         this.headerData = {
             position: {x, y},
             width: w,
             height: h,
             score: 0,
             time: {
-                m:'00',
-                s:'10',
+                m:`${min}`,
+                s:`${sec}`,
                 total: gameSetValue.GAME_TIME,
             },
         };
@@ -73,19 +80,19 @@ class GameHeader {
 
         
         if(gameState === 1 || gameState === 0 || gameState === 4){
-            console.log(gameState);
+            console.log(`isChange : ${this.countChange} curCount : ${this.curCount + 60} count : ${count}`);
             if(this.headerData.time.total <= 0){
                 return true;
             }
 
             if(!this.countChange){
                 this.curCount = count;
-                this.countChange =true;
+                this.countChange = true;
             }
             
             if(this.countChange && this.curCount + 60 < count){
                 this.countTime();
-                this.countChange =false;
+                this.countChange = false;
             }
 
         }

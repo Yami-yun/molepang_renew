@@ -64,6 +64,7 @@ function GameRankingRegister(){
 
             <p>"별명을 등록해야 내 순위를 볼 수 있어요!"</p>
             <input value={nick} onChange={(e:any)=>{onChangeNickHandler(e)}}/>
+            <div></div>
             {err && <p>* 별명은 7글자 이내로 입력해주세요.</p>}
             <button className={'register__btn'} onClick={()=>{onRegisterNickHandler()} }>등록하기</button>
         </div>

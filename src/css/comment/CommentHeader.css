@@ -84,7 +84,7 @@
     margin: 0px 0px 17px;
 }
 
-.comment__share__layout p{
+.comment__share__layout > p{
     margin: 0px 0px 29px;
 }
 
@@ -104,13 +104,33 @@
     cursor: pointer;
 }
 
+.url__copy{
+    width: 404px;
+    /* height: 300px; */
+    margin : 27px 0 21px;
+    
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid; */
+}
+
+.url__copy > input {
+    width: 10px;
+    border: none;
+    background: transparent;
+    color:transparent;
+    /* user-select: none; */
+    /* border: 1px solid; */
+}
+
 .url__copy__btn{
     width: 100px;
     height: 40px;
-    margin: 29px 0px 21px 300px;
+    /* margin: 29px 0px 21px 300px; */
 
     font-weight: bold;
-    font-size: 1.14rem;
+    font-size: 1rem;
     color: #F4EBDA;
 
     background: #2B771D;

@@ -23,7 +23,7 @@
     border-radius: 3px;
 }
 
-.game__register__board > p:nth-child(4){
+.game__register__board > p:nth-child(5){
     position: relative;
     top: -20px;
     left: -76px;
@@ -50,12 +50,21 @@
 
 .game__register__board > input{
     width: 400px;
-    margin : 30px 0px;
     border: none;
-    border-bottom: 3px solid #2C781D;
+    /* border-bottom: 6px solid #2C781D; */
+    margin-top : 30px;
 
     font-family: Jua;
     color: #555555;
+}
+
+.game__register__board > div{
+    width: 400px;
+    height: 6px;
+    background: #2C781D;
+    border-radius: 6px;
+    margin-bottom : 30px;
+
 }
 
 .register__btn{

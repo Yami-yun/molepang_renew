@@ -12,7 +12,7 @@ import { IS_DEV } from 'setting/setting';
 const getDummyData = () => {
     let dummyData:any = [];
 
-    for(let i=0; i< 24; i++){
+    for(let i=0; i< 60; i++){
         dummyData.push({
             nick:`test${i}`,
             password:`test${i}`,

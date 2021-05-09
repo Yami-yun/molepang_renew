@@ -104,6 +104,9 @@ class Mole {
     speechBubbleData:{
         imgDistance:{x:number, y:number},
         txtDistance:{x:number, y:number},
+    };
+    scorePositionData:{
+        x:number, y:number
     }
 
     constructor(x: number, y: number, w: number, h: number, id: number, gameContext: any) {
@@ -115,6 +118,9 @@ class Mole {
         this.speechBubbleData = {
             imgDistance: {x:16, y:-8},
             txtDistance: {x:50, y:17},
+        };
+        this.scorePositionData = {
+            x:38, y:6
         };
         
         this.moleData = {
@@ -128,13 +134,16 @@ class Mole {
             isGame: false,
             isClicked: false,
         };
+        
+        const randomMole = Math.floor(Math.random()*3 + 1);
+        console.log(randomMole);
 
         // 애니메이션 상태
         this.aniState = "INIT";
-        this.moleInitAni = new Ani('./ani/mole/init/', 7, 1, "INIT", "IDLE", this.gameContext);
-        this.moleIdleAni = new Ani('./ani/mole/idle/', 6, -1, "IDLE", "IDLE",this.gameContext);
-        this.moleHitAni = new Ani('./ani/mole/hit/', 3, 1, "HIT", "DEAD",this.gameContext);
-        this.moleDeadAni = new Ani('./ani/mole/dead/', 1, -1, "DEAD", "DEAD",this.gameContext);
+        this.moleInitAni = new Ani(`./ani/mole${randomMole}/init/`, 7, 1, "INIT", "IDLE", this.gameContext);
+        this.moleIdleAni = new Ani(`./ani/mole${randomMole}/idle/`, 6, -1, "IDLE", "IDLE",this.gameContext);
+        this.moleHitAni = new Ani(`./ani/mole${randomMole}/hit/`, 3, 1, "HIT", "DEAD",this.gameContext);
+        this.moleDeadAni = new Ani(`./ani/mole${randomMole}/dead/`, 1, -1, "DEAD", "DEAD",this.gameContext);
     }
 
     // 두더지 데이터 초기화 함수
@@ -247,6 +256,33 @@ class Mole {
             
             if(this.aniState === "HIT"){
                 this.aniState = this.moleHitAni.play(data.position.x, data.position.y, data.width, data.height);
+
+                // 이펙트 점수
+                this.gameContext.font = "26px Jua";
+                // this.gameContext.fillStyle = "rgba(0, 0, 0, 1)";
+                this.gameContext.fillStyle = "#ffffff";
+                this.gameContext.strokeStyle = "#333333"; //색상지정
+                this.gameContext.lineWidth = 5; //색상지정
+
+                let getScore = "";
+                if(data.isAnswer){
+                    getScore = `+${data.problem.length * 10}`
+                }else{
+                    getScore = `-${data.problem.length * 5}`
+                }
+
+                this.gameContext.strokeText(
+                    getScore,
+                    data.position.x + this.scorePositionData.x,
+                    data.position.y + this.scorePositionData.y
+                );
+
+                this.gameContext.fillText(
+                    getScore,
+                    data.position.x + this.scorePositionData.x,
+                    data.position.y + this.scorePositionData.y,
+                );
+
             }
 
             if(this.aniState === "DEAD"){
@@ -254,7 +290,7 @@ class Mole {
             }
             
                 // Render speech bubble Img
-            if(this.aniState !== "INIT"){
+            if(this.aniState === "IDLE"){
                 this.gameContext.drawImage(
                     this.speechBubbleImg,
                     data.position.x + this.speechBubbleData.imgDistance.x,

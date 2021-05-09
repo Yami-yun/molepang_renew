@@ -168,7 +168,7 @@ function GamePlay(){
                         isCorrectAnswer = true;
                         correctWord.push(problemList[answerNum]);
                         delayStart = count;
-                        gameScore += 10;
+                        gameScore += 10 * problemList[answerNum].length;
                         numStageClear = [];
                         console.log("Yes!!!");
                     }
@@ -178,6 +178,8 @@ function GamePlay(){
                         isCorrectAnswer = false;
                         incorrectWord.push(problemList[answerNum]);
                         delayStart = count;
+                        gameScore -= 5 * problemList[answerNum].length;
+                        if(gameScore < 0) gameScore = 0;
                         numStageClear = [];
                         console.log("No!!!");
                     }
@@ -198,8 +200,6 @@ function GamePlay(){
                     delayStart = count;
                     gameState = 3;
                 }
-                
-
             }
             
             // 문제 해설 출력 state
@@ -207,7 +207,7 @@ function GamePlay(){
                 board?.update({gameState});
 
                 // 2초 후에 state 변경 ( = 정답 여부를 2초동안 화면에 표시)
-                if(delayStart + 100 < count){
+                if(delayStart + 80 < count){
                     delayStart = count;
                     gameState = 4;
                 }
@@ -229,7 +229,7 @@ function GamePlay(){
             // 시간 오버 문구 출력 및 결과 데이터 저장 state
             else if(gameState === 5){
                 board?.update({gameState});
-                if(delayStart + 400 < count){
+                if(delayStart + 50 < count){
                     delayStart = count;
                     const data = {
                         score: gameScore,
@@ -238,10 +238,10 @@ function GamePlay(){
                     }
                     dispatch({type:CHANGE_GAME_SCREEN, payload: 4});
                     dispatch({type:SET_GAME_RESULT, payload: data});
+                    cancelAnimationFrame(ttt.current);
                     console.log("GAME END###########");
                     return;
                 }
-                
             }
     
         }
@@ -253,11 +253,12 @@ function GamePlay(){
             gameHeader?.render(gameState);
             background?.render();
 
+            board?.render(gameState);
+
             moles.forEach((element:Mole) => {
                 element.render();
             });
 
-            board?.render(gameState);
         }
 
         count += 1;
@@ -280,6 +281,8 @@ function GamePlay(){
         }
     };
 
+    const ttt = useRef(0);
+
     useEffect(() => {
         if(gameCanvasRef) gameCanvas = gameCanvasRef.current;
         gameContext = gameCanvas.getContext('2d');
@@ -292,7 +295,7 @@ function GamePlay(){
             gameSetValue.GAME_SCREEN_HEADER_WIDTH, gameSetValue.GAME_SCREEN_HEADER_HEIGHT, gameContext);
 
         background = new Background(32, 56, 864, 480, gameContext);
-        let t = window.requestAnimationFrame(gameController);
+        ttt.current = window.requestAnimationFrame(gameController);
     })
 
     return (

@@ -1,0 +1,85 @@
+
+.game__topthree__layout{
+    width: 920px;
+    height: 600px;
+    margin : 0px auto;
+    border: 1px solid;
+    background-color: #3D3D3D;
+}
+
+.game__topthree__board{
+    position: relative;
+    width: 720px;
+    height: 420px;
+    margin: 84px auto 0px;
+    padding : 24px 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: #FFFFFF;
+}
+
+.game__topthree__board > img{
+    position: absolute;
+    top: 8px;
+
+}
+
+.game__topthree__board > p:nth-child(2){
+    margin-top: 110px;
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 40px;
+    color: #402922;
+}
+
+
+.game__topthree__board > p:nth-child(2)::first-letter{
+    font-family: Jua;
+    font-size: 80px;
+    font-weight: 600;
+    color: #FB6F18;
+}
+
+.txt__line{
+    display: flex;
+}
+
+.txt__line > p:nth-child(1){
+    margin-right : 8px;
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 30px;
+    color: #402922;
+}
+
+.txt__line > p:nth-child(2){
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 26px;
+    color: #555555;
+}
+
+.ok__btn{
+    width: 314px;
+    height : 60px;
+    margin-top: 19px;
+
+    background: #F4EBDA;
+    border: 3px solid #2C761D;
+    border-radius: 3px;
+
+    font-family: Jua;
+    font-weight: normal;
+    font-size: 32px;
+}
+
+.ok__btn:hover{
+    background: #2C761D;
+    border: 3px solid #2C761D;
+
+    color: #F4EBDA;
+}

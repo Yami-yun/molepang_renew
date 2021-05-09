@@ -33,7 +33,7 @@ function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MA
             {/* 단어 박스 헤더 */}
             <div className={'word__box__header'}>
                 <div className={'box__header__txt'}>
-                    <p style={{color:"#3B70C0"}}>{headerTxt}</p><p> 단어</p>
+                    <p style={headerTxt === "맞힌" ? {color:"#3B70C0"} : {color:"#D65A48"}}>{headerTxt}</p><p> 단어</p>
                 </div>
 
                 {(wordList.length > 15) && <div className={'word__box__paging'}>

@@ -1,7 +1,7 @@
 .top__background__layout{
     position: absolute;
     top: 0;
-    width: 100%;
+    width: 100vw;
     height: 818px;
     background: #AFE8F3;
     z-index: -5;

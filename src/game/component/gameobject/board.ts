@@ -61,7 +61,7 @@ class Board implements IBoard{
             this.boardTextData["position"][0] = 420;
         }
         else {
-            this.boardTextData["position"][0] = 385;
+            this.boardTextData["position"][0] = 380;
         }
     }
 
@@ -80,7 +80,7 @@ class Board implements IBoard{
         {gameState:number, boardStageData?:any, isCorrectAnswer?:boolean, count?:number}) {
 
         if(gameState === -1){
-            this.boardTextData["position"][0] = 420;
+            this.boardTextData["position"][0] = 404;
             this.setConsonant("준 비");
             if(count && 80 < count){
                 this.setConsonant("시 작");
