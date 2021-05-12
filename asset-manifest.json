@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "//molepang_renew/static/css/main.3306dec1.chunk.css",
-    "main.js": "//molepang_renew/static/js/main.15658316.chunk.js",
-    "main.js.map": "//molepang_renew/static/js/main.15658316.chunk.js.map",
-    "runtime-main.js": "//molepang_renew/static/js/runtime-main.58827d35.js",
-    "runtime-main.js.map": "//molepang_renew/static/js/runtime-main.58827d35.js.map",
-    "static/js/2.d776f642.chunk.js": "//molepang_renew/static/js/2.d776f642.chunk.js",
-    "static/js/2.d776f642.chunk.js.map": "//molepang_renew/static/js/2.d776f642.chunk.js.map",
-    "index.html": "//molepang_renew/index.html",
-    "static/css/main.3306dec1.chunk.css.map": "//molepang_renew/static/css/main.3306dec1.chunk.css.map",
-    "static/js/2.d776f642.chunk.js.LICENSE.txt": "//molepang_renew/static/js/2.d776f642.chunk.js.LICENSE.txt",
-    "static/media/background.5e2596c2.png": "//molepang_renew/static/media/background.5e2596c2.png",
-    "static/media/game__des1.ca1542af.png": "//molepang_renew/static/media/game__des1.ca1542af.png",
-    "static/media/game__des2.648953cc.png": "//molepang_renew/static/media/game__des2.648953cc.png",
-    "static/media/main__title.a5183aed.png": "//molepang_renew/static/media/main__title.a5183aed.png"
+    "main.css": "/molepang_renew/static/css/main.3306dec1.chunk.css",
+    "main.js": "/molepang_renew/static/js/main.15658316.chunk.js",
+    "main.js.map": "/molepang_renew/static/js/main.15658316.chunk.js.map",
+    "runtime-main.js": "/molepang_renew/static/js/runtime-main.c9f5c158.js",
+    "runtime-main.js.map": "/molepang_renew/static/js/runtime-main.c9f5c158.js.map",
+    "static/js/2.d776f642.chunk.js": "/molepang_renew/static/js/2.d776f642.chunk.js",
+    "static/js/2.d776f642.chunk.js.map": "/molepang_renew/static/js/2.d776f642.chunk.js.map",
+    "index.html": "/molepang_renew/index.html",
+    "static/css/main.3306dec1.chunk.css.map": "/molepang_renew/static/css/main.3306dec1.chunk.css.map",
+    "static/js/2.d776f642.chunk.js.LICENSE.txt": "/molepang_renew/static/js/2.d776f642.chunk.js.LICENSE.txt",
+    "static/media/background.5e2596c2.png": "/molepang_renew/static/media/background.5e2596c2.png",
+    "static/media/game__des1.ca1542af.png": "/molepang_renew/static/media/game__des1.ca1542af.png",
+    "static/media/game__des2.648953cc.png": "/molepang_renew/static/media/game__des2.648953cc.png",
+    "static/media/main__title.a5183aed.png": "/molepang_renew/static/media/main__title.a5183aed.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.58827d35.js",
+    "static/js/runtime-main.c9f5c158.js",
     "static/js/2.d776f642.chunk.js",
     "static/css/main.3306dec1.chunk.css",
     "static/js/main.15658316.chunk.js"
