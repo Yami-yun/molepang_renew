@@ -1,9 +1,9 @@
-canvas{
+.ingame__screen{
         /* border: 1px solid black; */
         cursor: url('img/mouse.png'), auto;
 }
 
-canvas:active{
+.ingame__screen:active{
 
     cursor: url('img/mouse2.png'), auto;
 

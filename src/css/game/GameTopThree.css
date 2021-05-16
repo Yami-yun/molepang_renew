@@ -1,5 +1,9 @@
 
 .game__topthree__layout{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index:10;
     width: 920px;
     height: 600px;
     margin : 0px auto;
@@ -36,12 +40,23 @@
     color: #402922;
 }
 
-
 .game__topthree__board > p:nth-child(2)::first-letter{
     font-family: Jua;
     font-size: 80px;
     font-weight: 600;
     color: #FB6F18;
+}
+
+.game__topthree__board > .rank1:nth-child(2)::first-letter{
+    color: #FB6F18;
+}
+
+.game__topthree__board > .rank2:nth-child(2)::first-letter{
+    color: #00C0FE;
+}
+
+.game__topthree__board > .rank3:nth-child(2)::first-letter{
+    color: #7FCA39;
 }
 
 .txt__line{

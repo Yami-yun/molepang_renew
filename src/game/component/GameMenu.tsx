@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { CHANGE_GAME_SCREEN } from 'redux/action/types';
 import mole1 from "menu/01.png";
 import mole2 from "menu/02.png";
+import { getProblem } from 'redux/action/gameAction';
 
 
 
@@ -135,7 +136,11 @@ function GameMenu(){
     <section className={'game__menu__layout'}>
         {/* 게임 설명, 게임 시작, 랭킹 보기 버튼 */}
         <button onClick={()=>{onGameScreenHandler(1)}} className={'game__menu__button'}><img src={btn1}/></button>
-        <button onClick={()=>{onGameScreenHandler(2)}} className={'game__menu__button'}><img src={btn2}/></button>
+        <button onClick={()=>{
+            onGameScreenHandler(2);
+            let getProblemApi = getProblem();
+            getProblemApi(dispatch);
+            }} className={'game__menu__button'}><img src={btn2}/></button>
         <button onClick={()=>{onGameScreenHandler(7)}} className={'game__menu__button'}><img src={btn3}/></button>
 
         <canvas ref={canvasRef} width={920} height={600} className={'game__menu__mole'}></canvas>

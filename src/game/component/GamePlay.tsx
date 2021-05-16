@@ -4,46 +4,47 @@ import {initGameSetValue as gameSetValue} from "./gameSetting";
 import Board from "game/component/gameobject/board";
 import GameHeader from "game/component/gameobject/gameHeader";
 import Background from "game/component/gameobject/background";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CHANGE_GAME_SCREEN, SET_GAME_RESULT } from "redux/action/types";
 
 import 'css/default.css';
 import 'css/game/GamePlay.css';
+import { getProblem } from "redux/action/gameAction";
 
-const gameStageData = [
-    {
-        stage: 1,
-        consonant: "ㄱㅁㅎ",
-        problem: ["곰마하", "곤마히", "가만히"],
-        answer: 2,
-    },
-    {
-        stage: 2,
-        consonant: "ㄱㅂ",
-        problem: ["기빈", "가방", "구번", "고본"],
-        answer: 1,
-    },
+// const gameStageData = [
+//     {
+//         stage: 1,
+//         consonant: "ㄱㅁㅎ",
+//         problem: ["곰마하", "곤마히", "가만히"],
+//         answer: 2,
+//     },
+//     {
+//         stage: 2,
+//         consonant: "ㄱㅂ",
+//         problem: ["기빈", "가방", "구번", "고본"],
+//         answer: 1,
+//     },
 
-    {
-        stage: 3,
-        consonant: "ㄲ",
-        problem: ["낄", "꼴", "꿀", "깡"],
-        answer: 2,
-    },
-    {
-        stage: 4,
-        consonant: "ㄱㄹㄱ",
-        problem: ["기러기", "곰돌이", "팽팽이", "흰둥이"],
-        answer: 0,
-    },
-    {
-        stage: 3,
-        consonant: "ㅅㅅㅅ",
-        problem: ["샤사샥", "솔방울", "숭실대", "뭘봐요"],
-        answer: 0,
-    },
+//     {
+//         stage: 3,
+//         consonant: "ㄲ",
+//         problem: ["낄", "꼴", "꿀", "깡"],
+//         answer: 2,
+//     },
+//     {
+//         stage: 4,
+//         consonant: "ㄱㄹㄱ",
+//         problem: ["기러기", "곰돌이", "팽팽이", "흰둥이"],
+//         answer: 0,
+//     },
+//     {
+//         stage: 3,
+//         consonant: "ㅅㅅㅅ",
+//         problem: ["샤사샥", "솔방울", "숭실대", "뭘봐요"],
+//         answer: 0,
+//     },
 
-];
+// ];
 
 // Any value is put in nine moles, and only a mole with a maximum value of three to four of them is selected and shown in the current round.
 // 9개의 두더지에 임의 값을 넣고, 그 중 최대 값 3~ 4 개인 두더지만 뽑아서 현 스테이지에 보여준다. => 스테이지에 보여줄 두더지를 선정한다.
@@ -82,8 +83,8 @@ function GamePlay(){
     let gameContext:any = null;
 
     const dispatch = useDispatch();
+    const gameStageData = useSelector((state:any) => state.game.problemData);
 
-    
     let count = 0;                      // 게임 프레임 count
     let frame = gameSetValue.GAME_FRAME;                     // 게임 프레임
     let curStage = 0;                   // 현재 스테이지
@@ -103,13 +104,16 @@ function GamePlay(){
     let gameScore = gameSetValue.GAME_SCORE;
     let isGameOver = false;
 
+    console.log(gameStageData);
     // 게임 컨트롤러
     const gameController = () => {
         
         if (count % frame === 0) {
-            const moleNum = gameStageData[curStage].problem.length;
+            console.log(count);
+            const moleNum = gameStageData[curStage]?.problem.length;
 
             if(gameHeader?.update(gameState,count, gameScore)){
+                delayStart = count;
                 // 시간이 다되어서 게임 오버
                 console.log("GAME OVVER !!!!!!!!!!!!!!!!!!!");
                 gameState = 5;
@@ -133,7 +137,6 @@ function GamePlay(){
                 answerNum = gameStageData[curStage].answer;     // 현재 스테이지 정답 번호
                 problemList = gameStageData[curStage].problem;  // 현재 스테이지 문제 리스트
                 const curMoleList = setMoleIsGame(moleNum);     // 현재 스테이지 출현할 두더지 리스트
-                console.log(curMoleList);
 
                 // 보드 업데이트
                 board?.update({gameState, boardStageData:gameStageData[curStage]});
@@ -224,6 +227,10 @@ function GamePlay(){
                 count = 0;
                 curStage+=1;
                 gameState=0;
+
+                if(!gameStageData[curStage]?.problem){
+                    gameState= 5;
+                }
             }
             
             // 시간 오버 문구 출력 및 결과 데이터 저장 state
@@ -284,21 +291,26 @@ function GamePlay(){
     const ttt = useRef(0);
 
     useEffect(() => {
-        if(gameCanvasRef) gameCanvas = gameCanvasRef.current;
-        gameContext = gameCanvas.getContext('2d');
 
-        setInitMole();
-        board = new Board(gameSetValue.BOARD_X, gameSetValue.BOARD_Y,
-            gameSetValue.BOARD_WIDTH, gameSetValue.BOARD_HEIGHT, gameContext);
+        if(gameCanvasRef && gameStageData.length !== 0){
+            gameCanvas = gameCanvasRef.current;
+            gameContext = gameCanvas.getContext('2d');
 
-        gameHeader = new GameHeader(gameSetValue.GAME_SCREEN_HEADER_X, gameSetValue.GAME_SCREEN_HEADER_Y,
-            gameSetValue.GAME_SCREEN_HEADER_WIDTH, gameSetValue.GAME_SCREEN_HEADER_HEIGHT, gameContext);
+            setInitMole();
+            board = new Board(gameSetValue.BOARD_X, gameSetValue.BOARD_Y,
+                gameSetValue.BOARD_WIDTH, gameSetValue.BOARD_HEIGHT, gameContext);
 
-        background = new Background(32, 56, 864, 480, gameContext);
-        ttt.current = window.requestAnimationFrame(gameController);
-    })
+            gameHeader = new GameHeader(gameSetValue.GAME_SCREEN_HEADER_X, gameSetValue.GAME_SCREEN_HEADER_Y,
+                gameSetValue.GAME_SCREEN_HEADER_WIDTH, gameSetValue.GAME_SCREEN_HEADER_HEIGHT, gameContext);
+
+            background = new Background(32, 56, 864, 480, gameContext);
+            ttt.current = window.requestAnimationFrame(gameController);
+        }
+
+        return () => {cancelAnimationFrame(ttt.current);};
+    }, [gameStageData]);
 
     return (
-    <canvas ref={gameCanvasRef} width={gameSetValue.GAME_W} height={gameSetValue.GAME_H}></canvas>);
+    <canvas className={'ingame__screen'} ref={gameCanvasRef} width={gameSetValue.GAME_W} height={gameSetValue.GAME_H}></canvas>);
 }
 export default GamePlay;

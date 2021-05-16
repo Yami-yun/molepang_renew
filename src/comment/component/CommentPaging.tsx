@@ -16,14 +16,15 @@ function CommentPaging(){
     // left paging
     const onPagingLeftHandler = () => {
         if(page !== 0){
-            dispatch({type:PAGE_COMMENT, payload: page-1})
+            dispatch({type:PAGE_COMMENT, payload: page-1});
         }
     }
 
     // right paging
     const onPagingRightHandler = () => {
-        if(Math.floor((data?.length) / 5) !== page + 1){
-            dispatch({type:PAGE_COMMENT, payload: page+1})
+        if(Math.ceil((data?.length) / 5) !== page + 1){
+            dispatch({type:PAGE_COMMENT, payload: page+1});
+            console.log("Ttttt");
         }
     }
 

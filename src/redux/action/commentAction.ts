@@ -8,7 +8,14 @@ import {
 import axios from 'axios';
 import { IS_DEV } from 'setting/setting';
 
-
+/*
+id
+nickname
+password
+content
+create_date
+update_date
+*/
 const getDummyData = () => {
     let dummyData:any = [];
 

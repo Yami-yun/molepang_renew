@@ -33,10 +33,12 @@ function GameLayout(){
                 return <GameResult />;
             case 5:
                 return <GameRankingRegister />;
+            case 6:
+                return <GameRankging />;
             case 7:
                 return <GamePreRankging />;
             default:
-                return <GameRankging />;
+                return <GamePreRankging />;
 
         }
         

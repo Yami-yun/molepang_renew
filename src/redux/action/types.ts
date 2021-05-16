@@ -20,6 +20,10 @@ export const GET_TOTAL_RANK = "game/GET_TOTAL_RANK";
 export const GET_TOP_TEN_RANK = "game/GET_TOP_TEN_RANK";
 export const REGISTER_RANK = "game/REGISTER_RANK";
 
+export const GET_PROBLEM = "game/GET_PROBLEM";
+
+
+
 
 
 // export const SET_GAME_SCORE = "game/SET_GAME_SCORE";

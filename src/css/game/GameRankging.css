@@ -58,6 +58,10 @@
     overflow-y : auto;
 }
 
+.game__ranking__list__total{
+    overflow-y : hidden;
+}
+
 .game__ranking__list > img{
     margin-left: 146px;
     margin-top: 84px;
@@ -89,9 +93,13 @@
 .game__ranking__box{
     height: 98px;
     border-bottom : 3px dashed #85C980;
-
+    padding: 10px 0;
     display:flex;
-    
+    /* align-items: center; */
+}
+
+.game__ranking__list > .game__ranking__box:nth-child(5){
+    border-bottom : none;
 }
 
 .game__ranking__box > p{
@@ -100,9 +108,11 @@
     font-weight: normal;
     font-size: 30px;
     color: #494949;
-    line-height: 98px;
+    line-height: 80px;
+}
 
-    /* border: 1px solid; */
+.game__ranking__box > .p__center{
+    background: #FD9B5C;
 }
 
 .game__ranking__box >p:nth-child(1){

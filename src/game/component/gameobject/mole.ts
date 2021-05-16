@@ -120,7 +120,7 @@ class Mole {
             txtDistance: {x:50, y:17},
         };
         this.scorePositionData = {
-            x:38, y:6
+            x:40, y:0
         };
         
         this.moleData = {

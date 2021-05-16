@@ -72,7 +72,7 @@ function CommentBox({nick, date, comment, id}: ICommentData){
 
             <p>{comment}</p>
             <section >
-                {replyDummy().map((value, index) => (<CommentReplyBox {...value} />) )}
+                {replyDummy().map((value, index) => (<CommentReplyBox key={index} {...value} />) )}
             </section>
 
         </section>

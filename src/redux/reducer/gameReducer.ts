@@ -8,6 +8,7 @@ import {
     GET_TOTAL_RANK,
     GET_TOP_TEN_RANK,
     REGISTER_RANK,
+    GET_PROBLEM,
 } from '../action/types';
 
 const initGameData:{
@@ -28,6 +29,8 @@ const initGameData:{
         score: number,
         date: string,
     }[],
+    problemData:any[],
+    userRank:number,
 } = {
     gamescreen: 0,
     gameResult: {
@@ -35,9 +38,11 @@ const initGameData:{
         correctWord : [],
         incorrectWord : [],
     },
+    userRank: 0,
     userNick:"",
     totalRank:[],
     topTenRank:[],
+    problemData:[],
     
 
 }
@@ -60,6 +65,9 @@ export default function(state=initGameData, action:any) {
         case GET_TOP_TEN_RANK:
             return {...state, topTenRank: [...action.payload]};
 
+        case GET_PROBLEM:
+            return {...state, problemData: [...action.payload]};
+
         case REGISTER_RANK:
             // 임시 데이터 설정
             let cur = 0;
@@ -75,7 +83,7 @@ export default function(state=initGameData, action:any) {
                 // score: state.gameResult.score,
                 date: "2021. 02. 22",
             };
-            return {...state, totalRank: [...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)]};
+            return {...state, userRank : cur+1, topTenRank:[...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)], totalRank: [...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)]};
 
         default:
             return state;

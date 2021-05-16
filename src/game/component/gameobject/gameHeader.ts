@@ -80,7 +80,6 @@ class GameHeader {
 
         
         if(gameState === 1 || gameState === 0 || gameState === 4){
-            console.log(`isChange : ${this.countChange} curCount : ${this.curCount + 60} count : ${count}`);
             if(this.headerData.time.total <= 0){
                 return true;
             }
