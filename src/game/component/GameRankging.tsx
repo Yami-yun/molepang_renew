@@ -37,6 +37,12 @@ function GameRankging(){
         rankTabSelect("TOTAL");
 
     }, [])
+
+    useEffect(() => {
+        setRankDataList(totalRankList);
+        rankTabSelect("TOTAL");
+
+    }, [totalRankList])
     // 랭킹 탭 선택 함수
     const rankTabSelect = (select:string) => {
         if(select === "TOTAL"){

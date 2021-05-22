@@ -75,7 +75,7 @@ function Background(){
         </section>
         <section style={{height:`${bottomHeight}px`}} className={"bottom__background__layout"}>
             {
-                seedRender()
+                width > 1400 && seedRender()
             }
             
         </section>

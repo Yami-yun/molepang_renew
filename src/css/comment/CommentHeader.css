@@ -44,6 +44,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index:40;
 
     background-color: rgba(46, 43, 43, 0.7);
     display: flex;

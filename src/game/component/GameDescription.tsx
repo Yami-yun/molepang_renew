@@ -12,6 +12,7 @@ import {
     CHANGE_GAME_SCREEN,
 } from 'redux/action/types';
 import { useState } from 'react';
+import { getProblem } from 'redux/action/gameAction';
 
 // 게임 설명 창 화면 컴포넌트
 function GameDescription(){
@@ -41,7 +42,11 @@ function GameDescription(){
         {/* 게임 설명 이미지 */}
         <img src={desImg}/>
 
-        {page === 2 && <button onClick={()=>onScreenMoveHandler(2)} className={'des__start__btn'}>놀이시작</button>}
+        {page === 2 && <button onClick={()=>{
+            onScreenMoveHandler(2);
+            let getProblemApi = getProblem();
+            getProblemApi(dispatch);
+        }} className={'des__start__btn'}>놀이시작</button>}
 
         {/* 게임 설명 페이징 */}
         <div className={'des__page__box'}>

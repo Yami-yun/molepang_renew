@@ -291,8 +291,18 @@ function GamePlay(){
     const ttt = useRef(0);
 
     useEffect(() => {
+        
+        return () => {
+            cancelAnimationFrame(ttt.current);
+        }
+    }, [])
+
+    useEffect(() => {
+        console.log("BIT TEST###################1");
+        console.log(gameStageData);
 
         if(gameCanvasRef && gameStageData.length !== 0){
+            console.log("BIT TEST###################2");
             gameCanvas = gameCanvasRef.current;
             gameContext = gameCanvas.getContext('2d');
 
@@ -307,7 +317,6 @@ function GamePlay(){
             ttt.current = window.requestAnimationFrame(gameController);
         }
 
-        return () => {cancelAnimationFrame(ttt.current);};
     }, [gameStageData]);
 
     return (

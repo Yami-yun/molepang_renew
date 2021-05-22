@@ -117,12 +117,15 @@ class GameHeader {
             156,
             42);
         
+        let scoreTxtX = 0;
+        if(this.headerData.score.toString().length === 1) scoreTxtX = 6;
+        else if(this.headerData.score.toString().length === 3) scoreTxtX = -7;
 
         // 점수 number
         this.gameContext.font = "bold 36px Jua"; //폰트의 크기, 글꼴체 지정 
         this.gameContext.fillText(
             this.headerData.score,
-            177,
+            177 + scoreTxtX ,
             42 + this.headerData.position.y,
         );
 

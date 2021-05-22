@@ -57,10 +57,10 @@ class Board implements IBoard{
     // 보드에 출력되는 글자수에 따른 위치 조정
     setBoardTextPositionX() {
         if (this.boardTextData["consonant"].length == 1) {
-            this.boardTextData["position"][0] = 450;
+            this.boardTextData["position"][0] = 440;
         }
         else if (this.boardTextData["consonant"].length == 2) {
-            this.boardTextData["position"][0] = 420;
+            this.boardTextData["position"][0] = 414;
         }
         else {
             this.boardTextData["position"][0] = 380;
@@ -115,7 +115,6 @@ class Board implements IBoard{
 
 
         if(gameState === 5){
-            // this.boardTextData["position"][0] = 370;
             this.setConsonant("끝");
         }
 
@@ -141,8 +140,9 @@ class Board implements IBoard{
         }else{
             let addX = 0;
             let addY = 0;
+            // let endX = 
             if (gameState === 5) {
-                addX = 54;
+                addX = 0;
             }else if(gameState === 3){
                 addY =- 18;
             }
