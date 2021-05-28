@@ -9,9 +9,29 @@ import {
     GET_TOP_TEN_RANK,
     REGISTER_RANK,
     GET_PROBLEM,
+    GET_PROBLEM_SUC,
+    GET_PROBLEM_ERR,
+    REGISTER_RANK_SUC,
+    REGISTER_RANK_ERR,
 } from '../action/types';
 
-const initGameData:{
+type total_rank = {
+    id: string,
+    nickname: string,
+    score: string,
+    play_date: string,
+    ranking: string,
+};
+
+type game_problem = {
+    answer:number;
+    consonant:string;
+    meaning:string;
+    problem:string[];
+    stage:number;
+};
+
+export interface IGameData{
     gamescreen:number,
     gameResult:{
         score:number,
@@ -20,18 +40,24 @@ const initGameData:{
     },
     userNick:string,
     totalRank:{
-        nick: string,
-        score: number,
-        date: string,
-    }[],
+        data:total_rank[],
+        err:boolean,
+        isloading:boolean,
+    },
     topTenRank:{
         nick: string,
         score: number,
         date: string,
     }[],
-    problemData:any[],
+    problemData:{
+        data:game_problem[],
+        err:boolean,
+        isloading:boolean,
+    },
     userRank:number,
-} = {
+}
+
+const initGameData:IGameData = {
     gamescreen: 0,
     gameResult: {
         score: 0,
@@ -40,10 +66,17 @@ const initGameData:{
     },
     userRank: 0,
     userNick:"",
-    totalRank:[],
+    totalRank:{
+        isloading:false,
+        data:[],
+        err:false,
+    },
     topTenRank:[],
-    problemData:[],
-    
+    problemData:{
+        isloading:false,
+        data:[],
+        err:false,
+    },
 
 }
 
@@ -66,24 +99,37 @@ export default function(state=initGameData, action:any) {
             return {...state, topTenRank: [...action.payload]};
 
         case GET_PROBLEM:
-            return {...state, problemData: [...action.payload]};
+            return {...state, problemData: {isloading:true, err:false}};
+
+        case GET_PROBLEM_SUC:
+            return {...state, problemData: {data:[...action.data], isloading:false, err:false}};
+
+        case GET_PROBLEM_ERR:
+            return {...state, problemData: {isloading:false, err:true}};
 
         case REGISTER_RANK:
             // 임시 데이터 설정
-            let cur = 0;
-            for(let i=0; i< state.totalRank.length; i++){
-                cur = i;
-                if(state.gameResult.score > state.totalRank[i].score){
-                    break;
-                }
-            }
-            const data = {
-                nick: state.userNick,
-                score: state.gameResult.score,
-                // score: state.gameResult.score,
-                date: "2021. 02. 22",
-            };
-            return {...state, userRank : cur+1, topTenRank:[...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)], totalRank: [...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)]};
+            // let cur = 0;
+            // for(let i=0; i< state.totalRank.length; i++){
+            //     cur = i;
+            //     if(state.gameResult.score > state.totalRank[i].score){
+            //         break;
+            //     }
+            // }
+            // const data = {
+            //     nick: state.userNick,
+            //     score: state.gameResult.score,
+            //     // score: state.gameResult.score,
+            //     date: "2021. 02. 22",
+            // };
+            // return {...state, userRank : cur+1, topTenRank:[...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)], totalRank: [...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)]};
+            return {...state, totalRank: {isloading:true, err:false}};
+
+            case REGISTER_RANK_SUC:
+                return {...state, totalRank: {data: action.data, isloading:false, err:false}};
+
+            case REGISTER_RANK_ERR:
+                return {...state, totalRank: {isloading:false, err:true}};
 
         default:
             return state;

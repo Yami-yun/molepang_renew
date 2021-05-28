@@ -4,9 +4,13 @@ import {
     GET_COMMENT, 
     COMMENT_CHECK_PASSWORD, 
     MODIFY_COMMENT,
+    GET_COMMENT_ERR,
+    GET_COMMENT_SUC,
+    ADD_COMMENT_SUC,
+    ADD_COMMENT_ERR,
 } from './types';
 import axios from 'axios';
-import { IS_DEV } from 'setting/setting';
+import { BASE_URL, IS_DEV } from 'setting/setting';
 
 /*
 id
@@ -37,14 +41,17 @@ export function getComment(){
     return async function(dispatch:any){
         try{
             if(IS_DEV){
-                window.setTimeout(() => { dispatch({type:GET_COMMENT, payload: getDummyData()}); }, 800);
-                
+                // window.setTimeout(() => { dispatch({type:GET_COMMENT, payload: getDummyData()}); }, 800);
+                const response = await axios.get(`${BASE_URL}/comment`);
+                console.log(response);
+                dispatch({type:GET_COMMENT_SUC, data: response.data});
+
             }else{
-                const response = await axios.get('/api/comment/info');
-                dispatch({type:GET_COMMENT, payload: response});
+                const response = await axios.get(`${BASE_URL}/comment`);
+                console.log(response);
             }
         }catch(err){
-            dispatch({type:GET_COMMENT, payload: err});
+            dispatch({type:GET_COMMENT_ERR, payload: err});
         }
     }
 }
@@ -53,14 +60,31 @@ export function getComment(){
 export const addComment = (body:any) => async (dispatch: any) => {
     try{
         if(IS_DEV){
+            console.log(body);
+            dispatch({type:ADD_COMMENT});
+            console.log(body.entries());
+
+            // const config = {
+            //     headers: {
+            //         'Content-type': 'multipart/form-data;',
+            //         'Accept': '*/*'
+            //     }
+            // }
+            const response = await axios.post(`${BASE_URL}/comment/`, body);
             
-            window.setTimeout(()=>{dispatch({type:ADD_COMMENT, payload: body})} ,100);
+
+            dispatch({type:ADD_COMMENT_SUC, data:response.data});
+
+            console.log(response);
+            // window.setTimeout(()=>{dispatch({type:ADD_COMMENT, payload: body})} ,100);
+
         }else{
-            const response = await axios.post('/api/comment/add', body);
+            const response = await axios.post(`${BASE_URL}/comment`, body);
+
             dispatch({type:ADD_COMMENT, payload: response});
         }
     }catch(err){
-        dispatch({type:ADD_COMMENT, payload: err});
+        dispatch({type:ADD_COMMENT_ERR, payload: err});
     }
 }
 

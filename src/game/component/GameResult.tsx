@@ -11,6 +11,7 @@ import {
     CHANGE_GAME_SCREEN,
 } from 'redux/action/types';
 import { useState } from 'react';
+import { getProblem } from 'redux/action/gameAction';
 
 
 function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MAX_PAGE:number, wordList:string[]}){
@@ -91,7 +92,11 @@ function GameRsult(){
                     <div className={'body__line'}></div>
                     <p>점수</p>
                     <p className={'score__txt'}>{result.score}</p>
-                    <button onClick={()=>onScreenMoveHandler(2)}>다시하기</button>
+                    <button onClick={()=>{
+                        let getProblemApi = getProblem();
+                        getProblemApi(dispatch);
+                        onScreenMoveHandler(2);
+                        }}>다시하기</button>
                     <button onClick={()=>onScreenMoveHandler(5)}>순위보기</button>
                 </div>
 

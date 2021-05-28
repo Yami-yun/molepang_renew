@@ -1,11 +1,15 @@
 
 import axios from 'axios';
-import { IS_DEV } from 'setting/setting';
+import { BASE_URL, IS_DEV } from 'setting/setting';
 import {
     GET_TOTAL_RANK, 
     GET_TOP_TEN_RANK,
     REGISTER_RANK,
     GET_PROBLEM,
+    GET_PROBLEM_SUC,
+    GET_PROBLEM_ERR,
+    REGISTER_RANK_SUC,
+    REGISTER_RANK_ERR,
 
 } from './types';
 
@@ -121,15 +125,20 @@ export function getProblem(){
     return async function(dispatch:any){
         try{
             if(IS_DEV){
-                window.setTimeout(() => { dispatch({type:GET_PROBLEM, payload: getProblemDummyData()}); }, 800);
+                dispatch({type:GET_PROBLEM});
+
+                const response = await axios.get(`${BASE_URL}/problem`);
+                console.log(response);
+                dispatch({type:GET_PROBLEM_SUC, data: response.data});
+
+                // window.setTimeout(() => { dispatch({type:GET_PROBLEM, payload: getProblemDummyData()}); }, 800);
                 
             }else{
-                const response = await axios.get('/api/game/problem');
-                dispatch({type:GET_PROBLEM, payload: response});
+                const response = await axios.get(`${BASE_URL}/problem`);
+                dispatch({type:GET_PROBLEM_SUC, data: response.data});
             }
         }catch(err){
-            console.log(err);
-            // dispatch({type:GET_TOTAL_RANK, payload: err});
+            dispatch({type:GET_PROBLEM_ERR});
         }
     }
 }
@@ -168,18 +177,26 @@ export function getTopTenRank(){
     }
 }
 
-export function registerRank(){
+export function registerRank(body:{nickname:string, score:string}){
     return async function(dispatch:any){
         try{
             if(IS_DEV){
-                window.setTimeout(() => { dispatch({type:REGISTER_RANK}); }, 800);
+                // window.setTimeout(() => { dispatch({type:REGISTER_RANK}); }, 800);
+                dispatch({type:REGISTER_RANK});
+
+                const response = await axios.post(`${BASE_URL}/ranking`, body);
+                console.log(response);
+                // dispatch({type:REGISTER_RANK_SUC, data: response.data});
                 
             }else{
-                const response = await axios.post('/api/game/totalrank');
-                dispatch({type:REGISTER_RANK, payload: response});
+                const response = await axios.post(`${BASE_URL}/ranking`);
+                dispatch({type:REGISTER_RANK_SUC, data: response.data});
+
             }
         }catch(err){
             console.log(err);
+            dispatch({type:REGISTER_RANK_ERR});
+
             // dispatch({type:GET_TOTAL_RANK, payload: err});
         }
     }

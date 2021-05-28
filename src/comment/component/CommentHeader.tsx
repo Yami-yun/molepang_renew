@@ -10,7 +10,8 @@ import twiShareBtnImg from 'img/twi__share__btn.png';
 
 
 function CommentHeader(){
-    const data = useSelector((state:any)=>state.comment.commentList);
+    const comment = useSelector((state:any)=>state.comment.commentData);
+    console.log(comment);
     const [isShare, setIsShare] = useState<boolean>(false);
     const ref = useRef<HTMLInputElement | null>(null);
 
@@ -55,7 +56,7 @@ function CommentHeader(){
     <section className={'comment__header__layout'}>
         <div >
             <h1>댓글</h1>
-            <p className={'comment__count'}>( {data.length} )</p>
+            <p className={'comment__count'}>( {comment.comments.length} )</p>
         </div>
         <button onClick={()=>setIsShare(true)} className={'commment__share__btn'}>공유하기</button>
 

@@ -1,7 +1,5 @@
-export interface ICommentData{
-    nick:string,
+export interface ICommentRequestData{
+    nickname:string,
     password?:string,
-    date:string,
-    comment:string,
-    id: number,
+    content:string,
 };

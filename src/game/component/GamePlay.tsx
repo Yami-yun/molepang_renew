@@ -10,6 +10,7 @@ import { CHANGE_GAME_SCREEN, SET_GAME_RESULT } from "redux/action/types";
 import 'css/default.css';
 import 'css/game/GamePlay.css';
 import { getProblem } from "redux/action/gameAction";
+import { IGameData } from "redux/reducer/gameReducer";
 
 // const gameStageData = [
 //     {
@@ -83,7 +84,7 @@ function GamePlay(){
     let gameContext:any = null;
 
     const dispatch = useDispatch();
-    const gameStageData = useSelector((state:any) => state.game.problemData);
+    const gameStageData:IGameData["problemData"] = useSelector((state:any) => state.game.problemData);
 
     let count = 0;                      // 게임 프레임 count
     let frame = gameSetValue.GAME_FRAME;                     // 게임 프레임
@@ -110,7 +111,7 @@ function GamePlay(){
         
         if (count % frame === 0) {
             console.log(count);
-            const moleNum = gameStageData[curStage]?.problem.length;
+            const moleNum = gameStageData.data[curStage]?.problem.length;
 
             if(gameHeader?.update(gameState,count, gameScore)){
                 delayStart = count;
@@ -134,12 +135,12 @@ function GamePlay(){
             if(gameState === 0){
                 // 스타트 문구
                 
-                answerNum = gameStageData[curStage].answer;     // 현재 스테이지 정답 번호
-                problemList = gameStageData[curStage].problem;  // 현재 스테이지 문제 리스트
+                answerNum = gameStageData.data[curStage].answer;     // 현재 스테이지 정답 번호
+                problemList = gameStageData.data[curStage].problem;  // 현재 스테이지 문제 리스트
                 const curMoleList = setMoleIsGame(moleNum);     // 현재 스테이지 출현할 두더지 리스트
 
                 // 보드 업데이트
-                board?.update({gameState, boardStageData:gameStageData[curStage]});
+                board?.update({gameState, boardStageData:gameStageData.data[curStage]});
 
                 // 현재 스테이지에 출현하는 두더지 객체에게만 해당 스테이지 문제 데이터 전달
                 curMoleList.forEach((value:number, index:number) => {
@@ -228,7 +229,7 @@ function GamePlay(){
                 curStage+=1;
                 gameState=0;
 
-                if(!gameStageData[curStage]?.problem){
+                if(!gameStageData.data[curStage]?.problem){
                     gameState= 5;
                 }
             }
@@ -301,7 +302,7 @@ function GamePlay(){
         console.log("BIT TEST###################1");
         console.log(gameStageData);
 
-        if(gameCanvasRef && gameStageData.length !== 0){
+        if(gameCanvasRef && !gameStageData.isloading && !gameStageData.err){
             console.log("BIT TEST###################2");
             gameCanvas = gameCanvasRef.current;
             gameContext = gameCanvas.getContext('2d');
