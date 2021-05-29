@@ -136,7 +136,6 @@ class Mole {
         };
         
         const randomMole = Math.floor(Math.random()*3 + 1);
-        console.log(randomMole);
 
         // 애니메이션 상태
         this.aniState = "INIT";

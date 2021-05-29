@@ -5,33 +5,41 @@ import pagingLeftBtn from 'img/paging__left__btn.png';
 import pagingRightBtn from 'img/paging__right__btn.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { PAGE_COMMENT } from 'redux/action/types';
+import { ICommentData } from 'redux/reducer/commentReducer';
+import { getComment } from 'redux/action/commentAction';
 
 // comment paging component
 function CommentPaging(){
 
-    const data = useSelector((state:any)=>state.comment.commentList);
-    const page = useSelector((state:any)=>state.comment.page);
+    const data:ICommentData["commentData"] = useSelector((state:any)=>state.comment.commentData);
+    const page:ICommentData["page"] = useSelector((state:any)=>state.comment.page);
     const dispatch = useDispatch();
+
 
     // left paging
     const onPagingLeftHandler = () => {
-        if(page !== 0){
-            dispatch({type:PAGE_COMMENT, payload: page-1});
+        if(page.cur !== 1){
+            const getCommentApi = getComment(page.cur-1);
+
+            getCommentApi(dispatch);
+            // dispatch({type:PAGE_COMMENT, payload: page.cur-1});
         }
     }
 
     // right paging
     const onPagingRightHandler = () => {
-        if(Math.ceil((data?.length) / 5) !== page + 1){
-            dispatch({type:PAGE_COMMENT, payload: page+1});
-            console.log("Ttttt");
+        if(page.total !== page.cur){
+            const getCommentApi = getComment(page.cur+1);
+
+            getCommentApi(dispatch);
+            // dispatch({type:PAGE_COMMENT, payload: page.cur+1});
         }
     }
 
     const pageCountRender = () => {
         const result = [];
-        const FINAL_PAGE_NUM = Math.ceil((data?.length)/5);
-        const CUR_PAGE = page + 1;
+        const FINAL_PAGE_NUM = page.total;
+        const CUR_PAGE = page.cur;
         let minPage = 1;
         let maxPage = FINAL_PAGE_NUM;
 
@@ -54,7 +62,7 @@ function CommentPaging(){
         }
 
         for(let i=minPage - 1; i < maxPage; i++){
-            const selected = i === page ? 'paging__number__selected' : '';
+            const selected = i === page.cur - 1 ? 'paging__number__selected' : '';
             result.push(<button className={selected} onClick={()=> dispatch({type:PAGE_COMMENT, payload: i})} key={i}>{`${i+1}`}</button>);
         }
         return result;

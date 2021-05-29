@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import 'css/default.css';
 import 'css/comment/CommentBox.css';
 import { useDispatch } from 'react-redux';
-import { DELETE_COMMENT } from 'redux/action/types';
 import { deleteComment } from 'redux/action/commentAction';
 import CommentModalBox from 'comment/component/CommentModalBox';
 import CommentReplyBox from 'comment/component/CommentReplyBox';
@@ -61,7 +60,7 @@ function CommentBox({nickname, create_date, content, id, reply_set}: type_commen
 
     return (
     <>
-        {isShowModal && <CommentModalBox type={modalType} setIsShowModal={setIsShowModal} id={id} comment={content} isReply={isReply}/>}
+        {isShowModal && <CommentModalBox type={modalType} setIsShowModal={setIsShowModal} id={id} content={content} nickname={nickname} isReply={isReply}/>}
         <section className={'commentbox'}>
             <div className={'commentbox__first__line'}>
                 <div>

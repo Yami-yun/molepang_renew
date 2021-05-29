@@ -30,7 +30,6 @@ function GameRankging(){
 
     const [firstTotalRank, setFirstTotalRank] = useState(1);                // ###API
     const [userIndex, setUserIndex] = useState(2);
-    console.log(totalRankList);
 
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import {
     ADD_COMMENT, 
-    DELETE_COMMENT, 
+    DELETE_COMMENT_SUC, 
     GET_COMMENT, 
     COMMENT_CHECK_PASSWORD, 
     MODIFY_COMMENT,
@@ -37,17 +37,21 @@ const getDummyData = () => {
 }
 
 // get comment list api from server
-export function getComment(){
+export function getComment(page=1){
     return async function(dispatch:any){
         try{
             if(IS_DEV){
                 // window.setTimeout(() => { dispatch({type:GET_COMMENT, payload: getDummyData()}); }, 800);
-                const response = await axios.get(`${BASE_URL}/comment`);
-                console.log(response);
-                dispatch({type:GET_COMMENT_SUC, data: response.data});
+                const res = await axios.get(`${BASE_URL}/comment?page=${page}`);
+                console.log(res);
+
+                // const result = {
+                //     commentData:res.data.comments;
+                // }
+                dispatch({type:GET_COMMENT_SUC, data: res.data});
 
             }else{
-                const response = await axios.get(`${BASE_URL}/comment`);
+                const response = await axios.get(`${BASE_URL}/comment/`);
                 console.log(response);
             }
         }catch(err){
@@ -60,16 +64,8 @@ export function getComment(){
 export const addComment = (body:any) => async (dispatch: any) => {
     try{
         if(IS_DEV){
-            console.log(body);
             dispatch({type:ADD_COMMENT});
-            console.log(body.entries());
 
-            // const config = {
-            //     headers: {
-            //         'Content-type': 'multipart/form-data;',
-            //         'Accept': '*/*'
-            //     }
-            // }
             const response = await axios.post(`${BASE_URL}/comment/`, body);
             
 
@@ -79,7 +75,7 @@ export const addComment = (body:any) => async (dispatch: any) => {
             // window.setTimeout(()=>{dispatch({type:ADD_COMMENT, payload: body})} ,100);
 
         }else{
-            const response = await axios.post(`${BASE_URL}/comment`, body);
+            const response = await axios.post(`${BASE_URL}/comment/`, body);
 
             dispatch({type:ADD_COMMENT, payload: response});
         }
@@ -89,34 +85,45 @@ export const addComment = (body:any) => async (dispatch: any) => {
 }
 
 // delete comment api
-export const deleteComment = (id:number) => async (dispatch: any) => {
+export const deleteComment = ({id,nickname, password}:{id:number, nickname:string, password:string}) => async (dispatch: any) => {
     try{
         if(IS_DEV){
-            window.setTimeout(()=>{dispatch({type:DELETE_COMMENT, payload: id})} ,100);
+            const res = await axios.delete(`${BASE_URL}/comment/${id}/`, {data:{nickname, password}});
+            console.log(res);
+            dispatch({type:DELETE_COMMENT_SUC, data: id});
+        
+            // window.setTimeout(()=>{dispatch({type:DELETE_COMMENT, payload: id})} ,100);
             
         }else{
-            const response = await axios.delete('/api/comment/remove', {data:{id,}});
-            dispatch({type:ADD_COMMENT, payload: response});
+            const res = await axios.delete(`${BASE_URL}/comment/${id}/`, {data:{nickname, password}});
+            // console.log(res);
+            dispatch({type:DELETE_COMMENT_SUC, data: id});
         }
     }catch(err){
-        dispatch({type:ADD_COMMENT, payload: err});
+        alert("잘못된 접근입니다.");
+        // dispatch({type:ADD_COMMENT, payload: err});
     }
 }
 
-// delete comment api
-export const checkPassword = (pw:string) => async (dispatch: any) => {
+// check pw
+export const checkPassword = async ({id,nickname, password}:{id:number, nickname:string, password:string}) => {
     try{
         if(IS_DEV){
-            window.setTimeout(()=>{dispatch({type:DELETE_COMMENT, payload: true})} ,100);
-            return new Promise((resolve)=>resolve(true));
+            const res = await axios.post(`${BASE_URL}/comment/${id}/`, {nickname, password});
+            // console.log(res);
+            return res;
+            
+            // window.setTimeout(()=>{dispatch({type:DELETE_COMMENT, payload: true})} ,100);
+            // return new Promise((resolve)=>resolve(true));
         }else{
-            const response = await axios.post('/api/comment/check_password', {pw: pw} );
-            dispatch({type:COMMENT_CHECK_PASSWORD, payload: response});
-            return response;
+            const res = await axios.post(`${BASE_URL}/comment/${id}/`, {nickname, password});
+            return res;
         }
         
     }catch(err){
-        dispatch({type:ADD_COMMENT, payload: err});
+        // console.log(err);
+        return {data:404};
+        // dispatch({type:ADD_COMMENT, payload: err});
     }
 }
 

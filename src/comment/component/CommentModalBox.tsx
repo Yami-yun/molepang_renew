@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 
-import { checkPassword, deleteComment, modifyComment } from 'redux/action/commentAction';
+import { checkPassword, deleteComment, getComment, modifyComment } from 'redux/action/commentAction';
 import exitBtnImg from 'img/comment__modal__exit__btn.png';
 
 import 'css/default.css';
 import 'css/comment/CommentModalBox.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { ICommentData } from 'redux/reducer/commentReducer';
 
+interface ICommentModalBox{
+    type:number,
+    setIsShowModal:(value: React.SetStateAction<boolean>) => void,
+    id:number,
+    content:string,
+    nickname:string,
+    isReply:boolean,
+}
 
-function CommentModalBox({type, setIsShowModal, id, comment, isReply}:any){
+function CommentModalBox({type, setIsShowModal, id, content, nickname, isReply}:any){
 
     // false : 삭제, true : 수정
     const [modalType, setModalType] = useState<boolean>(type);
     const [screen, setScreen] = useState<number>(0);
     const [password, setPassword] = useState<string>("");
-    const [modifiedComment, setModifiedComment] = useState<string>(comment);
+    const [modifiedComment, setModifiedComment] = useState<string>(content);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -23,18 +32,21 @@ function CommentModalBox({type, setIsShowModal, id, comment, isReply}:any){
     }, [])
 
     const onPasswordCheckHandler = () => {
-        const checkPasswordAPI = checkPassword(password);
-        checkPasswordAPI(dispatch).then(
-            (reason)=>{
-                if(reason){
+        // const checkPasswordAPI = checkPassword({id, nickname, password});
+        checkPassword({id, nickname, password}).then(
+            (res)=>{
+                if(res?.data === 204){
                     if(modalType){
                         // 수정 type && 비밀번호 일치할 경우
                         setScreen(1);
                     }else{
                         // 삭제 type && 비밀번호 일치할 경우
-                        const deleteCommentApi = deleteComment(id);
+                        const deleteCommentApi = deleteComment({id, nickname, password});
                         deleteCommentApi(dispatch);
                         setIsShowModal(false);
+
+                        let getCommentApi = getComment(1);
+                        getCommentApi(dispatch);
                     }
                 }else{
                     //비밀번호가 일치하지 않다면

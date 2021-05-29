@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import 'css/default.css';
 import 'css/comment/CommentReplyBox.css';
 import { useDispatch } from 'react-redux';
-import { DELETE_COMMENT } from 'redux/action/types';
 import { deleteComment } from 'redux/action/commentAction';
 import CommentModalBox from 'comment/component/CommentModalBox';
 import { type_reply_set } from 'redux/reducer/commentReducer';

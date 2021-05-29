@@ -5,16 +5,17 @@ import 'css/comment/CommentList.css';
 import CommentBox from 'comment/component/CommentBox';
 import { useDispatch, useSelector } from 'react-redux';
 import { getComment } from 'redux/action/commentAction';
-import { ICommentData } from 'redux/reducer/commentReducer';
+import { ICommentData, type_comment } from 'redux/reducer/commentReducer';
 
 
 
 function CommentList(){
 
     const commentData:ICommentData["commentData"] = useSelector((state:any)=>state.comment.commentData);
-    const page = useSelector((state:any)=>state.comment.page);
+    const page:ICommentData["page"] = useSelector((state:any)=>state.comment.page);
     const dispatch = useDispatch();
-    const COMMENT_NUMBER_ON_PAGE = 5;
+    // const COMMENT_NUMBER_ON_PAGE = 5;
+    console.log(page);
     console.log(commentData);
     
     // getComment2();
@@ -25,8 +26,8 @@ function CommentList(){
     }, []);
     return (
     <section className={'comment__list__layout'}>
-        {commentData.comments?.map((value:any, index:number)=>{
-            if(Math.floor(index/COMMENT_NUMBER_ON_PAGE) !== page) return;
+        {commentData.comments?.map((value:type_comment, index:number)=>{
+            // if(Math.floor(index/COMMENT_NUMBER_ON_PAGE) !== page.cur-1) return;
             return <CommentBox key={index} {...value}/>
         }
         )}

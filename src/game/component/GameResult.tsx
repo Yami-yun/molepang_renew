@@ -17,9 +17,6 @@ import { getProblem } from 'redux/action/gameAction';
 function WordBox({headerTxt, WORD_MAX_PAGE, wordList}:{headerTxt:string, WORD_MAX_PAGE:number, wordList:string[]}){
     const [page, setPage] = useState(0);
 
-
-    console.log(wordList);
-
     const onPagingHandler = (dir:string) => {
         if(page !== WORD_MAX_PAGE && dir === "RIGHT"){
             setPage(page + 1);

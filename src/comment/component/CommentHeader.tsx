@@ -7,10 +7,11 @@ import 'css/comment/CommentHeader.css';
 import faceShareBtnImg from 'img/face__share__btn.png';
 import kakaoShareBtnImg from 'img/kakao__share__btn.png';
 import twiShareBtnImg from 'img/twi__share__btn.png';
+import { ICommentData } from 'redux/reducer/commentReducer';
 
 
 function CommentHeader(){
-    const comment = useSelector((state:any)=>state.comment.commentData);
+    const comment:ICommentData["commentData"] = useSelector((state:any)=>state.comment.commentData);
     console.log(comment);
     const [isShare, setIsShare] = useState<boolean>(false);
     const ref = useRef<HTMLInputElement | null>(null);

@@ -8,7 +8,7 @@ export const GET_COMMENT= "comment/GET_COMMENT" as const;
 export const GET_COMMENT_SUC= "comment/GET_COMMENT_SUC" as const;
 export const GET_COMMENT_ERR= "comment/GET_COMMENT_ERR" as const;
 
-export const DELETE_COMMENT= "comment/DELETE_COMMENT";
+export const DELETE_COMMENT_SUC= "comment/DELETE_COMMENT_SUC" as const;
 export const MODIFY_COMMENT= "comment/MODIFY_COMMENT";
 export const PAGE_COMMENT = "comment/PAGE_COMMENT";
 
