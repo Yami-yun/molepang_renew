@@ -13,6 +13,7 @@
 }
 
 .commentbox__first__line h2{
+    font-family: Noto Sans;
     width: 204px;
     margin-right: 15px;
     /* border: 1px solid; */
@@ -20,6 +21,8 @@
 }
 
 .commentbox__first__line p{
+    font-family: Noto Sans;
+
     font-weight: normal;
     font-size: 1.25rem;
     color: rgba(51, 102, 51, 0.7);

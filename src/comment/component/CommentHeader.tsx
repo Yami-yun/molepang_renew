@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import 'css/default.css';
 import 'css/comment/CommentHeader.css';
+import exitBtnImg from 'img/button_close.png';
 
 import faceShareBtnImg from 'img/face__share__btn.png';
 import kakaoShareBtnImg from 'img/kakao__share__btn.png';
@@ -64,7 +65,7 @@ function CommentHeader(){
         {/* 공유하기 기능 레이아웃 */}
         {isShare && <div className={'comment__share__background'}>
             <article className={'comment__share__layout'}>
-                <button onClick={()=>setIsShare(false)} className={'share__exit__btn'}>×</button>
+                <img onClick={()=>setIsShare(false)} className={'share__exit__btn'} src={exitBtnImg} alt="share_exit"/>
 
                 <h1>SNS 공유하기</h1>
                 <p>모두 한글 두더지 팡!을 공유해 보세요</p>

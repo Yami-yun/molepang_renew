@@ -3,17 +3,18 @@
     width: 920px;
     height: 600px;
     margin : 0px auto;
-    border: 1px solid;
+    /* border: 1px solid; */
 }
 
 
 .des__close__btn{
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
 
     position: absolute;
-    top: 27px;
-    right: 30px;
+    top: 42px;
+    right: 38px;
+    cursor: pointer;
 }
 
 .des__start__btn{
@@ -22,7 +23,7 @@
 
     position: absolute;
     bottom: 117px;
-    left: 40px;
+    left: 52px;
 
     background: #F4EBDA;
     border: 3px solid #2C761D;
@@ -36,19 +37,24 @@
 
 .des__page__box{
     position: absolute;
-    bottom: 39px;
-    left: 40px;
-    width: 201px;
-    height: 40px;
+    bottom: 42px;
+    left: 58px;
+    width: 266px;
+    height: 64px;
 
     display: flex;
     justify-content: space-between;
-    /* border: 1px solid; */
 }
 
-.des__page__box button{
-    width : 40px;
-    height: 40px;
+/* .des__page__box button{
+    width : 60px;
+    height: 60px;
+} */
+
+.des__page__box img{
+    width : 60px;
+    height: 60px;
+    cursor: pointer;
 }
 
 .des__page__box .page__num__box{

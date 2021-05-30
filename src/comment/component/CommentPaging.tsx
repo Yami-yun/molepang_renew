@@ -36,6 +36,11 @@ function CommentPaging(){
         }
     }
 
+    const onPagingHandler = (page:number) => {
+        const getCommentApi = getComment(page+1);
+        getCommentApi(dispatch);
+    }
+
     const pageCountRender = () => {
         const result = [];
         const FINAL_PAGE_NUM = page.total;
@@ -63,7 +68,7 @@ function CommentPaging(){
 
         for(let i=minPage - 1; i < maxPage; i++){
             const selected = i === page.cur - 1 ? 'paging__number__selected' : '';
-            result.push(<button className={selected} onClick={()=> dispatch({type:PAGE_COMMENT, payload: i})} key={i}>{`${i+1}`}</button>);
+            result.push(<button className={selected} onClick={()=> onPagingHandler(i)} key={i}>{`${i+1}`}</button>);
         }
         return result;
     }

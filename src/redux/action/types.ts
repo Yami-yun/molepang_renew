@@ -2,6 +2,8 @@ export const ADD_COMMENT= "comment/ADD_COMMENT" as const;
 export const ADD_COMMENT_SUC= "comment/ADD_COMMENT_SUC" as const;
 export const ADD_COMMENT_ERR= "comment/ADD_COMMENT_ERR" as const;
 
+export const ADD_REPLY_COMMENT = "comment/ADD_REPLY_COMMENT" as const;
+
 export const COMMENT_CHECK_PASSWORD = "comment/CHECK_PASSWORD";
 
 export const GET_COMMENT= "comment/GET_COMMENT" as const;
@@ -10,6 +12,7 @@ export const GET_COMMENT_ERR= "comment/GET_COMMENT_ERR" as const;
 
 export const DELETE_COMMENT_SUC= "comment/DELETE_COMMENT_SUC" as const;
 export const MODIFY_COMMENT= "comment/MODIFY_COMMENT";
+export const MODIFY_REPLY_COMMENT= "comment/MODIFY_REPLY_COMMENT" as const;
 export const PAGE_COMMENT = "comment/PAGE_COMMENT";
 
 export const GET_GAME_DATA = "game/GET_GAME_DATA";

@@ -12,14 +12,16 @@ import {
 } from 'redux/action/types';
 import { useState } from 'react';
 import { getTopTenRank } from 'redux/action/gameAction';
+import { IGameData, total_rank } from 'redux/reducer/gameReducer';
 // import noTopTenImg from '/';
 
 // 게임 랭킹 화면 컴포넌트
 function GamePreRankging(){
     const dispatch = useDispatch();
 
-    const topTenRankList = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
-    const [rankDataList, setRankDataList] = useState<any>(topTenRankList);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
+    const topTenRankList:IGameData["topTenRank"] = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
+
+    const [rankDataList, setRankDataList] = useState<total_rank[]>(topTenRankList.data);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
 
     // 게임 화면 이동 핸들러
     const onScreenMoveHandler = (nScreen:number) => {
@@ -29,14 +31,16 @@ function GamePreRankging(){
     useEffect(() => {
         let getTopTenRankApi = getTopTenRank();
         getTopTenRankApi(dispatch);
-        setRankDataList(topTenRankList);
     }, [])
 
-    
+    useEffect(() => {
+        setRankDataList(topTenRankList.data);
+
+    }, [topTenRankList.data])
 
     return (
     <section className={'game__ranking__layout'}>
-        <button onClick={()=>onScreenMoveHandler(0)} className={'close__btn'}><img src={closeBtn} /></button>
+        <img onClick={()=>onScreenMoveHandler(0)} className={'pre_close__btn'} src={closeBtn} alt="t"/>
 
         {/* 랭킹 화면 헤더 ( 전체순위 버튼, 순위 10 버튼) */}
         <p> 순위 10 </p>
@@ -46,9 +50,9 @@ function GamePreRankging(){
             {rankDataList.length > 5 ? rankDataList.map((value:any, index:number)=>
                 <div key={index} className={'game__ranking__box'}>
                     <p>{index + 1}</p>
-                    <p>{value.nick}</p>
+                    <p>{value.nickname}</p>
                     <p>{value.score}</p>
-                    <p>{value.date}</p>
+                    <p>{value.play_date.slice(0,10)}</p>
                 </div>
             ) : <img src={"no_top_ten.png"}/>}
         </div>

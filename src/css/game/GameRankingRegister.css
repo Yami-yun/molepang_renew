@@ -34,6 +34,8 @@
 }
 
 .close__btn{
+    width:60px;
+    height: 60px;
     position:absolute;
     top: 24px;
     right: 29px;

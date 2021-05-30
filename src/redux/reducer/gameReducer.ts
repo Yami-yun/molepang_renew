@@ -15,7 +15,8 @@ import {
     REGISTER_RANK_ERR,
 } from '../action/types';
 
-type total_rank = {
+
+export type total_rank = {
     id: string,
     nickname: string,
     score: string,
@@ -45,10 +46,8 @@ export interface IGameData{
         isloading:boolean,
     },
     topTenRank:{
-        nick: string,
-        score: number,
-        date: string,
-    }[],
+        data:total_rank[],
+    },
     problemData:{
         data:game_problem[],
         err:boolean,
@@ -56,6 +55,7 @@ export interface IGameData{
     },
     userRank:number,
 }
+
 
 const initGameData:IGameData = {
     gamescreen: 0,
@@ -71,7 +71,9 @@ const initGameData:IGameData = {
         data:[],
         err:false,
     },
-    topTenRank:[],
+    topTenRank:{
+        data:[]
+    },
     problemData:{
         isloading:false,
         data:[],
@@ -96,7 +98,7 @@ export default function(state=initGameData, action:any) {
             return {...state, totalRank: [...action.payload]};
 
         case GET_TOP_TEN_RANK:
-            return {...state, topTenRank: [...action.payload]};
+            return {...state, topTenRank: {data: action.data}};
 
         case GET_PROBLEM:
             return {...state, problemData: {isloading:true, err:false}};
@@ -126,7 +128,14 @@ export default function(state=initGameData, action:any) {
             return {...state, totalRank: {isloading:true, err:false}};
 
             case REGISTER_RANK_SUC:
-                return {...state, totalRank: {data: action.data, isloading:false, err:false}};
+                let userRankTmp = 1;
+                for(let i=0; i < action.data.ranking.length; i++){
+                    if(action.data.my_id === action.data.ranking[i].id){
+                        userRankTmp = action.data.ranking[i].ranking;
+                        break;
+                    }
+                }
+                return {...state, userRank: userRankTmp, totalRank: {data: action.data.ranking, isloading:false, err:false}};
 
             case REGISTER_RANK_ERR:
                 return {...state, totalRank: {isloading:false, err:true}};

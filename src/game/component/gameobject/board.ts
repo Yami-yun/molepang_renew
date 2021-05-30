@@ -123,7 +123,9 @@ class Board implements IBoard{
     render(gameState:number) {
 
         // gamestate 2일 경우만 o , x 이미지 출력, 아니면 state에 따른 글자 출력
-        this.gameContext.font = "80px Jua"; //폰트의 크기, 글꼴체 지정      
+        // this.gameContext.font = "80px Jua"; //폰트의 크기, 글꼴체 지정      
+        this.gameContext.font = "65px Jua"; //폰트의 크기, 글꼴체 지정      
+
         this.gameContext.strokeStyle = "#5F554D"; //색상지정
         this.gameContext.fillStyle = "#3E2D23"; //색상지정
         this.gameContext.lineWidth = 5; //색상지정

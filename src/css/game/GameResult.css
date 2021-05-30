@@ -36,13 +36,13 @@
 }
 
 .board__close__btn{
-    width: 40px;
-    height: 40px;
-    margin-top: 5px;
+    width: 60px;
+    height: 60px;
+    /* margin-top: 5px; */
 
-    /* position: absolute;
-    top: 24px;
-    right: 30px; */
+    position: absolute;
+    top: 20px;
+    right: 28px;
 }
 
 /* 결과 바디 */

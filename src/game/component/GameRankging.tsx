@@ -11,6 +11,7 @@ import {
 } from 'redux/action/types';
 import { useState } from 'react';
 import GameTopTree from 'game/component/GameTopThree';
+import { IGameData, total_rank } from 'redux/reducer/gameReducer';
 
 // 게임 랭킹 화면 컴포넌트
 function GameRankging(){
@@ -21,51 +22,53 @@ function GameRankging(){
         dispatch({type:CHANGE_GAME_SCREEN, payload: nScreen});
     }
 
-    const topTenRankList = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
-    const totalRankList = useSelector((state:any) => state.game.totalRank);         // 전체 랭킹 정보
+    const topTenRankList:IGameData["topTenRank"] = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
+    const totalRankList:IGameData["totalRank"] = useSelector((state:any) => state.game.totalRank);         // 전체 랭킹 정보
     const userRank = useSelector((state:any) => state.game.userRank);         // 전체 랭킹 정보
 
-    const [rankDataList, setRankDataList] = useState<any>(totalRankList);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
+    const [rankDataList, setRankDataList] = useState<total_rank[]>(totalRankList.data);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
     const [isTopTenRank, setIsTopTenRank] = useState(false);                        // 사용자가 현재 랭킹 화면으로 탑 10 화면을 선택했는지 여부
 
     const [firstTotalRank, setFirstTotalRank] = useState(1);                // ###API
     const [userIndex, setUserIndex] = useState(2);
 
-
+    console.log(topTenRankList);
     useEffect(() => {
         rankTabSelect("TOTAL");
 
     }, [])
 
     useEffect(() => {
-        setRankDataList(totalRankList);
+        setRankDataList(totalRankList.data);
         rankTabSelect("TOTAL");
 
-    }, [totalRankList])
+    }, [totalRankList.data])
     // 랭킹 탭 선택 함수
     const rankTabSelect = (select:string) => {
+    console.log(topTenRankList);
+
         if(select === "TOTAL"){
             setIsTopTenRank(false);
             // ###API
             if(userRank < 3){
-                setRankDataList([...totalRankList.slice(0, 5)]);
+                setRankDataList([...totalRankList.data.slice(0, 5)]);
                 setFirstTotalRank(1);
                 setUserIndex(userRank-1);
-            }else if(userRank > 3 && userRank < totalRankList.length - 1){
-                setRankDataList([...totalRankList.slice(userRank - 3, userRank + 2)]);
+            }else if(userRank > 3 && userRank < totalRankList.data.length - 1){
+                setRankDataList([...totalRankList.data.slice(userRank - 3, userRank + 2)]);
                 setFirstTotalRank(userRank-2);
                 setUserIndex(2);
-            }else if(userRank >= totalRankList.length - 1){
-                setRankDataList([...totalRankList.slice(totalRankList.length - 5)]);
-                setFirstTotalRank(totalRankList.length - 4);
+            }else if(userRank >= totalRankList.data.length - 1){
+                setRankDataList([...totalRankList.data.slice(totalRankList.data.length - 5)]);
+                setFirstTotalRank(totalRankList.data.length - 4);
 
-                if(userRank === totalRankList.length - 1) setUserIndex(3);
+                if(userRank === totalRankList.data.length - 1) setUserIndex(3);
                 else setUserIndex(4);
             }
 
         }else{
             setIsTopTenRank(true);
-            setRankDataList([...topTenRankList.slice(0, 10)]);
+            setRankDataList([...topTenRankList.data.slice(0, 10)]);
         }
     }
 
@@ -81,11 +84,11 @@ function GameRankging(){
         return {};
     }
 
-
+    console.log(userIndex);
     return (
     <section className={'game__ranking__layout'}>
         {userRank !== 0 && userRank < 4 && <GameTopTree />}
-        <button onClick={()=>{onScreenMoveHandler(0); window.location.reload();}} className={'close__btn'}><img src={closeBtn} /></button>
+        <img onClick={()=>{onScreenMoveHandler(0); window.location.reload();}} className={'close__btn'} src={closeBtn} alt="t" />
 
         {/* 랭킹 화면 헤더 ( 전체순위 버튼, 순위 10 버튼) */}
         <div className={'game__ranking__header'}>
@@ -96,12 +99,12 @@ function GameRankging(){
 
         {/* 랭킹 화면에서 현재 보여지는 랭킹 리스트 */}
         <div className={'game__ranking__list' + (!isTopTenRank ? ' game__ranking__list__total' : '')}>
-            {rankDataList.map((value:any, index:number)=>
+            {rankDataList.length && rankDataList.map((value:any, index:number)=>
                 <div key={index} className={'game__ranking__box'}>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{!isTopTenRank ? index + firstTotalRank : index+ 1 }</p>
-                    <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.nick}</p>
+                    <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.nickname}</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.score}</p>
-                    <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.date}</p>
+                    <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.play_date.slice(0,10)}</p>
                 </div>
             )}
         </div>

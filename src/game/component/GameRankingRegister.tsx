@@ -10,14 +10,14 @@ import {
     CHANGE_GAME_SCREEN,
 } from 'redux/action/types';
 import { useState } from 'react';
-import { getTopTenRank, getTotalRank, registerRank } from 'redux/action/gameAction';
+import {  registerRank } from 'redux/action/gameAction';
 
 // 게임 랭킹 등록 화면 컴포넌트
 function GameRankingRegister(){
     const dispatch = useDispatch();
     const result = useSelector((state:any) => state.game.gameResult);
 
-    const [nickname, setNickname] = useState("");       // 유저 닉네임
+    const [nickname, setNickname] = useState("");       // 유저 별명
     const [err, setErr] = useState(false);      // 7글자 이상 입력시 에러 문구 출력 여부
 
     const onScreenMoveHandler = (nScreen:number) => {
@@ -35,7 +35,7 @@ function GameRankingRegister(){
         let rigisterRankApi = registerRank({nickname, score: result.score.toString()});
         rigisterRankApi(dispatch);
 
-        // onScreenMoveHandler(6);
+        onScreenMoveHandler(6);
     }
 
     const onChangeNickHandler = (e:any) => {
@@ -47,23 +47,13 @@ function GameRankingRegister(){
         }
     }
 
-    useEffect(() => {
-        let getTopTenRankApi = getTopTenRank();
-        getTopTenRankApi(dispatch);
-
-        let getTotalRankApi = getTotalRank();
-        getTotalRankApi(dispatch);
-        
-    });
-
-
     return (
     <section className={'game__register__layout'}>
         <div className={'game__register__board'}>
-            <button onClick={()=>onScreenMoveHandler(0)} className={'close__btn'}><img src={closeBtn} /></button>
+            <img onClick={()=>onScreenMoveHandler(0)} className={'close__btn'} src={closeBtn} alt="t" />
 
             <p>"별명을 등록해야 내 순위를 볼 수 있어요!"</p>
-            <input value={nickname} onChange={(e:any)=>{onChangeNickHandler(e)}}/>
+            <input maxLength={7} value={nickname} onChange={(e:any)=>{onChangeNickHandler(e)}}/>
             <div></div>
             {err && <p>* 별명은 7글자 이내로 입력해주세요.</p>}
             <button className={'register__btn'} onClick={()=>{onRegisterNickHandler()} }>등록하기</button>

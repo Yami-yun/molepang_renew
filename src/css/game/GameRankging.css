@@ -30,22 +30,33 @@
 }
 
 .game__ranking__header > button{
+
     width: 372px;
     height: 70px;
     margin-right: 6px;
     background: #BED968;
+    line-height: 74px;
 
     font-family: Jua;
     font-size: 40px;
-    color: #402D21;
+    color: #297723;
 }
 
 .close__btn{
-    width: 40px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
 
     position: absolute;
-    top: 27px;
+    top: 29px;
+    right: 30px;
+}
+
+.pre_close__btn{
+    width: 60px;
+    height: 60px;
+
+    position: absolute;
+    top: 18px;
     right: 30px;
 }
 
@@ -98,7 +109,11 @@
     /* align-items: center; */
 }
 
-.game__ranking__list > .game__ranking__box:nth-child(5){
+/* .game__ranking__list > .game__ranking__box:nth-child(5){
+    border-bottom : none;
+} */
+
+.game__ranking__list > .game__ranking__box:last-child{
     border-bottom : none;
 }
 

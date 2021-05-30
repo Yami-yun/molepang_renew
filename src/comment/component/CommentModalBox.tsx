@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { checkPassword, deleteComment, getComment, modifyComment } from 'redux/action/commentAction';
+import { addReplyComment, checkPassword, deleteComment, getComment, modifyComment } from 'redux/action/commentAction';
 import exitBtnImg from 'img/comment__modal__exit__btn.png';
 
 import 'css/default.css';
@@ -17,31 +17,37 @@ interface ICommentModalBox{
     isReply:boolean,
 }
 
-function CommentModalBox({type, setIsShowModal, id, content, nickname, isReply}:any){
+function CommentModalBox({p_id, type, setIsShowModal, id, content, nickname, isReply}:any){
 
     // false : 삭제, true : 수정
     const [modalType, setModalType] = useState<boolean>(type);
     const [screen, setScreen] = useState<number>(0);
+    const [replyNickname, setReplyNickname] = useState<string>("");
+    const [replyContent, setReplyContent] = useState<string>("");
+
     const [password, setPassword] = useState<string>("");
     const [modifiedComment, setModifiedComment] = useState<string>(content);
     const dispatch = useDispatch();
+    const page:ICommentData["page"] = useSelector((state:any)=>state.comment.page);
+    
 
     useEffect(() => {
         if(isReply) setScreen(2);
 
     }, [])
 
+    // 비밀번호 체크 핸들러 > 일치 > 타입에 따른 수정 & 삭제 스탭으로 넘어감
     const onPasswordCheckHandler = () => {
         // const checkPasswordAPI = checkPassword({id, nickname, password});
-        checkPassword({id, nickname, password}).then(
+        checkPassword({p_id, id, nickname, password}).then(
             (res)=>{
                 if(res?.data === 204){
                     if(modalType){
-                        // 수정 type && 비밀번호 일치할 경우
+                        // 수정 type && 비밀번호 일치할 경우 => 수정 모달창으로 넘어감
                         setScreen(1);
                     }else{
                         // 삭제 type && 비밀번호 일치할 경우
-                        const deleteCommentApi = deleteComment({id, nickname, password});
+                        const deleteCommentApi = deleteComment({p_id, id, nickname, password});
                         deleteCommentApi(dispatch);
                         setIsShowModal(false);
 
@@ -55,12 +61,38 @@ function CommentModalBox({type, setIsShowModal, id, content, nickname, isReply}:
             })
         
     }
-    const onModifyCommentHandler = () => {
 
-        const modifyCommentAPI = modifyComment({id, text: modifiedComment});
+    // 댓글 수정 핸들러
+    const onModifyCommentHandler = () => {
+        const modifyCommentAPI = modifyComment({p_id, id, nickname, password, content: modifiedComment});
         modifyCommentAPI(dispatch).then(
             response => {
                 if(response){
+                    setIsShowModal(false);
+
+                    let getCommentApi = getComment(page.cur);
+                    getCommentApi(dispatch);
+                }else{
+                    alert("잘못된 요청입니다.");
+                    setIsShowModal(false);
+                }
+            }
+        );
+    }
+
+    // 답글 쓰기
+    const onAddReplyCommentHandler = () => {
+        if(replyNickname.length > 8) return alert("별명은 7글자 이하로 입력해야 합니다.");
+        if(password.length > 8) return alert("비밀번호는 7글자 이하로 입력해야 합니다.");
+        if(replyContent.length > 120) return alert("댓글은 7글자 이하로 입력해야 합니다.");
+
+        const addReplyCommentAPI = addReplyComment(id, {nickname: replyNickname, password, content: replyContent});
+        addReplyCommentAPI(dispatch).then(
+            response => {
+                if(response){
+                    setIsShowModal(false);
+                }else{
+                    alert("잘못된 요청입니다.");
                     setIsShowModal(false);
                 }
             }
@@ -92,7 +124,7 @@ function CommentModalBox({type, setIsShowModal, id, content, nickname, isReply}:
                 {/* 비밀 번호 확인 완료 => 댓글 수정 */}
                 {screen === 1 && 
                 <>
-                    <p className={'comment__modal__id'}>누누</p>
+                    <p className={'comment__modal__id'}>{nickname}</p>
                     
                     <textarea defaultValue={modifiedComment} onChange={(e)=>{setModifiedComment(e.target.value)}}></textarea>
                     <div className={'btn__list'}>
@@ -107,14 +139,14 @@ function CommentModalBox({type, setIsShowModal, id, content, nickname, isReply}:
                 {screen === 2 && 
                 <>
                     <div className={'input__list'}>
-                        <input placeholder={'닉네임'}/>
-                        <input onClick={()=>setScreen(2)} placeholder={'비밀번호'}/>
+                        <input maxLength={7} onChange={(e:any)=>setReplyNickname(e.target.value)} placeholder={'별명'}/>
+                        <input type={'password'} maxLength={7} onChange={(e:any)=>setPassword(e.target.value)} onClick={()=>setScreen(2)} placeholder={'비밀번호'}/>
                     </div>
                     
-                    <textarea placeholder={`인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요.`}></textarea>
+                    <textarea onChange={(e)=>{setReplyContent(e.target.value)}} placeholder={`인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요.`}></textarea>
                     <div className={'btn__list'}>
                         <button >취소</button>
-                        <button onClick={()=>setScreen(3)}>확인</button>
+                        <button onClick={onAddReplyCommentHandler}>확인</button>
                     </div>
                 </>
                 }

@@ -164,7 +164,10 @@ export function getTopTenRank(){
     return async function(dispatch:any){
         try{
             if(IS_DEV){
-                window.setTimeout(() => { dispatch({type:GET_TOP_TEN_RANK, payload: getTopTenRankDummyData()}); }, 800);
+                const res2 = await axios.get(`${BASE_URL}/ranking/`);
+                console.log(res2);
+                dispatch({type:GET_TOP_TEN_RANK, data: res2.data});
+                // window.setTimeout(() => { dispatch({type:GET_TOP_TEN_RANK, payload: getTopTenRankDummyData()}); }, 800);
                 
             }else{
                 const response = await axios.get('/api/game/totalrank');
@@ -181,12 +184,15 @@ export function registerRank(body:{nickname:string, score:string}){
     return async function(dispatch:any){
         try{
             if(IS_DEV){
-                // window.setTimeout(() => { dispatch({type:REGISTER_RANK}); }, 800);
-                dispatch({type:REGISTER_RANK});
 
-                const response = await axios.post(`${BASE_URL}/ranking`, body);
-                console.log(response);
-                // dispatch({type:REGISTER_RANK_SUC, data: response.data});
+
+                const res = await axios.post(`${BASE_URL}/ranking/`, body);
+                console.log(res);
+                dispatch({type:REGISTER_RANK_SUC, data: res.data});
+
+                const res2 = await axios.get(`${BASE_URL}/ranking/`);
+                console.log(res2);
+                dispatch({type:GET_TOP_TEN_RANK, data: res2.data});
                 
             }else{
                 const response = await axios.post(`${BASE_URL}/ranking`);

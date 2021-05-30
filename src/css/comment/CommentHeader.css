@@ -68,18 +68,25 @@
 }
 
 .share__exit__btn{
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    background: #2B771D;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    /* background: #2B771D; */
 
     position:absolute;
-    top: 66px;
+    top: 64px;
     right: 122px;
-    font-size: 2.6rem;
-    line-height: 40px;
-    color:#ffffff;
+    cursor:pointer;
+    /* font-size: 2.6rem;
+    line-height: 50px;
+    color:#ffffff; */
 }
+
+/* .share__exit__btn > img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+} */
 
 .comment__share__layout h1{
     margin: 0px 0px 17px;
@@ -108,7 +115,7 @@
 .url__copy{
     width: 404px;
     /* height: 300px; */
-    margin : 27px 0 21px;
+    margin : 27px 0 6px;
     
     display:flex;
     justify-content: space-between;

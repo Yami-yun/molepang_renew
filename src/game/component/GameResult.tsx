@@ -3,8 +3,8 @@ import 'css/default.css';
 import 'css/game/GameResult.css';
 
 import closeBtn from 'img/result/btn__close2.png';
-import leftBtn from 'img/description/btn__left.png';
-import rightBtn from 'img/description/btn__right.png';
+import leftBtn from 'img/description/btn__left.jpg';
+import rightBtn from 'img/description/btn__right.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { 

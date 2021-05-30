@@ -78,7 +78,7 @@ function CommentBox({nickname, create_date, content, id, reply_set}: type_commen
 
             <p>{content}</p>
             <section >
-                {reply_set.map((value:type_reply_set, index:number) => (<CommentReplyBox key={index} {...value} />) )}
+                {reply_set.map((value:type_reply_set, index:number) => (<CommentReplyBox key={index} p_id={id} reply_set={value} />) )}
             </section>
 
         </section>

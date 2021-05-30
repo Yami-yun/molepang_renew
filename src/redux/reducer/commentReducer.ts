@@ -9,6 +9,8 @@ import {
     GET_COMMENT_ERR,
     ADD_COMMENT_SUC,
     ADD_COMMENT_ERR,
+    ADD_REPLY_COMMENT,
+    MODIFY_REPLY_COMMENT,
 } from '../action/types';
 
 export type type_reply_set = {
@@ -87,17 +89,35 @@ export default function(state=initCommentData, action:any) {
 
 
         case MODIFY_COMMENT:
-            // const modifyTmp = state.commentList.map((value:ICommentData)=> {
-            //     if(value.id === action.payload.id){
-            //         value.comment = action.payload.text;
+            const modifyTmp = state.commentData.comments.map((value:type_comment)=> {
+                if(value.id === action.data.id){
+                    value.content = action.data.content;
+                }
+                return value;
+            })
+            return {...state, commentData: {...state.commentData, comments: [...modifyTmp]} };
+        
+        case MODIFY_REPLY_COMMENT:
+            // const modifyReplyTmp = state.commentData.comments.map((value:type_comment)=> {
+            //     if(value.id === action.data.id){
+            //         value.reply_set = action.data.content;
             //     }
             //     return value;
             // })
-            // return {...state, commentList: [...modifyTmp]};
             return state;
+            
 
         case PAGE_COMMENT:
             return {...state, page: {...state.page, cur:action.payload}};
+
+        case ADD_REPLY_COMMENT:
+            const replyTmp = state.commentData.comments.map((value:type_comment)=> {
+                if(value.id === action.p_id){
+                    value.reply_set.push(action.data);
+                }
+                return value;
+            })
+            return {...state, commentData: {...state.commentData, comments: [...replyTmp]} };
 
         default:
             return state;

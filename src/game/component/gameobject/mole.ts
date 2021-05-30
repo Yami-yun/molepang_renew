@@ -91,6 +91,7 @@ class Mole {
     moleIdleAni: Ani;
     moleHitAni: Ani;
     moleDeadAni: Ani;
+    moleDead2Ani: Ani;
     aniState: string;
 
     speechBubbleImg: HTMLImageElement;
@@ -142,7 +143,8 @@ class Mole {
         this.moleInitAni = new Ani(`./ani/mole${randomMole}/init/`, 7, 1, "INIT", "IDLE", this.gameContext);
         this.moleIdleAni = new Ani(`./ani/mole${randomMole}/idle/`, 6, -1, "IDLE", "IDLE",this.gameContext);
         this.moleHitAni = new Ani(`./ani/mole${randomMole}/hit/`, 3, 1, "HIT", "DEAD",this.gameContext);
-        this.moleDeadAni = new Ani(`./ani/mole${randomMole}/dead/`, 1, -1, "DEAD", "DEAD",this.gameContext);
+        this.moleDeadAni = new Ani(`./ani/mole${randomMole}/dead/`, 1, 1, "DEAD", "DEAD2",this.gameContext);
+        this.moleDead2Ani = new Ani(`./ani/mole${randomMole}/dead2/`, 1, -1, "DEAD2", "DEAD2",this.gameContext);
     }
 
     // 두더지 데이터 초기화 함수
@@ -188,6 +190,7 @@ class Mole {
         this.moleIdleAni.init();
         this.moleHitAni.init();
         this.moleDeadAni.init();
+        this.moleDead2Ani.init();
     }
 
     // 애니메이션 상태 설정
@@ -287,6 +290,10 @@ class Mole {
             if(this.aniState === "DEAD"){
                 this.aniState = this.moleDeadAni.play(data.position.x, data.position.y, data.width, data.height);
             }
+
+            if(this.aniState === "DEAD2"){
+                this.aniState = this.moleDead2Ani.play(data.position.x, data.position.y, data.width, data.height);
+            }
             
                 // Render speech bubble Img
             if(this.aniState === "IDLE"){
@@ -297,7 +304,6 @@ class Mole {
                     100,
                     50);
 
-                // Render speech buble text
                 this.gameContext.font = "20px Jua";
                 this.gameContext.fillStyle = "rgba(0, 0, 0, 1)";
                 this.gameContext.fillText(
