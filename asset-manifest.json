@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/molepang_renew/static/css/main.7657b58c.chunk.css",
-    "main.js": "/molepang_renew/static/js/main.f6e1dee4.chunk.js",
-    "main.js.map": "/molepang_renew/static/js/main.f6e1dee4.chunk.js.map",
+    "main.js": "/molepang_renew/static/js/main.f93be861.chunk.js",
+    "main.js.map": "/molepang_renew/static/js/main.f93be861.chunk.js.map",
     "runtime-main.js": "/molepang_renew/static/js/runtime-main.c9f5c158.js",
     "runtime-main.js.map": "/molepang_renew/static/js/runtime-main.c9f5c158.js.map",
     "static/js/2.05deea4e.chunk.js": "/molepang_renew/static/js/2.05deea4e.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.c9f5c158.js",
     "static/js/2.05deea4e.chunk.js",
     "static/css/main.7657b58c.chunk.css",
-    "static/js/main.f6e1dee4.chunk.js"
+    "static/js/main.f93be861.chunk.js"
   ]
 }
