@@ -57,13 +57,16 @@ class Board implements IBoard{
     // 보드에 출력되는 글자수에 따른 위치 조정
     setBoardTextPositionX() {
         if (this.boardTextData["consonant"].length == 1) {
-            this.boardTextData["position"][0] = 440;
+            this.boardTextData["position"][0] = 448;
         }
         else if (this.boardTextData["consonant"].length == 2) {
-            this.boardTextData["position"][0] = 414;
+            this.boardTextData["position"][0] = 424;
+        }
+        else if (this.boardTextData["consonant"].length == 3) {
+            this.boardTextData["position"][0] = 398;
         }
         else {
-            this.boardTextData["position"][0] = 380;
+            this.boardTextData["position"][0] = 374;
         }
     }
 
@@ -85,7 +88,7 @@ class Board implements IBoard{
         {gameState:number, boardStageData?:any, isCorrectAnswer?:boolean, count?:number}) {
 
         if(gameState === -1){
-            this.boardTextData["position"][0] = 404;
+            this.boardTextData["position"][0] = 414;
             this.setConsonant("준 비");
             if(count && 80 < count){
                 this.setConsonant("시 작");
@@ -114,7 +117,7 @@ class Board implements IBoard{
         }
 
 
-        if(gameState === 5){
+        else if(gameState === 5){
             this.setConsonant("끝");
         }
 
@@ -145,6 +148,7 @@ class Board implements IBoard{
             // let endX = 
             if (gameState === 5) {
                 addX = 0;
+                this.boardTextData["position"][0] = 448;
             }else if(gameState === 3){
                 addY =- 18;
             }

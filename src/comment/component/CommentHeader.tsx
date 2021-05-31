@@ -58,7 +58,7 @@ function CommentHeader(){
     <section className={'comment__header__layout'}>
         <div >
             <h1>댓글</h1>
-            <p className={'comment__count'}>( {comment.comments.length} )</p>
+            <p className={'comment__count'}>( {comment.count} )</p>
         </div>
         <button onClick={()=>setIsShare(true)} className={'commment__share__btn'}>공유하기</button>
 

@@ -109,9 +109,11 @@ class Mole {
     scorePositionData:{
         x:number, y:number
     }
+    gameState:number;
 
     constructor(x: number, y: number, w: number, h: number, id: number, gameContext: any) {
         this.gameContext = gameContext;
+        this.gameState = 0;
 
         // 말풍선 이미지
         this.speechBubbleImg = new Image();
@@ -164,8 +166,10 @@ class Mole {
         else if (this.moleData.problem.length === 2) {
             this.speechBubbleData.txtDistance.x = 50;
         }
-        else {
-            this.speechBubbleData.txtDistance.x = 43;
+        else if (this.moleData.problem.length === 3){
+            this.speechBubbleData.txtDistance.x = 42;
+        }else{
+            this.speechBubbleData.txtDistance.x = 35;
         }
     }
 
@@ -202,7 +206,8 @@ class Mole {
     // 두저지 정보 업데이트 함수
     update({gameState, isGame, problem, mousePos, isAnswer}
         :{gameState:number, isGame?:boolean, problem?:string, mousePos?:{x:number, y:number}, isAnswer?:boolean}) {
-            
+
+        this.gameState= gameState;
         // 라운드 시작
         if(gameState === 0){
             this.init();
@@ -296,7 +301,7 @@ class Mole {
             }
             
                 // Render speech bubble Img
-            if(this.aniState === "IDLE"){
+            if(this.aniState === "IDLE" && this.gameState !== 2){
                 this.gameContext.drawImage(
                     this.speechBubbleImg,
                     data.position.x + this.speechBubbleData.imgDistance.x,
@@ -308,6 +313,8 @@ class Mole {
                 this.gameContext.fillStyle = "rgba(0, 0, 0, 1)";
                 this.gameContext.fillText(
                     this.moleData["problem"],
+                    // "ㄱㅁㄷ",
+                    // data.position.x + 42,
                     data.position.x + this.speechBubbleData.txtDistance.x,
                     data.position.y + this.speechBubbleData.txtDistance.y
                 );

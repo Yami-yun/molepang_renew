@@ -49,6 +49,7 @@
     position: absolute;
     top: 29px;
     right: 30px;
+    cursor: pointer;
 }
 
 .pre_close__btn{
@@ -58,6 +59,7 @@
     position: absolute;
     top: 18px;
     right: 30px;
+    cursor: pointer;
 }
 
 .game__ranking__list{

@@ -7,8 +7,10 @@ import Header from './header/Header.tsx';
 
 
 function App() {
+
   return (
     <>
+
       <Background />
       <Header />
       <Game />

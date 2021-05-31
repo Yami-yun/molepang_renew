@@ -80,11 +80,21 @@ const setMoleIsGame = (moleNum:number) => {
 function GamePlay(){
 
     const gameCanvasRef = useRef<HTMLCanvasElement | null>(null);
+    const backgroundMusicRef = useRef<HTMLAudioElement | null>(null);
+    const readyMusicRef = useRef<HTMLAudioElement | null>(null);
+    const startMusicRef = useRef<HTMLAudioElement | null>(null);
+    const gameEndMusicRef = useRef<HTMLAudioElement | null>(null);
+    const hammerMusicRef = useRef<HTMLAudioElement | null>(null);
+    const incorrectMusicRef = useRef<HTMLAudioElement | null>(null);
+    const correctMusicRef = useRef<HTMLAudioElement | null>(null);
+
     let gameCanvas:any = null;
     let gameContext:any = null;
 
     const dispatch = useDispatch();
     const gameStageData:IGameData["problemData"] = useSelector((state:any) => state.game.problemData);
+
+    
 
     let count = 0;                      // 게임 프레임 count
     let frame = gameSetValue.GAME_FRAME;                     // 게임 프레임
@@ -122,8 +132,16 @@ function GamePlay(){
 
             // 게임 초기 시작, 준비/ 시작 문구 출력 state
             if(gameState === -1){
+                
+                // 준비
+                if(readyMusicRef.current) readyMusicRef.current.play();
                 board?.update({gameState, count});
 
+                // 시작
+                if(delayStart + 100 < count){
+                    if(startMusicRef.current) startMusicRef.current.play();
+
+                }
                 // 1~2초 후에 게임 시작
                 if(delayStart + 120 < count){
                     delayStart = count;
@@ -157,6 +175,8 @@ function GamePlay(){
                 gameCanvas.addEventListener("click", function (e:any) {
                     let numStageClear:(boolean | undefined)[] = [];
 
+                    if(hammerMusicRef.current) hammerMusicRef.current.play();
+
                     // 클릭한 두더지의 문제에 대한 정답 여부 받아오기
                     // 클릭하면 마우스 좌표와 해당 두더지 객체의 border 영역을 비교함
                     // border 내부에 클릭 시, 해당 두더지가 갖고 있는 정답 여부 반환
@@ -175,6 +195,9 @@ function GamePlay(){
                         gameScore += 10 * problemList[answerNum].length;
                         numStageClear = [];
                         console.log("Yes!!!");
+
+                        if(correctMusicRef.current) correctMusicRef.current.play();
+
                     }
                     // 리스트에 false가 있을 경우 => no correct answer
                     else if (numStageClear.includes(false)) {
@@ -186,6 +209,9 @@ function GamePlay(){
                         if(gameScore < 0) gameScore = 0;
                         numStageClear = [];
                         console.log("No!!!");
+
+                        if(incorrectMusicRef.current) incorrectMusicRef.current.play();
+
                     }
 
                     // 두더지가 없는 공간 클릭 시, gameState =1 유지
@@ -237,7 +263,15 @@ function GamePlay(){
             // 시간 오버 문구 출력 및 결과 데이터 저장 state
             else if(gameState === 5){
                 board?.update({gameState});
+                if(gameEndMusicRef.current) gameEndMusicRef.current.play();
+                
                 if(delayStart + 50 < count){
+
+                    if(backgroundMusicRef.current) {
+                        backgroundMusicRef.current.pause();
+                        console.log("제발 멈춰라@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                    }
+                    
                     delayStart = count;
                     const data = {
                         score: gameScore,
@@ -301,6 +335,34 @@ function GamePlay(){
     useEffect(() => {
         console.log("BIT TEST###################1");
         console.log(gameStageData);
+        // if(backgroundMusicRef.current) {
+        //     backgroundMusicRef.current.play();
+        //     console.log(backgroundMusicRef.current.played);
+        // }
+
+        let music = new Audio("/sound/background__music.mp3");
+        music.play();
+        backgroundMusicRef.current = music;
+
+        let ready_music = new Audio("/sound/ready__music.mp3");
+        readyMusicRef.current = ready_music;
+
+        let start_music = new Audio("/sound/start__music.mp3");
+        startMusicRef.current = start_music;
+        
+
+        let incorrect_music = new Audio("/sound/incorrect__music.mp3");
+        incorrectMusicRef.current = incorrect_music;
+
+        let game__end_music = new Audio("/sound/game__end__music.wav");
+        gameEndMusicRef.current = game__end_music;
+
+        let hammer__music = new Audio("/sound/hammer__music.mp3");
+        hammerMusicRef.current = hammer__music;
+
+        let correct_music = new Audio("/sound/correct__music.mp3");
+        correctMusicRef.current = correct_music;
+
 
         if(gameCanvasRef && !gameStageData.isloading && !gameStageData.err){
             console.log("BIT TEST###################2");
@@ -321,6 +383,8 @@ function GamePlay(){
     }, [gameStageData]);
 
     return (
+        <>
     <canvas className={'ingame__screen'} ref={gameCanvasRef} width={gameSetValue.GAME_W} height={gameSetValue.GAME_H}></canvas>);
+    </>)
 }
 export default GamePlay;

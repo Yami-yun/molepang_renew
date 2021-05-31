@@ -39,6 +39,7 @@ export interface ICommentData{
         comments:type_comment[];
         isloading:boolean;
         err:boolean;
+        count:number;
     };
 }
 
@@ -48,6 +49,7 @@ const initCommentData:ICommentData = {
         total:1,
     },
     commentData: {
+        count:0,
         comments: [],
         isloading:false,
         err:false,
@@ -63,7 +65,7 @@ export default function(state=initCommentData, action:any) {
             return {...state, commentData: {...state.commentData, isloading:true, err:false}};
 
         case GET_COMMENT_SUC:
-            return {...state, page: {cur:action.data.current_page, total:action.data.total_page} ,commentData: {comments:action.data.comments, isloading:false, err:false}};
+            return {...state, page: {cur:action.data.current_page, total:action.data.total_page} ,commentData: {count:action.data.total_count ,comments:action.data.comments, isloading:false, err:false}};
 
         case GET_COMMENT_ERR:
             return {...state, commentData: {...state.commentData, isloading:false, err:true}};

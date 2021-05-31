@@ -34,6 +34,15 @@
     color: #3E2D23;
 }
 
+.des__start__btn:hover{
+    background: #2C761D;
+    color: #F4EBDA;
+
+
+}
+
+
+
 
 .des__page__box{
     position: absolute;
