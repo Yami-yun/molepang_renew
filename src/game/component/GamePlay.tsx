@@ -321,29 +321,29 @@ function GamePlay(){
 
     useEffect(() => {
         // let music = new Audio("/sound/game__end__music.wav");
-        let music = new Audio("/sound/background__music.mp3");
+        let music = new Audio("./sound/background__music.mp3");
         music.loop = true;
         music.play();
         backgroundMusicRef.current = music;
 
-        let ready_music = new Audio("/sound/ready__music.mp3");
+        let ready_music = new Audio("./sound/ready__music.mp3");
         readyMusicRef.current = ready_music;
 
-        let start_music = new Audio("/sound/start__music.mp3");
+        let start_music = new Audio("./sound/start__music.mp3");
         startMusicRef.current = start_music;
         
 
-        let incorrect_music = new Audio("/sound/incorrect__music.mp3");
+        let incorrect_music = new Audio("./sound/incorrect__music.mp3");
         incorrectMusicRef.current = incorrect_music;
 
 
-        let game__end_music = new Audio("/sound/game__end__music.wav");
+        let game__end_music = new Audio("./sound/game__end__music.wav");
         gameEndMusicRef.current = game__end_music;
 
-        let hammer__music = new Audio("/sound/hammer__music.mp3");
+        let hammer__music = new Audio("./sound/hammer__music.mp3");
         hammerMusicRef.current = hammer__music;
 
-        let correct_music = new Audio("/sound/correct__music.mp3");
+        let correct_music = new Audio("./sound/correct__music.mp3");
         correctMusicRef.current = correct_music;
 
         return () => {
