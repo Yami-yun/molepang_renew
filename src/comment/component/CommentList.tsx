@@ -14,16 +14,13 @@ function CommentList(){
     const commentData:ICommentData["commentData"] = useSelector((state:any)=>state.comment.commentData);
     const page:ICommentData["page"] = useSelector((state:any)=>state.comment.page);
     const dispatch = useDispatch();
-    // const COMMENT_NUMBER_ON_PAGE = 5;
-    console.log(page);
-    console.log(commentData);
-    
-    // getComment2();
+
     useEffect(() => { 
         let getCommentApi = getComment();
         getCommentApi(dispatch);
         
     }, []);
+    
     return (
     <section className={'comment__list__layout'}>
         {commentData.comments?.map((value:type_comment, index:number)=>{

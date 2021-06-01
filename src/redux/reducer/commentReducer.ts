@@ -58,7 +58,6 @@ const initCommentData:ICommentData = {
 
 
 export default function(state=initCommentData, action:any) {
-    console.log(action);
     switch(action.type){
         
         case GET_COMMENT:
@@ -72,7 +71,6 @@ export default function(state=initCommentData, action:any) {
 
 
         case ADD_COMMENT:
-            // return {...state, commentList: state.commentList.concat(action.payload)};
             return {...state, commentData: {...state.commentData, isloading:true, err:false}};
 
 
@@ -100,12 +98,6 @@ export default function(state=initCommentData, action:any) {
             return {...state, commentData: {...state.commentData, comments: [...modifyTmp]} };
         
         case MODIFY_REPLY_COMMENT:
-            // const modifyReplyTmp = state.commentData.comments.map((value:type_comment)=> {
-            //     if(value.id === action.data.id){
-            //         value.reply_set = action.data.content;
-            //     }
-            //     return value;
-            // })
             return state;
             
 

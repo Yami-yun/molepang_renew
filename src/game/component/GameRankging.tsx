@@ -32,7 +32,6 @@ function GameRankging(){
     const [firstTotalRank, setFirstTotalRank] = useState(1);                // ###API
     const [userIndex, setUserIndex] = useState(2);
 
-    console.log(topTenRankList);
     useEffect(() => {
         rankTabSelect("TOTAL");
 
@@ -45,8 +44,6 @@ function GameRankging(){
     }, [totalRankList.data])
     // 랭킹 탭 선택 함수
     const rankTabSelect = (select:string) => {
-    console.log(topTenRankList);
-
         if(select === "TOTAL"){
             setIsTopTenRank(false);
             // ###API
@@ -84,7 +81,6 @@ function GameRankging(){
         return {};
     }
 
-    console.log(userIndex);
     return (
     <section className={'game__ranking__layout'}>
         {userRank !== 0 && userRank < 4 && <GameTopTree />}

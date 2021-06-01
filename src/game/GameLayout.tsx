@@ -1,44 +1,23 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import 'css/default.css';
 import 'css/game/Game.css';
 import GameMenu from 'game/component/GameMenu';
-import GameModal from 'game/component/GameModal';
 import GamePlay from 'game/component/GamePlay';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import GameDescription from 'game/component/GameDescription';
 import GameResult from 'game/component/GameResult';
 import GameRankingRegister from 'game/component/GameRankingRegister';
 import GameRankging from 'game/component/GameRankging';
 import GamePreRankging from 'game/component/GamePreRankging';
-import GameTopTree from 'game/component/GameTopThree';
-import ReactAudioPlayer from 'react-audio-player';
 
 
 // 게임 레이아웃 화면제어 컴포넌트
 function GameLayout(){
     const screen = useSelector((state:any) => state.game.gamescreen);
-    // let screen = 6;
-
-    const ref = useRef<any>(null);
-    // let promise:HTMLAudioElement | null = window.document.querySelector('bakcground__sound');
-
-    useEffect(() => {
-        // if(promise) promise.play();
-        //window.document.querySelector('bakcground__sound').play();
-
-        // let audio = new Audio("../sound/background__music.mp3")
-        // audio.play();
-    //   if(ref.current){
-    //       console.log("Tt");
-    //       ref.current.play();
-    //   }
-  
-    }, [ref.current])
 
     const screenRender = () => {
         switch(screen){
             case 0:
-                // return <GameTopTree />;
                 return <GameMenu />;
                 
             case 1:
@@ -64,12 +43,7 @@ function GameLayout(){
     }
     return (
         <article className={"game__layout"}>
-            {/* <ReactAudioPlayer ref={ref} src="sound/background__music.mp3" autoPlay/> */}
-
             {screenRender()}
-            {/* <GameMenu /> */}
-            {/* <GamePlay /> */}
-
         </article>
     );
 }

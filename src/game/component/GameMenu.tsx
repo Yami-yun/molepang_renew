@@ -65,130 +65,125 @@ function GameMenu(){
 
     const test = () => {
         count += 1;
+    
+        context.clearRect(0, 0, 228, 448);
+        context.drawImage(
+            background,
+            0,
+            0,
+            920,
+            600);
 
-        // if(count > 10){
-            // console.log(isFirstImg);           
-            context.clearRect(0, 0, 228, 448);
-            context.drawImage(
-                background,
-                0,
-                0,
-                920,
-                600);
+        context.drawImage(
+            cloud1,
+            cloudx[0],
+            56,
+            161,
+            65);
 
-            context.drawImage(
-                cloud1,
-                cloudx[0],
-                56,
-                161,
-                65);
+        context.drawImage(
+            cloud1,
+            cloudx[1],
+            156,
+            129,
+            52);
 
-            context.drawImage(
-                cloud1,
-                cloudx[1],
-                156,
-                129,
-                52);
+        context.drawImage(
+            cloud1,
+            cloudx[2],
+            156,
+            161,
+            65);
 
-            context.drawImage(
-                cloud1,
-                cloudx[2],
-                156,
-                161,
-                65);
+        context.drawImage(
+            cloud1,
+            cloudx[3],
+            76,
+            113,
+            45);
 
-            context.drawImage(
-                cloud1,
-                cloudx[3],
-                76,
-                113,
-                45);
-
-            context.drawImage(
-                cloud1,
-                cloudx[4],
-                33,
-                177,
-                71);
+        context.drawImage(
+            cloud1,
+            cloudx[4],
+            33,
+            177,
+            71);
 
 
-            const first_delay = 15;
-            if(isFirtAniMole.current){
-                if(Math.floor(isFirstImg / first_delay) === 0 ){
-                    context.drawImage(
-                        _mole1,
-                        554,
-                        156,
-                        210,
-                        420);
-                }else if(Math.floor(isFirstImg / first_delay) === 1 ){
-                    context.drawImage(
-                        _mole2,
-                        554,
-                        156,
-                        210,
-                        420);
-                }else if(Math.floor(isFirstImg / first_delay) === 2 ){
-                    context.drawImage(
-                        _mole3,
-                        554,
-                        156,
-                        210,
-                        420);
-                }else if(Math.floor(isFirstImg / first_delay) === 3 ){
-                    context.drawImage(
-                        _mole4,
-                        554,
-                        156,
-                        210,
-                        420);
-                }else if(Math.floor(isFirstImg / first_delay) === 4 ){
-                    context.drawImage(
-                        _mole5,
-                        554,
-                        156,
-                        210,
-                        420);
-                }else{
-                    isFirtAniMole.current = false;
-                }
-                
+        const first_delay = 15;
+        if(isFirtAniMole.current){
+            if(Math.floor(isFirstImg / first_delay) === 0 ){
+                context.drawImage(
+                    _mole1,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 1 ){
+                context.drawImage(
+                    _mole2,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 2 ){
+                context.drawImage(
+                    _mole3,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 3 ){
+                context.drawImage(
+                    _mole4,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 4 ){
+                context.drawImage(
+                    _mole5,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else{
+                isFirtAniMole.current = false;
             }
             
-            if(!isFirtAniMole.current){
-                if(isFirstImg % 60 < 30){
-                    context.drawImage(
-                        _mole6,
-                        554,
-                        156,
-                        210,
-                        420);
-                }else{
-                    context.drawImage(
-                        _mole7,
-                        554,
-                        146,
-                        210,
-                        430);
-                }
+        }
+        
+        if(!isFirtAniMole.current){
+            if(isFirstImg % 60 < 30){
+                context.drawImage(
+                    _mole6,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else{
+                context.drawImage(
+                    _mole7,
+                    554,
+                    146,
+                    210,
+                    430);
             }
+        }
 
-            
+        count= 0;
+        isFirstImg += 1;
 
-            count= 0;
-            isFirstImg += 1;
-
-            cloudx.forEach((value:number, index:number)=>{
-                cloudx[index] -= 1;
-                if(cloudx[index] < - 161){
-                    cloudx[index] = 1100;
-                }
-            })
-            
+        cloudx.forEach((value:number, index:number)=>{
+            cloudx[index] -= 1;
+            if(cloudx[index] < - 161){
+                cloudx[index] = 1100;
+            }
+        })
         
         return window.requestAnimationFrame(test);
-
     }
+    
     useEffect(() => {
         // if(canvasRef) canvas = canvasRef.current;
         if(canvasRef.current) context = canvasRef.current.getContext('2d');

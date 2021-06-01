@@ -94,8 +94,6 @@ function GamePlay(){
     const dispatch = useDispatch();
     const gameStageData:IGameData["problemData"] = useSelector((state:any) => state.game.problemData);
 
-    
-
     let count = 0;                      // 게임 프레임 count
     let frame = gameSetValue.GAME_FRAME;                     // 게임 프레임
     let curStage = 0;                   // 현재 스테이지
@@ -113,14 +111,11 @@ function GamePlay(){
     let background:(Background | null) = null;
     
     let gameScore = gameSetValue.GAME_SCORE;
-    let isGameOver = false;
 
-    console.log(gameStageData);
     // 게임 컨트롤러
     const gameController = () => {
         
         if (count % frame === 0) {
-            console.log(count);
             const moleNum = gameStageData.data[curStage]?.problem.length;
 
             if(gameHeader?.update(gameState,count, gameScore)){
@@ -269,7 +264,6 @@ function GamePlay(){
 
                     if(backgroundMusicRef.current) {
                         backgroundMusicRef.current.pause();
-                        console.log("제발 멈춰라@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
                     }
                     
                     delayStart = count;
@@ -326,21 +320,9 @@ function GamePlay(){
     const ttt = useRef(0);
 
     useEffect(() => {
-        
-        return () => {
-            cancelAnimationFrame(ttt.current);
-        }
-    }, [])
-
-    useEffect(() => {
-        console.log("BIT TEST###################1");
-        console.log(gameStageData);
-        // if(backgroundMusicRef.current) {
-        //     backgroundMusicRef.current.play();
-        //     console.log(backgroundMusicRef.current.played);
-        // }
-
+        // let music = new Audio("/sound/game__end__music.wav");
         let music = new Audio("/sound/background__music.mp3");
+        music.loop = true;
         music.play();
         backgroundMusicRef.current = music;
 
@@ -354,6 +336,7 @@ function GamePlay(){
         let incorrect_music = new Audio("/sound/incorrect__music.mp3");
         incorrectMusicRef.current = incorrect_music;
 
+
         let game__end_music = new Audio("/sound/game__end__music.wav");
         gameEndMusicRef.current = game__end_music;
 
@@ -363,9 +346,15 @@ function GamePlay(){
         let correct_music = new Audio("/sound/correct__music.mp3");
         correctMusicRef.current = correct_music;
 
+        return () => {
+            cancelAnimationFrame(ttt.current);
+            if(backgroundMusicRef.current) backgroundMusicRef.current.pause();
+        }
+    }, [])
 
-        if(gameCanvasRef && !gameStageData.isloading && !gameStageData.err){
-            console.log("BIT TEST###################2");
+    useEffect(() => {
+
+        if(gameCanvasRef && !gameStageData.isloading && !gameStageData.err && gameStageData.data.length){
             gameCanvas = gameCanvasRef.current;
             gameContext = gameCanvas.getContext('2d');
 

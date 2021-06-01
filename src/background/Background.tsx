@@ -7,15 +7,11 @@ import weedImg from 'img/weed.png';
 function Background(){
     const root = document.getElementById('root');
     const topHeight = 860;
-
-    const [width, setWidth] = useState<number>(0);
     const [bottomHeight, setBottomHeight] = useState<number>(0);
 
     useEffect(() => {
         if(root) {
             setBottomHeight(root.scrollHeight - topHeight);
-            setWidth(document.body.clientWidth - 40);
-            console.log(document.body.scrollWidth);
         }
         
     }, [])
