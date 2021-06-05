@@ -215,7 +215,7 @@ function GameMenu(){
         <canvas ref={canvasRef} width={920} height={600} className={'game__menu__mole'}></canvas>
     </section>
             <audio ref={ref} controls>
-            <source src="/sound/background__music.mp3" type="audio/mp3" />
+            <source src="./gameobject/sound/background__music.mp3" type="audio/mp3" />
         </audio>
         </>
     );
