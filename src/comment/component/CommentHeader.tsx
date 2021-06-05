@@ -31,8 +31,10 @@ function CommentHeader(){
             description: '재밌는 게임 한판?',
             imageUrl: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
             link: {
-                mobileWebUrl: 'http://localhost:3000/',
-                webUrl: 'http://localhost:3000/'
+                // mobileWebUrl: `http://localhost:3000/`,
+                // webUrl:`http://localhost:3000/`
+                mobileWebUrl: `${process.env.REACT_APP_BASE_URL}`,
+                webUrl: `${process.env.REACT_APP_BASE_URL}`
                 // mobileWebUrl: 'https://yami-yun.github.io/molepang_renew/',
                 // webUrl: 'https://yami-yun.github.io/molepang_renew/'
             }
@@ -42,13 +44,15 @@ function CommentHeader(){
 
     const handleFacebookShare = () => {
         console.log("test");
-        window.open('https://www.facebook.com/sharer/sharer.php?u=http://localhost:3000/');
-        // window.open('https://www.facebook.com/sharer/sharer.php?u=https://yami-yun.github.io/molepang_renew/');
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${process.env.REACT_APP_BASE_URL}`);
+        // window.open('https://www.facebook.com/sharer/sharer.php?u=u=https%3A%2F%2Fyami-yun.github.io%2Fmolepang_renew%2F&amp;src=sdkpreparse');
     }
 
     const handleTwitterkShare = () => {
-        window.open('https://www.twitter.com/intent/tweet?&url=http://localhost:3000/');
+        // window.open(`https://www.twitter.com/intent/tweet?&url=${process.env.REACT_APP_BASE_URL}`);
         // window.open('https://www.twitter.com/intent/tweet?&url=https://yami-yun.github.io/molepang_renew/');
+        // window.open("https://twitter.com/intent/tweet?text=" + sendText + "&url=" + sendUrl);
+        window.open(`https://twitter.com/intent/tweet?&url=${process.env.REACT_APP_BASE_URL}`);
     }
 
     const handleCopyURL = () => {

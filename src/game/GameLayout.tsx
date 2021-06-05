@@ -10,11 +10,12 @@ import GameRankingRegister from 'game/component/GameRankingRegister';
 import GameRankging from 'game/component/GameRankging';
 import GamePreRankging from 'game/component/GamePreRankging';
 import { useRef } from 'react';
-
+import ReactAudioPlayer from 'react-audio-player';
 
 // 게임 레이아웃 화면제어 컴포넌트
 function GameLayout(){
     const screen = useSelector((state:any) => state.game.gamescreen);
+
     const screenRender = () => {
         switch(screen){
             case 0:
@@ -41,6 +42,7 @@ function GameLayout(){
         
 
     }
+    console.log("test4");
     return (
         <article className={"game__layout"}>
             {screenRender()}

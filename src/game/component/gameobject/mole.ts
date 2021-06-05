@@ -28,7 +28,7 @@ class Ani{
         this.gameContext = gameContext;             
 
         // animation 프레임 이미지 리스트에 이미지 넣기
-        for(let i=1; i<=7; i++){
+        for(let i=1; i<=this.nImg; i++){
             let imgName = "";
             if(i < 10) imgName = `0${i}`;
             else imgName = i.toString();
@@ -277,16 +277,17 @@ class Mole {
                 }else{
                     getScore = `-${data.problem.length * 5}`
                 }
+                let scoreXMove = getScore.length <= 2 ? 6 : 0;
 
                 this.gameContext.strokeText(
                     getScore,
-                    data.position.x + this.scorePositionData.x,
+                    data.position.x + this.scorePositionData.x + scoreXMove,
                     data.position.y + this.scorePositionData.y
                 );
 
                 this.gameContext.fillText(
                     getScore,
-                    data.position.x + this.scorePositionData.x,
+                    data.position.x + this.scorePositionData.x + scoreXMove,
                     data.position.y + this.scorePositionData.y,
                 );
 

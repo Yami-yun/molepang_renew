@@ -20,7 +20,6 @@ function GameMenu(){
     const onGameScreenHandler = (nScreen:number) => {
         dispatch({type:CHANGE_GAME_SCREEN, payload:nScreen});
     }
-    const ref = useRef<HTMLAudioElement | null>(null);
 
     useEffect(() => {
         let getTopTenRankApi = getTopTenRank();
@@ -195,16 +194,12 @@ function GameMenu(){
         }
     }, [])
 
+    console.log("t");
     return (
-        <>
     <section className={'game__menu__layout'}>
         {/* 게임 설명, 게임 시작, 랭킹 보기 버튼 */}
         <img className={'game__menu__pole'} src={pole} alt="pole"/>
-        <button onClick={()=>{
-            onGameScreenHandler(1);
-            console.log("test");
-            ref.current?.play();
-            }} className={'game__menu__button'}><img src={btn1}/></button>
+        <button onClick={()=>{onGameScreenHandler(1)}} className={'game__menu__button'}><img src={btn1}/></button>
         <button onClick={()=>{
             onGameScreenHandler(2);
             let getProblemApi = getProblem();
@@ -213,11 +208,6 @@ function GameMenu(){
         <button onClick={()=>{onGameScreenHandler(7)}} className={'game__menu__button'}><img src={btn3}/></button>
 
         <canvas ref={canvasRef} width={920} height={600} className={'game__menu__mole'}></canvas>
-    </section>
-            <audio ref={ref} controls>
-            <source src="./gameobject/sound/background__music.mp3" type="audio/mp3" />
-        </audio>
-        </>
-    );
+    </section>);
 }
 export default GameMenu;

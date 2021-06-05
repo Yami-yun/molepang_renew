@@ -83,7 +83,7 @@ function GameRankging(){
 
     return (
     <section className={'game__ranking__layout'}>
-        {userRank !== 0 && userRank < 4 && <GameTopTree />}
+        {(userRank !== 0 && userRank < 4) ? <GameTopTree /> : <></>}
         <img onClick={()=>{onScreenMoveHandler(0); window.location.reload();}} className={'close__btn'} src={closeBtn} alt="t" />
 
         {/* 랭킹 화면 헤더 ( 전체순위 버튼, 순위 10 버튼) */}
@@ -95,14 +95,14 @@ function GameRankging(){
 
         {/* 랭킹 화면에서 현재 보여지는 랭킹 리스트 */}
         <div className={'game__ranking__list' + (!isTopTenRank ? ' game__ranking__list__total' : '')}>
-            {rankDataList.length && rankDataList.map((value:any, index:number)=>
+            {rankDataList.length ? rankDataList.map((value:any, index:number)=>
                 <div key={index} className={'game__ranking__box'}>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{!isTopTenRank ? index + firstTotalRank : index+ 1 }</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.nickname}</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.score}</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.play_date.slice(0,10)}</p>
                 </div>
-            )}
+            ) : <></>}
         </div>
     </section>);
 }
