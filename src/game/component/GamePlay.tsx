@@ -129,12 +129,12 @@ function GamePlay(){
             if(gameState === -1){
                 
                 // 준비
-                if(readyMusicRef.current) readyMusicRef.current.play();
+                // if(readyMusicRef.current) readyMusicRef.current.play();
                 board?.update({gameState, count});
 
                 // 시작
                 if(delayStart + 100 < count){
-                    if(startMusicRef.current) startMusicRef.current.play();
+                    // if(startMusicRef.current) startMusicRef.current.play();
 
                 }
                 // 1~2초 후에 게임 시작
@@ -191,7 +191,7 @@ function GamePlay(){
                         numStageClear = [];
                         console.log("Yes!!!");
 
-                        if(correctMusicRef.current) correctMusicRef.current.play();
+                        // if(correctMusicRef.current) correctMusicRef.current.play();
 
                     }
                     // 리스트에 false가 있을 경우 => no correct answer
@@ -205,7 +205,7 @@ function GamePlay(){
                         numStageClear = [];
                         console.log("No!!!");
 
-                        if(incorrectMusicRef.current) incorrectMusicRef.current.play();
+                        // if(incorrectMusicRef.current) incorrectMusicRef.current.play();
 
                     }
 
@@ -262,9 +262,9 @@ function GamePlay(){
                 
                 if(delayStart + 50 < count){
 
-                    if(backgroundMusicRef.current) {
-                        backgroundMusicRef.current.pause();
-                    }
+                    // if(backgroundMusicRef.current) {
+                    //     backgroundMusicRef.current.pause();
+                    // }
                     
                     delayStart = count;
                     const data = {
@@ -321,34 +321,38 @@ function GamePlay(){
 
     useEffect(() => {
         // let music = new Audio("/sound/game__end__music.wav");
-        let music = new Audio("./sound/background__music.mp3");
-        music.loop = true;
-        music.play();
-        backgroundMusicRef.current = music;
+        // let music = new Audio("/sound/background__music.mp3");
+        // music.loop = true;
+        // music.play();
+        // backgroundMusicRef.current = music;
 
-        let ready_music = new Audio("./sound/ready__music.mp3");
-        readyMusicRef.current = ready_music;
+        // let ready_music = new Audio(".gameobject/sound/ready__music.mp3");
+        // readyMusicRef.current = ready_music;
+        // ready_music.crossOrigin = 'anonymous';
+        // video.crossOrigin = 'anonymous';
 
-        let start_music = new Audio("./sound/start__music.mp3");
-        startMusicRef.current = start_music;
+        // let start_music = new Audio(".gameobject/sound/start__music.mp3");
+        // startMusicRef.current = start_music;
+        // start_music.crossOrigin = 'anonymous';
         
 
-        let incorrect_music = new Audio("./sound/incorrect__music.mp3");
-        incorrectMusicRef.current = incorrect_music;
+        // let incorrect_music = new Audio(".gameobject/sound/incorrect__music.mp3");
+        // incorrectMusicRef.current = incorrect_music;
+        // start_music.crossOrigin = 'anonymous';
 
 
-        let game__end_music = new Audio("./sound/game__end__music.wav");
-        gameEndMusicRef.current = game__end_music;
+        // let game__end_music = new Audio(".gameobject/sound/game__end__music.wav");
+        // gameEndMusicRef.current = game__end_music;
 
-        let hammer__music = new Audio("./sound/hammer__music.mp3");
+        let hammer__music = new Audio("/sound/hammer__music.mp3");
         hammerMusicRef.current = hammer__music;
 
-        let correct_music = new Audio("./sound/correct__music.mp3");
-        correctMusicRef.current = correct_music;
+        // let correct_music = new Audio(".gameobject/sound/correct__music.mp3");
+        // correctMusicRef.current = correct_music;
 
         return () => {
             cancelAnimationFrame(ttt.current);
-            if(backgroundMusicRef.current) backgroundMusicRef.current.pause();
+            // if(backgroundMusicRef.current) backgroundMusicRef.current.pause();
         }
     }, [])
 
@@ -374,6 +378,7 @@ function GamePlay(){
     return (
         <>
     <canvas className={'ingame__screen'} ref={gameCanvasRef} width={gameSetValue.GAME_W} height={gameSetValue.GAME_H}></canvas>);
+    
     </>)
 }
 export default GamePlay;
