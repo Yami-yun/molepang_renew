@@ -56,6 +56,11 @@ class GameHeader {
         this.headerData.score = score;
     }
 
+    initCount(){
+        this.curCount = 0;
+    }
+
+
     countTime(){
         let s = Number(this.headerData.time.s);
         let m = Number(this.headerData.time.m);
@@ -77,6 +82,14 @@ class GameHeader {
     // 게임 헤더 정보 업데이트 함수
     update(gameState:number,count:number, gameScore:number){
         this.headerData.score = gameScore;
+        console.log("############# HEADER #################");
+
+        console.log("GAME STATE : " + gameState.toString());
+        console.log("CUR COUNT : " + this.curCount.toString());
+        console.log("COUNT : " + count.toString());
+
+        console.log("############# ###### #################");
+        console.log("");
 
         
         if(gameState === 1 || gameState === 0 || gameState === 4){
@@ -90,6 +103,12 @@ class GameHeader {
             }
             
             if(this.countChange && this.curCount + 60 < count){
+        console.log("COUNT COMPLETE!!!");
+        console.log("COUNT COMPLETE!!!");
+        console.log("COUNT COMPLETE!!!");
+        console.log("COUNT COMPLETE!!!");
+        console.log("COUNT COMPLETE!!!");
+
                 this.countTime();
                 this.countChange = false;
             }

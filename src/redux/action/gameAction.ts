@@ -99,6 +99,7 @@ export function getTopTenRank(){
             if(IS_DEV){
                 const res2 = await axios.get(`${BASE_URL}/ranking/`);
                 dispatch({type:GET_TOP_TEN_RANK, data: res2.data});
+                console.log(res2);
                 
             }else{
                 const res2 = await axios.get(`${BASE_URL}/ranking/`);

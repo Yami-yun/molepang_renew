@@ -135,6 +135,7 @@ function GamePlay(){
                 // 시작
                 if(delayStart + 100 < count){
                     if(startMusicRef.current) startMusicRef.current.play();
+                    if(backgroundMusicRef.current) backgroundMusicRef.current.play();
 
                 }
                 // 1~2초 후에 게임 시작
@@ -246,6 +247,7 @@ function GamePlay(){
                     element.update({gameState});
                 });
                 board?.update({gameState});
+                gameHeader?.initCount();
                 count = 0;
                 curStage+=1;
                 gameState=0;
@@ -258,13 +260,14 @@ function GamePlay(){
             // 시간 오버 문구 출력 및 결과 데이터 저장 state
             else if(gameState === 5){
                 board?.update({gameState});
+                if(backgroundMusicRef.current) {
+                    backgroundMusicRef.current.pause();
+                }
+                
                 if(gameEndMusicRef.current) gameEndMusicRef.current.play();
                 
                 if(delayStart + 50 < count){
 
-                    if(backgroundMusicRef.current) {
-                        backgroundMusicRef.current.pause();
-                    }
                     
                     delayStart = count;
                     const data = {
@@ -322,8 +325,7 @@ function GamePlay(){
     useEffect(() => {
         // let music = new Audio("/sound/game__end__music.wav");
         let music = new Audio(`${process.env.PUBLIC_URL}/sound/background__music.mp3`);
-        music.loop = true;
-        music.play();
+        // music.loop = true;
         backgroundMusicRef.current = music;
 
         let ready_music = new Audio(`${process.env.PUBLIC_URL}/sound/ready__music.mp3`);

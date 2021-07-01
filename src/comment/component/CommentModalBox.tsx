@@ -64,6 +64,9 @@ function CommentModalBox({p_id, type, setIsShowModal, id, content, nickname, isR
 
     // 댓글 수정 핸들러
     const onModifyCommentHandler = () => {
+        if(modifiedComment.length > 120) return alert('댓글은 120글자 이하로 입력이 가능합니다.');
+        if(modifiedComment.length === 0) return alert('댓글을 입력해주세요.');
+
         const modifyCommentAPI = modifyComment({p_id, id, nickname, password, content: modifiedComment});
         modifyCommentAPI(dispatch).then(
             response => {
@@ -83,8 +86,13 @@ function CommentModalBox({p_id, type, setIsShowModal, id, content, nickname, isR
     // 답글 쓰기
     const onAddReplyCommentHandler = () => {
         if(replyNickname.length > 8) return alert("별명은 7글자 이하로 입력해야 합니다.");
+        if(replyNickname.length === 0) return alert("별명을 입력해주세요.");
         if(password.length > 8) return alert("비밀번호는 7글자 이하로 입력해야 합니다.");
-        if(replyContent.length > 120) return alert("댓글은 7글자 이하로 입력해야 합니다.");
+        if(password.length === 0) return alert("비밀번호를 입력해주세요.");
+
+        if(replyContent.length > 120) return alert("답글은 120글자 이하로 입력이 가능합니다.");
+        if(replyContent.length === 0) return alert("답글을 입력해주세요.");
+
 
         const addReplyCommentAPI = addReplyComment(id, {nickname: replyNickname, password, content: replyContent});
         addReplyCommentAPI(dispatch).then(
@@ -103,8 +111,10 @@ function CommentModalBox({p_id, type, setIsShowModal, id, content, nickname, isR
         <div className={'comment__modal__background'}>
             <article className={'comment__modal__layout'}>
                 <img onClick={()=>setIsShowModal(false)} className={'comment__exit__btn'} src={exitBtnImg}/>
-                {screen !== 2 && <div className={'comment__modal__header'}>댓글 수정 &nbsp;&nbsp;|&nbsp;&nbsp; 삭제</div>}
-                {screen === 2 && <div className={'comment__modal__header'}>댓글 쓰기</div>}
+                {screen !== 2 && !p_id && <div className={'comment__modal__header'}>댓글 수정 &nbsp;&nbsp;|&nbsp;&nbsp; 삭제</div>}
+                {screen !== 2 && p_id && <div className={'comment__modal__header'}>답글 수정 &nbsp;&nbsp;|&nbsp;&nbsp; 삭제</div>}
+                
+                {screen === 2 && <div className={'comment__modal__header'}>답글 쓰기</div>}
 
 
                 {/* 비밀번호 확인 모달 창 */}
@@ -126,7 +136,7 @@ function CommentModalBox({p_id, type, setIsShowModal, id, content, nickname, isR
                 <>
                     <p className={'comment__modal__id'}>{nickname}</p>
                     
-                    <textarea defaultValue={modifiedComment} onChange={(e)=>{setModifiedComment(e.target.value)}}></textarea>
+                    <textarea maxLength={120} defaultValue={modifiedComment} onChange={(e)=>{setModifiedComment(e.target.value)}}></textarea>
                     <div className={'btn__list'}>
                         <button onClick={()=>setIsShowModal(false)} className={'btn__cancel'}>취소</button>
                         <button className={'btn__ok'} onClick={()=>onModifyCommentHandler()}>확인</button>
@@ -143,7 +153,7 @@ function CommentModalBox({p_id, type, setIsShowModal, id, content, nickname, isR
                         <input type={'password'} maxLength={7} onChange={(e:any)=>setPassword(e.target.value)} onClick={()=>setScreen(2)} placeholder={'비밀번호'}/>
                     </div>
                     
-                    <textarea onChange={(e)=>{setReplyContent(e.target.value)}} placeholder={`인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요.`}></textarea>
+                    <textarea maxLength={120} onChange={(e)=>{setReplyContent(e.target.value)}} placeholder={`인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 댓글 작성 시 타인에 대한 배려와 책임을 담아주세요.`}></textarea>
                     <div className={'btn__list'}>
                         <button >취소</button>
                         <button onClick={onAddReplyCommentHandler}>확인</button>

@@ -55,6 +55,13 @@ function GameMenu(){
     const _mole7 = new Image();
     _mole7.src = "menu/07.png";
 
+
+    const _mole8 = new Image();
+    _mole8.src = "menu/08.png";
+
+    const _mole9 = new Image();
+    _mole9.src = "menu/09.png";
+
     const background = new Image();
     background.src = "menu/menu_background.png";
 
@@ -143,6 +150,55 @@ function GameMenu(){
             }else if(Math.floor(isFirstImg / first_delay) === 4 ){
                 context.drawImage(
                     _mole5,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 5 ){
+                context.drawImage(
+                    _mole6,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 6 ){
+                context.drawImage(
+                    _mole7,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 7 ){
+                context.drawImage(
+                    _mole8,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 8 ){
+                context.drawImage(
+                    _mole9,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 9 ){
+                context.drawImage(
+                    _mole8,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 10 ){
+                context.drawImage(
+                    _mole7,
+                    554,
+                    156,
+                    210,
+                    420);
+            }else if(Math.floor(isFirstImg / first_delay) === 11 ){
+                context.drawImage(
+                    _mole6,
                     554,
                     156,
                     210,

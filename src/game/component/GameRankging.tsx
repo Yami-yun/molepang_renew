@@ -25,6 +25,7 @@ function GameRankging(){
     const topTenRankList:IGameData["topTenRank"] = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
     const totalRankList:IGameData["totalRank"] = useSelector((state:any) => state.game.totalRank);         // 전체 랭킹 정보
     const userRank = useSelector((state:any) => state.game.userRank);         // 전체 랭킹 정보
+    console.log(totalRankList.data.length);
 
     const [rankDataList, setRankDataList] = useState<total_rank[]>(totalRankList.data);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
     const [isTopTenRank, setIsTopTenRank] = useState(false);                        // 사용자가 현재 랭킹 화면으로 탑 10 화면을 선택했는지 여부
@@ -47,19 +48,23 @@ function GameRankging(){
         if(select === "TOTAL"){
             setIsTopTenRank(false);
             // ###API
-            if(userRank < 3){
+            if(userRank <= 3){
                 setRankDataList([...totalRankList.data.slice(0, 5)]);
                 setFirstTotalRank(1);
                 setUserIndex(userRank-1);
+                // ### 이부분 랭킹에 등록된 사용자 수도 같이 달라하기
             }else if(userRank > 3 && userRank < totalRankList.data.length - 1){
                 setRankDataList([...totalRankList.data.slice(userRank - 3, userRank + 2)]);
                 setFirstTotalRank(userRank-2);
                 setUserIndex(2);
             }else if(userRank >= totalRankList.data.length - 1){
                 setRankDataList([...totalRankList.data.slice(totalRankList.data.length - 5)]);
-                setFirstTotalRank(totalRankList.data.length - 4);
+                // setFirstTotalRank(totalRankList.data.length - 4);
+                setFirstTotalRank(userRank - 3);
+                console.log(userRank);
+                console.log(totalRankList.data.length);
 
-                if(userRank === totalRankList.data.length - 1) setUserIndex(3);
+                if(userRank === totalRankList.data.length -1 ) setUserIndex(3);
                 else setUserIndex(4);
             }
 

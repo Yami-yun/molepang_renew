@@ -172,7 +172,7 @@ class Board implements IBoard{
                 this.gameContext.fillText(
                     this.boardTextData["meaning"].slice(24),
                     294 + addX,
-                    this.boardTextData["position"][1] - 2 * addY,
+                    this.boardTextData["position"][1] - 2 * addY + 6,
                 );
             }
         }

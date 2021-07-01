@@ -5,7 +5,7 @@ import 'css/footer/Footer.css';
 function Footer(){
     return (
     <footer>
-        Copyright Ⓒ Jong Yoon - Yoon | Meeteum - Son | Won Suk - Ahn . All rights reserved.
+        Copyright Ⓒ Jong Yoon - Yoon | Meeteum - Son | Won Seok - An . All rights reserved.
     </footer>);
 }
 export default Footer;

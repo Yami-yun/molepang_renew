@@ -47,7 +47,7 @@ function CommentReplyBox(props:type_comment_reply_box){
             <div className={'commentreplybox__first__line'}>
                 <div>
                     <h2>{props.reply_set.nickname}</h2>
-                    <p>{props.reply_set.create_date.slice(0, 10)}</p>
+                    <p>{props.reply_set.create_date.slice(0, 10) + ` ${props.reply_set.create_date.slice(11, 16)}`}</p>
                 </div>
                 
                 <div className={'commentreplybox__btn__list'}>

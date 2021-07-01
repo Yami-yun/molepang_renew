@@ -65,7 +65,7 @@ function CommentBox({nickname, create_date, content, id, reply_set}: type_commen
             <div className={'commentbox__first__line'}>
                 <div>
                     <h2>{nickname}</h2>
-                    <p>{create_date.slice(0, 10)}</p>
+                    <p>{create_date.slice(0, 10) + ` ${create_date.slice(11, 16)}`}</p>
                 </div>
                 
                 <div className={'commentbox__btn__list'}>
