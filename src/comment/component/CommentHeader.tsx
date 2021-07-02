@@ -8,6 +8,7 @@ import exitBtnImg from 'img/button_close.png';
 import faceShareBtnImg from 'img/face__share__btn.png';
 import kakaoShareBtnImg from 'img/kakao__share__btn.png';
 import twiShareBtnImg from 'img/twi__share__btn.png';
+import test from 'img/share/kakao_share_img.png'
 import { ICommentData } from 'redux/reducer/commentReducer';
 
 
@@ -29,7 +30,7 @@ function CommentHeader(){
             content: {
             title: 'Molepang',
             description: '재밌는 게임 한판?',
-            imageUrl: 'http://mud-kage.kakao.co.kr/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+            imageUrl: 'img/share/kakao_share_img.png',
             link: {
                 // mobileWebUrl: `http://localhost:3000/`,
                 // webUrl:`http://localhost:3000/`
