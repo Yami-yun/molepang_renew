@@ -27,19 +27,34 @@ function CommentHeader(){
         window.Kakao.Link.createDefaultButton({
             container: '#kakao-link-btn',
             objectType: 'feed',
+            // templateId :"56187",
+            // requestUrl:`${process.env.REACT_APP_BASE_URL}`,
+            
             content: {
-            title: 'Molepang',
-            description: '재밌는 게임 한판?',
-            imageUrl: 'img/share/kakao_share_img.png',
-            link: {
+                title: '모두 한글 두더지 팡 !',
+                description: `모두 모두 농장 밭에 두더지가 나타났어요!! 두더지를 잡고, 한글 단어도 함께 공부해보세요:)`,
+                imageUrl: 'https://github.com/Yami-yun/molepang_renew/blob/main/src/img/share/kakao_share_img.png?raw=true',
+                // image_width:800,
+                // image_height:800,
+                link: {
                 // mobileWebUrl: `http://localhost:3000/`,
                 // webUrl:`http://localhost:3000/`
                 mobileWebUrl: `${process.env.REACT_APP_BASE_URL}`,
                 webUrl: `${process.env.REACT_APP_BASE_URL}`
                 // mobileWebUrl: 'https://yami-yun.github.io/molepang_renew/',
                 // webUrl: 'https://yami-yun.github.io/molepang_renew/'
-            }
+                },
             },
+            buttons: [
+                {
+                    title: '게임 하러 가기',
+                    link: {
+                        mobileWebUrl: `${process.env.REACT_APP_BASE_URL}`,
+                        webUrl: `${process.env.REACT_APP_BASE_URL}`
+                    },
+                },
+            ],
+
         });
     }
 
