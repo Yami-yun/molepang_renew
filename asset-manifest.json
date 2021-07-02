@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/molepang_renew/static/css/main.56dbe673.chunk.css",
-    "main.js": "/molepang_renew/static/js/main.999b0cf2.chunk.js",
-    "main.js.map": "/molepang_renew/static/js/main.999b0cf2.chunk.js.map",
+    "main.css": "/molepang_renew/static/css/main.fb61670c.chunk.css",
+    "main.js": "/molepang_renew/static/js/main.16488a3e.chunk.js",
+    "main.js.map": "/molepang_renew/static/js/main.16488a3e.chunk.js.map",
     "runtime-main.js": "/molepang_renew/static/js/runtime-main.c9f5c158.js",
     "runtime-main.js.map": "/molepang_renew/static/js/runtime-main.c9f5c158.js.map",
     "static/js/2.e60ee15d.chunk.js": "/molepang_renew/static/js/2.e60ee15d.chunk.js",
     "static/js/2.e60ee15d.chunk.js.map": "/molepang_renew/static/js/2.e60ee15d.chunk.js.map",
     "index.html": "/molepang_renew/index.html",
-    "static/css/main.56dbe673.chunk.css.map": "/molepang_renew/static/css/main.56dbe673.chunk.css.map",
+    "static/css/main.fb61670c.chunk.css.map": "/molepang_renew/static/css/main.fb61670c.chunk.css.map",
     "static/js/2.e60ee15d.chunk.js.LICENSE.txt": "/molepang_renew/static/js/2.e60ee15d.chunk.js.LICENSE.txt",
     "static/media/background.5e2596c2.png": "/molepang_renew/static/media/background.5e2596c2.png",
     "static/media/game__des1.a77b22ec.jpg": "/molepang_renew/static/media/game__des1.a77b22ec.jpg",
@@ -18,7 +18,7 @@
   "entrypoints": [
     "static/js/runtime-main.c9f5c158.js",
     "static/js/2.e60ee15d.chunk.js",
-    "static/css/main.56dbe673.chunk.css",
-    "static/js/main.999b0cf2.chunk.js"
+    "static/css/main.fb61670c.chunk.css",
+    "static/js/main.16488a3e.chunk.js"
   ]
 }
