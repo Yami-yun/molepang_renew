@@ -159,18 +159,47 @@ class Board implements IBoard{
                 this.boardTextData["position"][0] + addX,
                 this.boardTextData["position"][1] + addY,
             );
+            // this.gameContext.strokeRect(298, 250, 350, 1);
 
             // 46 글자만 하기
             if(gameState === 3){
+                // 350 한글자 17.5  공백 7
+
+                // 24 글자 아래이면 단어 중간으로 보냄
+                let center_pos = 0;
+                let meaning_tmp = this.boardTextData["meaning"];
+                if(meaning_tmp.length <= 24){
+                    let binCount = meaning_tmp.match(/ /g)?.length as number; 
+                    let dotCount = meaning_tmp.split('.')?.length as number; 
+                    let commaCount = meaning_tmp.match(/,/g)?.length as number; 
+                    if(!binCount) binCount = 0;
+                    dotCount -= 1;
+                    if(!commaCount) commaCount = 0;
+                    let wordCount = meaning_tmp.length - binCount - commaCount;
+
+
+                    center_pos = 175 - binCount * 3.5 - dotCount * 7 - commaCount * 7  - wordCount * 8.2;
+                }
+
+                // if(this.boardTextData["meaning"].length < 24){
+                //     let meaning_tmp = this.boardTextData["meaning"]; 
+                //     let binCount = meaning_tmp.match(/ /g)?.length; 
+                //     console.log(binCount);
+                // }
+
                 this.gameContext.font = "bold 18px Noto Sans"; //폰트의 크기, 글꼴체 지정      
                 this.gameContext.fillText(
+                    // meaning_tmp,
                     this.boardTextData["meaning"].slice(0, 24),
-                    294 + addX,
+                    // test_tmp,
+                    294 + addX + center_pos,
                     this.boardTextData["position"][1] - addY,
                 );
 
+
+
                 this.gameContext.fillText(
-                    this.boardTextData["meaning"].slice(24),
+                    this.boardTextData["meaning"].slice(23),
                     294 + addX,
                     this.boardTextData["position"][1] - 2 * addY + 6,
                 );
