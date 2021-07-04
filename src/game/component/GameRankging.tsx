@@ -24,8 +24,13 @@ function GameRankging(){
 
     const topTenRankList:IGameData["topTenRank"] = useSelector((state:any) => state.game.topTenRank);       // 탑 10 랭킹 정보
     const totalRankList:IGameData["totalRank"] = useSelector((state:any) => state.game.totalRank);         // 전체 랭킹 정보
+    const totalRankingCount:IGameData["totalRankingCount"] = useSelector((state:any) => state.game.totalRankingCount);         // 전체 랭킹 정보
+
+    
     const userRank = useSelector((state:any) => state.game.userRank);         // 전체 랭킹 정보
-    console.log(totalRankList.data.length);
+    console.log(totalRankList);
+    console.log(totalRankingCount);
+    console.log(userRank);
 
     const [rankDataList, setRankDataList] = useState<total_rank[]>(totalRankList.data);           // 현재 랭킹 화면에 보여지는 랭킹 리스트 설정
     const [isTopTenRank, setIsTopTenRank] = useState(false);                        // 사용자가 현재 랭킹 화면으로 탑 10 화면을 선택했는지 여부
@@ -45,7 +50,9 @@ function GameRankging(){
     }, [totalRankList.data])
     // 랭킹 탭 선택 함수
     const rankTabSelect = (select:string) => {
+        
         if(select === "TOTAL"){
+            
             setIsTopTenRank(false);
             // ###API
             if(userRank <= 3){
@@ -53,18 +60,21 @@ function GameRankging(){
                 setFirstTotalRank(1);
                 setUserIndex(userRank-1);
                 // ### 이부분 랭킹에 등록된 사용자 수도 같이 달라하기
-            }else if(userRank > 3 && userRank < totalRankList.data.length - 1){
-                setRankDataList([...totalRankList.data.slice(userRank - 3, userRank + 2)]);
+            }else if(userRank > 3 && userRank < totalRankingCount - 1){
+                console.log("MIDDLE INDEX");
+                setRankDataList([...totalRankList.data]);
                 setFirstTotalRank(userRank-2);
                 setUserIndex(2);
-            }else if(userRank >= totalRankList.data.length - 1){
+            }else if(userRank >= totalRankingCount - 1){
                 setRankDataList([...totalRankList.data.slice(totalRankList.data.length - 5)]);
+                console.log("END INDEX");
+
                 // setFirstTotalRank(totalRankList.data.length - 4);
                 setFirstTotalRank(userRank - 3);
                 console.log(userRank);
-                console.log(totalRankList.data.length);
+                console.log(totalRankingCount);
 
-                if(userRank === totalRankList.data.length -1 ) setUserIndex(3);
+                if(userRank === totalRankingCount -1 ) setUserIndex(3);
                 else setUserIndex(4);
             }
 
@@ -102,7 +112,7 @@ function GameRankging(){
         <div className={'game__ranking__list' + (!isTopTenRank ? ' game__ranking__list__total' : '')}>
             {rankDataList.length ? rankDataList.map((value:any, index:number)=>
                 <div key={index} className={'game__ranking__box'}>
-                    <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{!isTopTenRank ? index + firstTotalRank : index+ 1 }</p>
+                    <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{!isTopTenRank ? value.ranking : index+ 1 }</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.nickname}</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.score}</p>
                     <p className={(!isTopTenRank && index === userIndex) ? 'p__center': ""}>{value.play_date.slice(0,10)}</p>

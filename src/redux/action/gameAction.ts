@@ -120,7 +120,8 @@ export function registerRank(body:{nickname:string, score:string}){
 
                 const res2 = await axios.get(`${BASE_URL}/ranking/`);
                 dispatch({type:GET_TOP_TEN_RANK, data: res2.data});
-                
+
+                console.log(res);
             }else{
                 const res = await axios.post(`${BASE_URL}/ranking/`, body);
                 dispatch({type:REGISTER_RANK_SUC, data: res.data});

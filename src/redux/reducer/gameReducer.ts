@@ -54,6 +54,7 @@ export interface IGameData{
         isloading:boolean,
     },
     userRank:number,
+    totalRankingCount:number,
 }
 
 
@@ -66,6 +67,7 @@ const initGameData:IGameData = {
     },
     userRank: 0,
     userNick:"",
+    totalRankingCount:0,
     totalRank:{
         isloading:false,
         data:[],
@@ -125,17 +127,31 @@ export default function(state=initGameData, action:any) {
             //     date: "2021. 02. 22",
             // };
             // return {...state, userRank : cur+1, topTenRank:[...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)], totalRank: [...state.totalRank.slice(0, cur), data , ...state.totalRank.slice(cur)]};
-            return {...state, totalRank: {isloading:true, err:false}};
+            return {...state, 
+                    totalRank: {
+                    isloading:true, 
+                    err:false
+                }
+            };
 
             case REGISTER_RANK_SUC:
                 let userRankTmp = 1;
                 for(let i=0; i < action.data.ranking.length; i++){
+                    // 현재 랭킹 등록한 유저가 부여받은 아이디로 해당 유저의 랭킹을 가져온다.
                     if(action.data.my_id === action.data.ranking[i].id){
                         userRankTmp = action.data.ranking[i].ranking;
                         break;
                     }
                 }
-                return {...state, userRank: userRankTmp, totalRank: {data: action.data.ranking, isloading:false, err:false}};
+                return {...state, 
+                    userRank: userRankTmp, 
+                    totalRankingCount : action.data.total_count, 
+                    totalRank: {
+                        data: action.data.ranking, 
+                        isloading:false,
+                        err:false
+                    }
+                };
 
             case REGISTER_RANK_ERR:
                 return {...state, totalRank: {isloading:false, err:true}};
